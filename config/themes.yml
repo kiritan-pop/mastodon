@@ -1,3 +1,4 @@
-default: styles/application.scss
+default: styles/spring.scss
 contrast: styles/contrast.scss
 mastodon-light: styles/mastodon-light.scss
+origin: styles/application.scss
