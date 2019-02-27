@@ -102,4 +102,6 @@ Rails.application.configure do
   }
 
   config.x.otp_secret = ENV.fetch('OTP_SECRET')
+
+  Paperclip.options[:command_path] = "/usr/local/bin/"
 end
