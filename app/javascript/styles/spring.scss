@@ -246,5 +246,28 @@ $ui-highlight-color: $classic-highlight-color !default;        // Vibrant
      animation: blink 0.9s ease infinite;       
  }
 
- @import 'application';
 
+/*非公開色分け*/
+.status-private {
+    background: rgba(180,55,132,0.2) ;
+}
+.status .fa-lock::before {
+ color: #d0d662;
+}
+
+/*未収載色分け*/
+.status-unlisted {
+    background: rgba(36,190,56,0.2);
+}
+
+/*ダイレクト*/
+.status.status-direct {
+    background: rgba(200,200,200,0.2);
+}
+
+ .status-private  .icon-button.disabled,.status.status-direct .icon-button.disabled {
+    color: #FFFFFF;    
+    animation: blink 1.2s ease infinite;
+}
+
+@import 'application';
