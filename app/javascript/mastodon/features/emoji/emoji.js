@@ -31,6 +31,7 @@ const emojify = (str, customEmojis = {}) => {
           const filename = autoPlayGif ? customEmojis[shortname].url : customEmojis[shortname].static_url;
           replacement = `<img draggable="false" class="emojione" alt="${shortname}" title="${shortname}" src="${filename}" />`;
           return true;
+//ここ
         }
         return false;
       })()) rend = ++i;
