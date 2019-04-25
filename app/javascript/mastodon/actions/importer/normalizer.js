@@ -19,10 +19,12 @@ const profileEmojify = (text, profile_emojis) => {
       var regExp = new RegExp(p, "g");
       var shortname = p.slice(1,-1);
       // var img_url = profile_emojis.getIn([shortname, 'url']);
-      var img_url = profile_emojis[shortname]['url'];
-      if (img_url){
-        var replacement = `<img draggable="false" class="emojione" alt="${p}" title="${p}" src="${img_url}" />`;
-        tmp_content = tmp_content.replace(regExp, replacement);  
+      if (shortname in profile_emojis && 'url' in profile_emojis[shortname]){
+        var img_url = profile_emojis[shortname]['url'];
+        if (img_url){
+          var replacement = `<img draggable="false" class="emojione" alt="${p}" title="${p}" src="${img_url}" />`;
+          tmp_content = tmp_content.replace(regExp, replacement);  
+        }
       }
     }
   }
