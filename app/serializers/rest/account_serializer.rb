@@ -51,4 +51,28 @@ class REST::AccountSerializer < ActiveModel::Serializer
   def moved_and_not_nested?
     object.moved? && object.moved_to_account.moved_to_account_id.nil?
   end
+
+  attribute :profile_emojis
+
+  def profile_emojis
+    result = {}
+    mergetext = object.display_name.to_s + note.to_s
+    mergetext.scan(/:@((([a-z0-9_]+([a-z0-9_\.-]+[a-z0-9_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?)):/) do |item|
+      tmp_username = item[0]
+      if object.username == tmp_username
+        result['@' + tmp_username] = {account_id:id, url:avatar, account_url:url}
+      else
+        if tmp_username.include?("@")
+          tmp_account = Account.find_remote(tmp_username.split("@")[0], tmp_username.split("@")[1])
+        else
+          tmp_account = Account.find_local(tmp_username)
+        end
+        if tmp_account
+          tmp_account = REST::AccountSerializer.new(tmp_account)
+          result['@' + tmp_username] = {account_id:tmp_account.attributes[:id], url:tmp_account.attributes[:avatar], account_url:tmp_account.attributes[:url]}
+        end  
+      end
+    end
+    return result
+  end
 end

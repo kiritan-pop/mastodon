@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class REST::StatusSerializer < ActiveModel::Serializer
+  include RoutingHelper
+
   attributes :id, :created_at, :in_reply_to_id, :in_reply_to_account_id,
              :sensitive, :spoiler_text, :visibility, :language,
              :uri, :content, :url, :replies_count, :reblogs_count,
@@ -141,5 +143,25 @@ class REST::StatusSerializer < ActiveModel::Serializer
     def url
       tag_url(object)
     end
+  end
+
+  attribute :profile_emojis
+
+  def profile_emojis
+    result = {}
+    mergetext = content.to_s + object.spoiler_text.to_s
+    mergetext.scan(/:@((([a-z0-9A-Z_]+([a-z0-9A-Z_\.-]+[a-z0-9A-Z_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?)):/) do |item|
+      tmp_username = item[0]
+      if tmp_username.include?("@")
+        tmp_account = Account.find_remote(tmp_username.split("@")[0], tmp_username.split("@")[1])
+      else
+        tmp_account = Account.find_local(tmp_username)
+      end
+      if tmp_account
+        tmp_account = REST::AccountSerializer.new(tmp_account)
+        result['@' + tmp_username] = {account_id:tmp_account.attributes[:id], url:tmp_account.attributes[:avatar], account_url:tmp_account.attributes[:url]}
+      end
+    end
+    return result
   end
 end
