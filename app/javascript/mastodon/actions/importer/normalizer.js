@@ -18,11 +18,12 @@ const profileEmojify = (text, profile_emojis) => {
     for (let p of match_result) {
       var regExp = new RegExp(p, "g");
       var shortname = p.slice(1,-1);
-      // var img_url = profile_emojis.getIn([shortname, 'url']);
-      if (shortname in profile_emojis && 'url' in profile_emojis[shortname]){
+      if (shortname in profile_emojis){
         var img_url = profile_emojis[shortname]['url'];
+        var acct_url = profile_emojis[shortname]['account_url'];
+        var acct_id = profile_emojis[shortname]['account_id'];
         if (img_url){
-          var replacement = `<img draggable="false" class="emojione" alt="${p}" title="${p}" src="${img_url}" />`;
+          var replacement = `<a href="${acct_url}" class="profile-emoji" data-account-name="${shortname}" title="${shortname}" target="_blank" rel="noopener"> <img draggable="false" class="emojione" alt="${p}" title="${p}" src="${img_url}" /> </a>`;
           tmp_content = tmp_content.replace(regExp, replacement);  
         }
       }
