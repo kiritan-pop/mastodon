@@ -58,21 +58,24 @@ class REST::AccountSerializer < ActiveModel::Serializer
     result = {}
     mergetext = object.display_name.to_s + note.to_s
     mergetext.scan(/:@((([a-z0-9_]+([a-z0-9_\.-]+[a-z0-9_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?)):/) do |item|
-      tmp_username = item[0]
-      if object.username == tmp_username
-        result['@' + tmp_username] = {account_id:id, url:avatar, account_url:url}
+      tmp_username, tmp_domain = *item[0].split("@")
+      if object.username == tmp_username  && (object.domain == tmp_domain || tmp_domain == nil)
+        result[tmp_domain ? '@' + tmp_username + '@' + tmp_domain : '@' + tmp_username ] = {account_id:id, url:avatar, account_url:url}
       else
-        if tmp_username.include?("@")
-          tmp_account = Account.find_remote(tmp_username.split("@")[0], tmp_username.split("@")[1])
+        src_domain = tmp_domain
+        if tmp_domain
+          src_domain = nil    if tmp_domain == root_url.split("/")[-1]
         else
-          tmp_account = Account.find_local(tmp_username)
+          src_domain = object.domain    if object.domain
         end
+        pp 'src_domain',src_domain
+        puts
+        tmp_account = Account.find_remote(tmp_username, src_domain)
         if tmp_account
-          tmp_account = REST::AccountSerializer.new(tmp_account)
-          result['@' + tmp_username] = {account_id:tmp_account.attributes[:id], url:tmp_account.attributes[:avatar], account_url:tmp_account.attributes[:url]}
-        end  
+          result[ tmp_domain ? '@' + tmp_username + '@' + tmp_domain : '@' + tmp_username ] = {account_id:tmp_account.id.to_s, url:tmp_account.avatar_original_url, account_url:TagManager.instance.url_for(tmp_account)}
+        end
       end
-    end
+    end    
     return result
   end
 end

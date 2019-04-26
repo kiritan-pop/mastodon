@@ -151,15 +151,17 @@ class REST::StatusSerializer < ActiveModel::Serializer
     result = {}
     mergetext = content.to_s + object.spoiler_text.to_s
     mergetext.scan(/:@((([a-z0-9A-Z_]+([a-z0-9A-Z_\.-]+[a-z0-9A-Z_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?)):/) do |item|
-      tmp_username = item[0]
-      if tmp_username.include?("@")
-        tmp_account = Account.find_remote(tmp_username.split("@")[0], tmp_username.split("@")[1])
+      tmp_username, tmp_domain = *item[0].split("@")
+      src_domain = tmp_domain
+      if tmp_domain
+        src_domain = nil    if tmp_domain == root_url.split("/")[-1]
       else
-        tmp_account = Account.find_local(tmp_username)
+        src_domain = object.account.domain    if object.account.domain
       end
+      tmp_account = Account.find_remote(tmp_username, src_domain)
       if tmp_account
         tmp_account = REST::AccountSerializer.new(tmp_account)
-        result['@' + tmp_username] = {account_id:tmp_account.attributes[:id], url:tmp_account.attributes[:avatar], account_url:tmp_account.attributes[:url]}
+        result[ tmp_domain ? '@' + tmp_username + '@' + tmp_domain : '@' + tmp_username ] = {account_id:tmp_account.attributes[:id], url:tmp_account.attributes[:avatar], account_url:tmp_account.attributes[:url]}
       end
     end
     return result
