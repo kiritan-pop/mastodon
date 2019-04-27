@@ -57,7 +57,7 @@ class REST::AccountSerializer < ActiveModel::Serializer
   def profile_emojis
     result = {}
     mergetext = object.display_name.to_s + note.to_s
-    mergetext.scan(/:@((([a-z0-9_]+([a-z0-9_\.-]+[a-z0-9_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?)):/) do |item|
+    mergetext.scan(/:@((([a-z0-9A-Z_]+([a-z0-9A-Z_\.-]+[a-z0-9A-Z_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?)):/) do |item|
       tmp_username, tmp_domain = *item[0].split("@")
       if object.username == tmp_username  && (object.domain == tmp_domain || tmp_domain == nil)
         result[tmp_domain ? '@' + tmp_username + '@' + tmp_domain : '@' + tmp_username ] = {account_id:id, url:avatar, account_url:url}
@@ -68,8 +68,6 @@ class REST::AccountSerializer < ActiveModel::Serializer
         else
           src_domain = object.domain    if object.domain
         end
-        pp 'src_domain',src_domain
-        puts
         tmp_account = Account.find_remote(tmp_username, src_domain)
         if tmp_account
           result[ tmp_domain ? '@' + tmp_username + '@' + tmp_domain : '@' + tmp_username ] = {account_id:tmp_account.id.to_s, url:tmp_account.avatar_original_url, account_url:TagManager.instance.url_for(tmp_account)}
