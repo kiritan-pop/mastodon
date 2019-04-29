@@ -10,7 +10,7 @@ const makeEmojiMap = record => record.emojis.reduce((obj, emoji) => {
   return obj;
 }, {});
 
-const profileEmojify = (text, profile_emojis) => {
+const avatarEmojify = (text, avatar_emojis) => {
   var tmp_content = text;
   var match_result = tmp_content.match(/:@(([a-z0-9A-Z_]+([a-z0-9A-Z_\.-]+[a-z0-9A-Z_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?):/g);
   if (match_result && match_result.length > 0){
@@ -18,12 +18,12 @@ const profileEmojify = (text, profile_emojis) => {
     for (let p of match_result) {
       var regExp = new RegExp(p, "g");
       var shortname = p.slice(1,-1);
-      if (shortname in profile_emojis){
-        var img_url = profile_emojis[shortname]['url'];
-        var acct_url = profile_emojis[shortname]['account_url'];
-        var acct_id = profile_emojis[shortname]['account_id'];
+      if (shortname in avatar_emojis){
+        var img_url = avatar_emojis[shortname]['url'];
+        var acct_url = avatar_emojis[shortname]['account_url'];
+        var acct_id = avatar_emojis[shortname]['account_id'];
         if (img_url){
-          var replacement = `<a href="${acct_url}" class="profile-emoji" data-account-name="${shortname}" title="${shortname}" target="_blank" rel="noopener"> <img draggable="false" class="emojione" alt="${p}" title="${p}" src="${img_url}" /> </a>`;
+          var replacement = `<a href="${acct_url}" class="avatar-emoji" data-account-name="${shortname}" title="${shortname}" target="_blank" rel="noopener"> <img draggable="false" class="emojione" alt="${p}" title="${p}" src="${img_url}" /> </a>`;
           tmp_content = tmp_content.replace(regExp, replacement);  
         }
       }
@@ -39,9 +39,9 @@ export function normalizeAccount(account) {
   const displayName = account.display_name.trim().length === 0 ? account.username : account.display_name;
 
   // account.display_name_html = emojify(escapeTextContentForBrowser(displayName), emojiMap);
-  account.display_name_html = profileEmojify(emojify(escapeTextContentForBrowser(displayName), emojiMap), account.profile_emojis);
+  account.display_name_html = avatarEmojify(emojify(escapeTextContentForBrowser(displayName), emojiMap), account.avatar_emojis);
   // account.note_emojified = emojify(account.note, emojiMap);
-  account.note_emojified = profileEmojify(emojify(account.note, emojiMap), account.profile_emojis);
+  account.note_emojified = avatarEmojify(emojify(account.note, emojiMap), account.avatar_emojis);
 
   if (account.fields) {
     account.fields = account.fields.map(pair => ({
@@ -85,9 +85,9 @@ export function normalizeStatus(status, normalOldStatus) {
 
     normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
     // normalStatus.contentHtml  = emojify(normalStatus.content, emojiMap);
-    normalStatus.contentHtml  = profileEmojify(emojify(normalStatus.content, emojiMap), normalStatus.profile_emojis);
+    normalStatus.contentHtml  = avatarEmojify(emojify(normalStatus.content, emojiMap), normalStatus.avatar_emojis);
     // normalStatus.spoilerHtml  = emojify(escapeTextContentForBrowser(spoilerText), emojiMap);
-    normalStatus.spoilerHtml  = profileEmojify(emojify(escapeTextContentForBrowser(spoilerText), emojiMap), normalStatus.profile_emojis);
+    normalStatus.spoilerHtml  = avatarEmojify(emojify(escapeTextContentForBrowser(spoilerText), emojiMap), normalStatus.avatar_emojis);
     normalStatus.hidden       = expandSpoilers ? false : spoilerText.length > 0 || normalStatus.sensitive;
   }
 

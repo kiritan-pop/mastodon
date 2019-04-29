@@ -145,9 +145,9 @@ class REST::StatusSerializer < ActiveModel::Serializer
     end
   end
 
-  attribute :profile_emojis
+  attribute :avatar_emojis
 
-  def profile_emojis
+  def avatar_emojis
     result = {}
     mergetext = content.to_s + object.spoiler_text.to_s
     mergetext.scan(/:@((([a-z0-9A-Z_]+([a-z0-9A-Z_\.-]+[a-z0-9A-Z_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?)):/) do |item|
