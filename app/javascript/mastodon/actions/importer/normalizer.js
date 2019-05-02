@@ -32,15 +32,26 @@ const avatarEmojify = (text, avatar_emojis) => {
   return tmp_content;
 }
 
+const kiriAminefy = (text) => {
+  var tmp_content = text;
+  var match_result = tmp_content.match(/(\[\[\[.+\]\]\])/g);
+  if (match_result && match_result.length > 0){
+    match_result = Array.from(new Set(match_result));
+    for (let p of match_result) {
+      var replacement = `<span class="rubberband"><span>${p.slice(3,-3)}</span></span>`;
+      tmp_content = tmp_content.replace(p, replacement);  
+    }
+  }
+  return tmp_content;
+}
+
 export function normalizeAccount(account) {
   account = { ...account };
 
   const emojiMap = makeEmojiMap(account);
   const displayName = account.display_name.trim().length === 0 ? account.username : account.display_name;
 
-  // account.display_name_html = emojify(escapeTextContentForBrowser(displayName), emojiMap);
   account.display_name_html = avatarEmojify(emojify(escapeTextContentForBrowser(displayName), emojiMap), account.avatar_emojis);
-  // account.note_emojified = emojify(account.note, emojiMap);
   account.note_emojified = avatarEmojify(emojify(account.note, emojiMap), account.avatar_emojis);
 
   if (account.fields) {
@@ -84,9 +95,7 @@ export function normalizeStatus(status, normalOldStatus) {
     const emojiMap      = makeEmojiMap(normalStatus);
 
     normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
-    // normalStatus.contentHtml  = emojify(normalStatus.content, emojiMap);
-    normalStatus.contentHtml  = avatarEmojify(emojify(normalStatus.content, emojiMap), normalStatus.avatar_emojis);
-    // normalStatus.spoilerHtml  = emojify(escapeTextContentForBrowser(spoilerText), emojiMap);
+    normalStatus.contentHtml  = kiriAminefy(avatarEmojify(emojify(normalStatus.content, emojiMap), normalStatus.avatar_emojis));
     normalStatus.spoilerHtml  = avatarEmojify(emojify(escapeTextContentForBrowser(spoilerText), emojiMap), normalStatus.avatar_emojis);
     normalStatus.hidden       = expandSpoilers ? false : spoilerText.length > 0 || normalStatus.sensitive;
   }
