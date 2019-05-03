@@ -37,7 +37,7 @@ const kiriAminefy = (text) => {
   var match_result = tmp_content.match(/(\(\(\([^\)]+\)\)\))|(（（（[^）]+）））)/g);
   if (match_result && match_result.length > 0) {
       for (let p of match_result) {
-          var replacement = `<span class="jump"><span>${p.slice(3, -3)}</span></span>`;
+          var replacement = `<span class="rubberband"><span>${p.slice(3, -3)}</span></span>`;
           tmp_content = tmp_content.replace(p, replacement);
       }
   }
@@ -51,7 +51,7 @@ var match_result = tmp_content.match(/(\[\[\[[^\]]+\]\]\])|(［［［[^］]+］�
   var match_result = tmp_content.match(/(\{\{\{[^\}]+\}\}\})|(\｛｛｛[^｝]+｝｝｝)/g);
   if (match_result && match_result.length > 0){
     for (let p of match_result) {
-      var replacement = `<span class="rubberband"><span>${p.slice(3,-3)}</span></span>`;
+      var replacement = `<span class="jump"><span>${p.slice(3,-3)}</span></span>`;
       tmp_content = tmp_content.replace(p, replacement);  
     }
   }
