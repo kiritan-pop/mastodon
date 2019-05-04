@@ -145,25 +145,5 @@ class REST::StatusSerializer < ActiveModel::Serializer
     end
   end
 
-  attribute :avatar_emojis
-
-  def avatar_emojis
-    result = {}
-    mergetext = content.to_s + object.spoiler_text.to_s
-    mergetext.scan(/:@((([a-z0-9A-Z_]+([a-z0-9A-Z_\.-]+[a-z0-9A-Z_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?)):/) do |item|
-      tmp_username, tmp_domain = *item[0].split("@")
-      src_domain = tmp_domain
-      if tmp_domain
-        src_domain = nil    if tmp_domain == root_url.split("/")[-1]
-      else
-        src_domain = object.account.domain    if object.account.domain
-      end
-      tmp_account = Account.find_remote(tmp_username, src_domain)
-      if tmp_account
-        tmp_account = REST::AccountSerializer.new(tmp_account)
-        result[ tmp_domain ? '@' + tmp_username + '@' + tmp_domain : '@' + tmp_username ] = {account_id:tmp_account.attributes[:id], url:tmp_account.attributes[:avatar], account_url:tmp_account.attributes[:url]}
-      end
-    end
-    return result
-  end
+  include Friends::ProfileEmoji::SerializerExtension
 end

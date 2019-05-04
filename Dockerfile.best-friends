@@ -1,0 +1,29 @@
+ARG BASE_IMAGE=ruby:latest
+
+FROM ${BASE_IMAGE}
+
+WORKDIR /opt/mastodon
+
+USER mastodon
+
+ADD --chown=mastodon:mastodon Gemfile* /opt/mastodon/
+
+RUN \
+  bundle config build.nokogiri --use-system-libraries && \
+  bundle install -j$(nproc) --deployment --without development test
+
+ADD --chown=mastodon:mastodon package.json yarn.lock .yarnclean /opt/mastodon/
+
+RUN \
+  yarn install --pure-lockfile && \
+  yarn cache clean
+
+COPY --chown=mastodon:mastodon . /opt/mastodon
+
+ENV RAILS_ENV=production
+ENV NODE_ENV=production
+ENV PATH=/opt/mastodon/bin:$PATH
+
+RUN cd ~ && \
+	OTP_SECRET=precompile_placeholder SECRET_KEY_BASE=precompile_placeholder rails assets:precompile && \
+	yarn cache clean

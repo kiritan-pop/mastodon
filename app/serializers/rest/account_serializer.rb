@@ -52,28 +52,5 @@ class REST::AccountSerializer < ActiveModel::Serializer
     object.moved? && object.moved_to_account.moved_to_account_id.nil?
   end
 
-  attribute :avatar_emojis
-
-  def avatar_emojis
-    result = {}
-    mergetext = object.display_name.to_s + note.to_s
-    mergetext.scan(/:@((([a-z0-9A-Z_]+([a-z0-9A-Z_\.-]+[a-z0-9A-Z_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?)):/) do |item|
-      tmp_username, tmp_domain = *item[0].split("@")
-      if object.username == tmp_username  && (object.domain == tmp_domain || tmp_domain == nil)
-        result[tmp_domain ? '@' + tmp_username + '@' + tmp_domain : '@' + tmp_username ] = {account_id:id, url:avatar, account_url:url}
-      else
-        src_domain = tmp_domain
-        if tmp_domain
-          src_domain = nil    if tmp_domain == root_url.split("/")[-1]
-        else
-          src_domain = object.domain    if object.domain
-        end
-        tmp_account = Account.find_remote(tmp_username, src_domain)
-        if tmp_account
-          result[ tmp_domain ? '@' + tmp_username + '@' + tmp_domain : '@' + tmp_username ] = {account_id:tmp_account.id.to_s, url:tmp_account.avatar_original_url, account_url:TagManager.instance.url_for(tmp_account)}
-        end
-      end
-    end    
-    return result
-  end
+  include Friends::ProfileEmoji::SerializerExtension
 end
