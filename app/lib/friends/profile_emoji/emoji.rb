@@ -7,7 +7,7 @@ module Friends
         (:#{SHORTCODE_RE_FRAGMENT}:)
         (?=[^[:alnum:]:]|$)/x
 
-      attributes :account
+      attributes :account, :shortcode
 
       Image = Struct.new(:source) do
         def url(type = :original)
@@ -20,10 +20,6 @@ module Friends
         REST::CustomEmojiSerializer
       end
 
-      def shortcode
-        "@#{account.acct}"
-      end
-
       def image
         @image ||= Image.new(account.avatar)
       end
@@ -32,17 +28,32 @@ module Friends
         false
       end
 
+      def has_attribute?(attr)
+        true
+      end
+
+      def account_id
+        account.id
+      end
+
       class << self
-        def from_text(text)
+        include RoutingHelper
+        def from_text(text, domain)
           return [] if text.blank?
 
           shortcodes = text.scan(SCAN_RE).uniq
 
           return [] if shortcodes.empty?
 
-          shortcodes.map { |_, username, _, domain|
-            EntityCache.instance.avatar(username, domain)
-          }.compact.map { |account| new(account: account) }
+          shortcodes.map { |_, username, _, shortcode_domain|
+            search_domain = shortcode_domain
+            if shortcode_domain then
+              search_domain = nil  if shortcode_domain == root_url.split("/")[-1]
+            else 
+              search_domain = domain    if domain
+            end
+            [EntityCache.instance.avatar(username, search_domain), shortcode_domain ? '@' + username + '@' + shortcode_domain : '@' + username]
+          }.compact.map { |account, shortcode| account ? new(account: account, shortcode: shortcode) : nil }.compact
         end
       end
     end

@@ -29,7 +29,13 @@ const emojify = (str, customEmojis = {}) => {
         // if you want additional emoji handler, add statements below which set replacement and return true.
         if (shortname in customEmojis) {
           const filename = autoPlayGif ? customEmojis[shortname].url : customEmojis[shortname].static_url;
-          replacement = `<img draggable="false" class="emojione" alt="${shortname}" title="${shortname}" src="${filename}" />`;
+          if (shortname.indexOf('@') > -1){
+            replacement = `<a href="" class="profile-emoji" data-account-name="${shortname.slice(1,-1)}">`
+                  +   `<img draggable="false" class="emojione" alt="${shortname}" title="${shortname}" src="${filename}" />`
+                  + '</a>';
+          } else {
+            replacement = `<img draggable="false" class="emojione" alt="${shortname}" title="${shortname}" src="${filename}" />`;
+          }
           return true;
         }
         return false;
