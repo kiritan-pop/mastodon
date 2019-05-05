@@ -10,28 +10,6 @@ const makeEmojiMap = record => record.all_emojis.reduce((obj, emoji) => {
   return obj;
 }, {});
 
-const avatarEmojify = (text, avatar_emojis) => {
-  var tmp_content = text;
-  var match_result = tmp_content.match(/:@(([a-z0-9A-Z_]+([a-z0-9A-Z_\.-]+[a-z0-9A-Z_]+)?)(?:@[a-z0-9\.\-]+[a-z0-9]+)?):/g);
-  if (match_result && match_result.length > 0){
-    match_result = Array.from(new Set(match_result));
-    for (let p of match_result) {
-      var regExp = new RegExp(p, "g");
-      var shortname = p.slice(1,-1);
-      if (shortname in avatar_emojis){
-        var img_url = avatar_emojis[shortname]['url'];
-        var acct_url = avatar_emojis[shortname]['account_url'];
-        var acct_id = avatar_emojis[shortname]['account_id'];
-        if (img_url){
-          var replacement = `<a href="${acct_url}" class="avatar-emoji" data-account-name="${shortname}" title="${shortname}" target="_blank" rel="noopener"> <img draggable="false" class="emojione" alt="${p}" title="${p}" src="${img_url}" /> </a>`;
-          tmp_content = tmp_content.replace(regExp, replacement);  
-        }
-      }
-    }
-  }
-  return tmp_content;
-}
-
 const kiriAminefy = (text) => {
   var tmp_content = text;
   var match_result = tmp_content.match(/(\(\(\([^\)]+\)\)\))|(（（（[^）]+）））)/g);
@@ -64,8 +42,8 @@ export function normalizeAccount(account) {
   const emojiMap = makeEmojiMap(account);
   const displayName = account.display_name.trim().length === 0 ? account.username : account.display_name;
 
-  account.display_name_html = avatarEmojify(emojify(escapeTextContentForBrowser(displayName), emojiMap), account.avatar_emojis);
-  account.note_emojified = avatarEmojify(emojify(account.note, emojiMap), account.avatar_emojis);
+  account.display_name_html = emojify(escapeTextContentForBrowser(displayName), emojiMap);
+  account.note_emojified = emojify(account.note, emojiMap);
 
   if (account.fields) {
     account.fields = account.fields.map(pair => ({
@@ -108,8 +86,8 @@ export function normalizeStatus(status, normalOldStatus) {
     const emojiMap      = makeEmojiMap(normalStatus);
 
     normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
-    normalStatus.contentHtml  = kiriAminefy(avatarEmojify(emojify(normalStatus.content, emojiMap), normalStatus.avatar_emojis));
-    normalStatus.spoilerHtml  = avatarEmojify(emojify(escapeTextContentForBrowser(spoilerText), emojiMap), normalStatus.avatar_emojis);
+    normalStatus.contentHtml  = kiriAminefy(emojify(normalStatus.content, emojiMap));
+    normalStatus.spoilerHtml  = emojify(escapeTextContentForBrowser(spoilerText), emojiMap);
     normalStatus.hidden       = expandSpoilers ? false : spoilerText.length > 0 || normalStatus.sensitive;
   }
 
