@@ -275,4 +275,12 @@ $ui-highlight-color: $classic-highlight-color !default;        // Vibrant
   height: 22px  !important;
 }
 
+.getting-started__footer{
+  background: rgba(0,0,0,.5)!important;    
+}
+
+.columns-area__panels__pane__inner {
+  background: rgba(0,0,0,.5)!important;        
+}
+
 @import 'application';
