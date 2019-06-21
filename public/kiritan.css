@@ -10,7 +10,7 @@
   font-size:large ;
   content: "\f1b0" ;
 }
-.star-icon.active {
+.notification__favourite-icon-wrapper .star-icon, .star-icon.active {
     color: #ed4d1c;
 }
 
