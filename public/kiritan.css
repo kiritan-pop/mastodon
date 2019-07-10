@@ -25,7 +25,7 @@
 
 @media screen and (min-width: 631px){
   .column, .drawer {
-      padding: 2px 2px;
+      padding: 5px 5px;
   }
 }
 
@@ -51,9 +51,16 @@
 .getting-started__footer, 
 .getting-started__wrapper,
 .columns-area__panels__pane__inner, 
-.column-link 
+.column-link,
+.empty-column-indicator, 
+.error-column  
 {
   background: none; 
+}
+
+.focusable:focus {
+  outline: rgba(255, 50, 90, 0.4) auto 5px;
+  background: rgba(150, 50, 40, 0.4);
 }
 
 .drawer__header {
@@ -96,10 +103,6 @@
 
 .status__action-bar {
     margin-top: 0px;
-}
-
-.status.status-direct {
-  background: rgba(255, 255, 255, .1) ;
 }
 
 /* reply */
@@ -162,6 +165,9 @@
   background:rgba(30, 10, 0, .2);
 }
 
+.announcements .announcements__body p {
+  white-space: pre-wrap;
+}
 .announcements .announcements__body .links a {
     color: rgba(255, 230, 230, .9);
     background: none;
@@ -183,6 +189,11 @@
 .account__header__image, .account__header__bar, .account__section-headline {
   background: rgba(30, 10, 0, .2) ;
 }
+
+.table td, .table th {
+  white-space: pre-wrap;
+}
+
 @keyframes blink {
   0% {opacity: 1;}
   50% {opacity:0;}
@@ -209,10 +220,18 @@
 
 /*ダイレクト*/
 .status.status-direct {
-    background: rgba(200,200,200,0.2);
+    background: rgba(20,60,255,0.2);
 }
 
- .status-private  .icon-button.disabled,.status.status-direct .icon-button.disabled {
+.status.status-direct:not(.read) {
+  background: rgba(20,60,255,0.4);
+}
+
+.focusable:focus .status.status-direct {
+  background: none;
+}
+
+.status-private  .icon-button.disabled,.status.status-direct .icon-button.disabled {
     color: #FFFFFF;    
     animation: blink 1.2s ease infinite;
 }
