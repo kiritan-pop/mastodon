@@ -16,6 +16,12 @@
     color: #ed4d1c;
 }
 
+.icon-button-kiri {
+    color: #ffffff;
+    background: #2b90d9;
+    width: 36px !important;
+}
+
 /* box header */
 .column, .drawer {
   flex: 1 1 auto;
