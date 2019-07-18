@@ -1,6 +1,7 @@
 import React from 'react';
 import CharacterCounter from './character_counter';
 import Button from '../../../components/button';
+import IconButton from '../../../components/icon_button';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import ReplyIndicatorContainer from '../containers/reply_indicator_container';
@@ -30,6 +31,11 @@ const messages = defineMessages({
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}!' },
 });
 
+const iconStyle = {
+  height: null,
+  lineHeight: '27px',
+};
+
 export default @injectIntl
 class ComposeForm extends ImmutablePureComponent {
 
@@ -52,6 +58,7 @@ class ComposeForm extends ImmutablePureComponent {
     isUploading: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    onSubmitPrivate: PropTypes.func.isRequired,
     onClearSuggestions: PropTypes.func.isRequired,
     onFetchSuggestions: PropTypes.func.isRequired,
     onSuggestionSelected: PropTypes.func.isRequired,
@@ -93,6 +100,25 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
+  }
+
+// 鍵トゥートボタン用
+  handleSubmitPrivate = () => {
+    if (this.props.text !== this.autosuggestTextarea.textarea.value) {
+      // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
+      // Update the state to match the current text
+      this.props.onChange(this.autosuggestTextarea.textarea.value);
+    }
+
+    // Submit disabled:
+    const { isSubmitting, isChangingUpload, isUploading, anyMedia } = this.props;
+    const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('');
+
+    if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > 500 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
+      return;
+    }
+
+    this.props.onSubmitPrivate(this.context.router ? this.context.router.history : null);
   }
 
   onSuggestionsClearRequested = () => {
@@ -244,6 +270,7 @@ class ComposeForm extends ImmutablePureComponent {
         </div>
 
         <div className='compose-form__publish'>
+          <div className='compose-form__publish-button-wrapper'><Button text={"🔒"} onClick={this.handleSubmitPrivate} disabled={disabledButton} block /></div>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
         </div>
       </div>

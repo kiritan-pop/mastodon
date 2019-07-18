@@ -123,7 +123,7 @@ export function directCompose(account, routerHistory) {
   };
 };
 
-export function submitCompose(routerHistory) {
+export function submitCompose(routerHistory, vis = null) {
   return function (dispatch, getState) {
     const status = getState().getIn(['compose', 'text'], '');
     const media  = getState().getIn(['compose', 'media_attachments']);
@@ -140,7 +140,7 @@ export function submitCompose(routerHistory) {
       media_ids: media.map(item => item.get('id')),
       sensitive: getState().getIn(['compose', 'sensitive']),
       spoiler_text: getState().getIn(['compose', 'spoiler_text'], ''),
-      visibility: getState().getIn(['compose', 'privacy']),
+      visibility: vis ? vis : getState().getIn(['compose', 'privacy']),
       poll: getState().getIn(['compose', 'poll'], null),
     }, {
       headers: {

@@ -37,6 +37,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(submitCompose(router));
   },
 
+  onSubmitPrivate(router) {
+    dispatch(submitCompose(router, "private"));
+  },
+
   onClearSuggestions () {
     dispatch(clearComposeSuggestions());
   },
