@@ -58,6 +58,10 @@ const dateFormatOptions = {
 export default @injectIntl
 class Header extends ImmutablePureComponent {
 
+  static contextTypes = {
+    router: PropTypes.object,
+  };
+
   static propTypes = {
     account: ImmutablePropTypes.map,
     identity_props: ImmutablePropTypes.list,
@@ -78,6 +82,50 @@ class Header extends ImmutablePureComponent {
 
     return !location.pathname.match(/\/(followers|following)\/?$/);
   }
+
+  onProfileEmojiClick = (profileEmoji, e) => {
+    if (this.context.router && e.button === 0) {
+      e.preventDefault();
+      this.context.router.history.push(`/accounts/${profileEmoji.get('account_id')}`);
+    }
+  }
+  _updateLinks() {
+    const node = this.node;
+
+    if (!node) {
+      return;
+    }
+
+    const links = node.querySelectorAll('a');
+
+    for (var i = 0; i < links.length; ++i) {
+      let link = links[i];
+
+      if (link.classList.contains('profile-emoji')) {
+        const accountName = link.getAttribute('data-account-name') || '';
+        const profileEmoji = this.props.account.get('profile_emojis').find(item => accountName === item.get('shortcode'));
+        if (profileEmoji) {
+          link.addEventListener('click', this.onProfileEmojiClick.bind(this, profileEmoji), false);
+        }
+      }
+
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener');
+    }
+  }
+
+  componentDidMount() {
+    this._updateLinks();
+  }
+
+  componentDidUpdate() {
+    this._updateLinks();
+  }
+
+  setRef = (c) => {
+    this.node = c;
+  }
+
 
   render () {
     const { account, intl, domain, identity_proofs } = this.props;
@@ -231,7 +279,7 @@ class Header extends ImmutablePureComponent {
             </h1>
           </div>
 
-          <div className='account__header__extra'>
+          <div className='account__header__extra' ref={this.setRef}>
             <div className='account__header__bio'>
               { (fields.size > 0 || identity_proofs.size > 0) && (
                 <div className='account__header__fields'>
