@@ -59,6 +59,7 @@ class ComposeForm extends ImmutablePureComponent {
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onSubmitPrivate: PropTypes.func.isRequired,
+    onSubmitUnlisted: PropTypes.func.isRequired,
     onClearSuggestions: PropTypes.func.isRequired,
     onFetchSuggestions: PropTypes.func.isRequired,
     onSuggestionSelected: PropTypes.func.isRequired,
@@ -119,6 +120,25 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     this.props.onSubmitPrivate(this.context.router ? this.context.router.history : null);
+  }
+
+  // 未収載トゥートボタン用
+  handleSubmitUnlisted = () => {
+    if (this.props.text !== this.autosuggestTextarea.textarea.value) {
+      // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
+      // Update the state to match the current text
+      this.props.onChange(this.autosuggestTextarea.textarea.value);
+    }
+
+    // Submit disabled:
+    const { isSubmitting, isChangingUpload, isUploading, anyMedia } = this.props;
+    const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('');
+
+    if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > 500 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
+      return;
+    }
+
+    this.props.onSubmitUnlisted(this.context.router ? this.context.router.history : null);
   }
 
   onSuggestionsClearRequested = () => {
@@ -270,6 +290,7 @@ class ComposeForm extends ImmutablePureComponent {
         </div>
 
         <div className='compose-form__publish'>
+          <div className='compose-form__publish-button-wrapper'><Button text={"🍜"} onClick={this.handleSubmitUnlisted} disabled={disabledButton} block /></div>
           <div className='compose-form__publish-button-wrapper'><Button text={"🔒"} onClick={this.handleSubmitPrivate} disabled={disabledButton} block /></div>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
         </div>

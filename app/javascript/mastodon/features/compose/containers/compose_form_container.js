@@ -41,6 +41,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(submitCompose(router, "private"));
   },
 
+  onSubmitUnlisted(router) {
+    dispatch(submitCompose(router, "unlisted"));
+  },
+
   onClearSuggestions () {
     dispatch(clearComposeSuggestions());
   },
