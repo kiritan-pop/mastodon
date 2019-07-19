@@ -47,7 +47,9 @@
 .columns-area > div .column-header,
 .getting-started,
 .columns-area__panels__pane {
-  background: rgba(30, 10, 0, .8) ;
+  background: rgba(30, 10, 0, .8);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .column-header__button,
