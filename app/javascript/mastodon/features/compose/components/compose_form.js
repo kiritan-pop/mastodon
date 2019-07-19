@@ -1,7 +1,7 @@
 import React from 'react';
 import CharacterCounter from './character_counter';
 import Button from '../../../components/button';
-import IconButtonKiri from '../../../components/icon_button_kiri';
+import IconButton from '../../../components/icon_button';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import ReplyIndicatorContainer from '../containers/reply_indicator_container';
@@ -291,25 +291,31 @@ class ComposeForm extends ImmutablePureComponent {
 
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'>
-            <IconButtonKiri
-              icon={'unlock'}
-              title={"unlisted"}
+            <IconButton
+              className='button icon-button-kiri'
+              icon='unlock'
+              title='unlisted'
               size={20}
               expanded={true}
               active={false}
               onClick={this.handleSubmitUnlisted}
               style={{ height: null, lineHeight: '30px' }}
+              disabled={disabledButton}
+              block
             />
           </div>
           <div className='compose-form__publish-button-wrapper'>
-            <IconButtonKiri
-              icon={'lock'}
-              title={"private"}
+            <IconButton
+              className='button icon-button-kiri'
+              icon='lock'
+              title='private'
               size={20}
               expanded={true}
               active={false}
               onClick={this.handleSubmitPrivate}
               style={{ height: null, lineHeight: '30px' }}
+              disabled={disabledButton}
+              block
             />
           </div>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
