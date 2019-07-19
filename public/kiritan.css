@@ -66,6 +66,10 @@
   background: none; 
 }
 
+.compose-form__publish-button-wrapper {
+    padding-left: 5px;
+}
+
 .focusable:focus {
   outline: rgba(255, 50, 90, 0.4) auto 5px;
   background: rgba(150, 50, 40, 0.4);
