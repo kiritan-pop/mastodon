@@ -31,11 +31,11 @@ const emojify = (str, customEmojis = {}) => {
           const filename = autoPlayGif ? customEmojis[shortname].url : customEmojis[shortname].static_url;
           if (shortname.indexOf('@') > -1){
             replacement = `<a href="" class="profile-emoji" data-account-name="${shortname.slice(1,-1)}">`
-                  +   `<img draggable="false" class="emojione" alt="${shortname}" title="${shortname}" src="${filename}" />`
+                  +   `<img draggable="false" class="emojione custom-emoji" alt="${shortname}" title="${shortname}" src="${filename}" data-original="${customEmojis[shortname].url}" data-static="${customEmojis[shortname].static_url}" />`
                   + '</a>';
           } else {
-            replacement = `<img draggable="false" class="emojione" alt="${shortname}" title="${shortname}" src="${filename}" />`;
-          }
+            replacement = `<img draggable="false" class="emojione custom-emoji" alt="${shortname}" title="${shortname}" src="${filename}" data-original="${customEmojis[shortname].url}" data-static="${customEmojis[shortname].static_url}" />`;
+        }
           return true;
         }
         return false;
