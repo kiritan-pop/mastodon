@@ -104,7 +104,7 @@ class MediaAttachment < ApplicationRecord
   }.freeze
 
   IMAGE_LIMIT = 24.megabytes
-  VIDEO_LIMIT = 200.megabytes
+  VIDEO_LIMIT = 100.megabytes
 
   belongs_to :account,          inverse_of: :media_attachments, optional: true
   belongs_to :status,           inverse_of: :media_attachments, optional: true
