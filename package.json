@@ -2,7 +2,7 @@
   "name": "mastodon",
   "license": "AGPL-3.0-or-later",
   "engines": {
-    "node": ">=8.12 <13"
+    "node": ">=8.12 <12"
   },
   "scripts": {
     "postversion": "git push --tags",
@@ -97,7 +97,6 @@
     "file-loader": "^4.0.0",
     "font-awesome": "^4.7.0",
     "glob": "^7.1.1",
-    "handlebars": "^4.1.2",
     "http-link-header": "^1.0.2",
     "immutable": "^3.8.2",
     "imports-loader": "^0.8.0",
@@ -107,7 +106,7 @@
     "intl-relativeformat": "^2.2.0",
     "is-nan": "^1.2.1",
     "js-yaml": "^3.13.1",
-    "lodash": "^4.7.13",
+    "lodash": "^4.7.11",
     "mark-loader": "^0.1.6",
     "marky": "^1.2.1",
     "mini-css-extract-plugin": "^0.5.0",
