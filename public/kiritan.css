@@ -29,6 +29,10 @@
   max-width: 600px;
 }
 
+.floating-action-button {
+  right: auto;
+}
+
 @media screen and (min-width: 631px){
   .column, .drawer {
       padding: 5px 5px;
