@@ -229,6 +229,19 @@ class ColumnsArea extends ImmutablePureComponent {
           {floatingActionButton}
 
           <div className='floating-toot-area'>
+            <IconButton
+              className='button icon-button-kiri'
+              icon='pencil'
+              title='toot'
+              size={20}
+              expanded={true}
+              active={false}
+              onClick={this.handleSubmit}
+              style={{ height: null, lineHeight: '30px' }}
+              disabled={disabledButton}
+              block
+            />
+
             <input
               className='toot__input'
               // ref={input => {this.text = }}
