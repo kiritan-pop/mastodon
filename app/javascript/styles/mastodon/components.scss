@@ -2109,8 +2109,8 @@ a.account__display-name {
   align-items: center;
   width: 3.9375rem;
   height: 3.9375rem;
-  bottom: 1.3125rem;
-  right: 1.3125rem;
+  bottom: 4rem;
+  left: 50%;
   background: darken($ui-highlight-color, 3%);
   color: $white;
   border-radius: 50%;
@@ -2124,6 +2124,26 @@ a.account__display-name {
   &:active {
     background: lighten($ui-highlight-color, 7%);
   }
+}
+
+.floating-toot-area {
+  position: fixed;
+  display: flex;
+  width: 95%;
+  bottom: 1rem;
+}
+
+.floating-toot-area > .toot__input {
+  flex: auto;
+  background: rgba(244,244,244,0.85);
+  font-size: 1.0rem;
+  overflow-wrap: break-word; 
+  white-space: normal;
+  }
+
+.floating-toot-area > .icon-button-kiri {
+  flex: none;
+  border-radius: 25%;
 }
 
 @media screen and (min-width: $no-gap-breakpoint) {
