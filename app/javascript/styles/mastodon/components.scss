@@ -2107,8 +2107,8 @@ a.account__display-name {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2.625rem;
-  height: 2.625rem;
+  width: 3rem;
+  height: 3rem;
   bottom: 4rem;
   background: darken($ui-highlight-color, 3%);
   color: $white;
@@ -2136,15 +2136,17 @@ a.account__display-name {
 .floating-toot-area > .toot__input {
   flex: auto;
   background: rgba(244,244,244,0.8);
-  height: 1.5rem;
+  height: 2rem;
   font-size: 1.0rem;
-  overflow-wrap: break-word; 
-  white-space: normal;
+  white-space: pre-wrap;
   margin: 2px;
   }
 
 .floating-toot-area > .icon-button-kiri {
   flex: none;
+  width: 2.625rem;
+  height: 2.625rem;
+
   border-radius: 25%;
 }
 

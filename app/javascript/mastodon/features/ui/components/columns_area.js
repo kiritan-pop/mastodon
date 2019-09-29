@@ -242,7 +242,7 @@ class ColumnsArea extends ImmutablePureComponent {
               block
             />
 
-            <input
+            <textarea
               className='toot__input'
               // ref={input => {this.text = }}
               type='text'
