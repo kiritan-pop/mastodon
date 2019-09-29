@@ -2107,10 +2107,9 @@ a.account__display-name {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3.9375rem;
-  height: 3.9375rem;
+  width: 2.625rem;
+  height: 2.625rem;
   bottom: 4rem;
-  left: 50%;
   background: darken($ui-highlight-color, 3%);
   color: $white;
   border-radius: 50%;
@@ -2131,14 +2130,17 @@ a.account__display-name {
   display: flex;
   width: 95%;
   bottom: 1rem;
+  align-items: center;
 }
 
 .floating-toot-area > .toot__input {
   flex: auto;
-  background: rgba(244,244,244,0.85);
+  background: rgba(244,244,244,0.8);
+  height: 1.5rem;
   font-size: 1.0rem;
   overflow-wrap: break-word; 
   white-space: normal;
+  margin: 2px;
   }
 
 .floating-toot-area > .icon-button-kiri {
