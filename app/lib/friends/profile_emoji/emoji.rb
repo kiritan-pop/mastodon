@@ -1,5 +1,10 @@
 module Friends
   module ProfileEmoji
+    class FalsyLoaded
+      def loaded?
+        false
+      end
+    end
     class Emoji < ActiveModelSerializers::Model
       SHORTCODE_RE_FRAGMENT = /@(#{Account::USERNAME_RE})(?:@([a-z0-9\.\-]+[a-z0-9]+))?/i
 
@@ -33,6 +38,10 @@ module Friends
         account.id
       end
 
+      def association(*_args)
+        FalsyLoaded.new
+      end
+      
       class << self
         include RoutingHelper
         def from_text(text, domain)

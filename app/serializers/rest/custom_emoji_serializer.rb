@@ -17,6 +17,8 @@ class REST::CustomEmojiSerializer < ActiveModel::Serializer
 
   def account_id
     object.has_attribute?(:account_id) ? object.account_id : nil
+  end
+
   def category
     object.category.name
   end
