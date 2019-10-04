@@ -5,6 +5,7 @@
   background: url('/a1zunko64.png');
   background-repeat: no-repeat;
   background-position: center top;
+  background-attachment: fixed;
 }
 
 /* ファボを肉球に */

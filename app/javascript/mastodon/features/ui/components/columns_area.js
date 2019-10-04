@@ -29,7 +29,7 @@ import ComposePanel from './compose_panel';
 import NavigationPanel from './navigation_panel';
 
 import detectPassiveEvents from 'detect-passive-events';
-import { scrollRight } from '../../../scroll';
+import { scrollRight, scrollTop } from '../../../scroll';
 
 import IconButton from '../../../components/icon_button';
 import { countableText } from '../../compose/util/counter';
@@ -195,7 +195,9 @@ class ColumnsArea extends ImmutablePureComponent {
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
-    this.props.onChange('');
+    // this.props.onChange('');
+    // scrollTop(window);
+    scroll(window, 'scrollTop', 0)
   }
 
   render () {
@@ -210,6 +212,43 @@ class ColumnsArea extends ImmutablePureComponent {
 
     if (singleColumn) {
       const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <Link key='floating-action-button' to='/statuses/new' className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}><Icon id='pencil' /></Link>;
+      const floatingTootArea = shouldHideFAB(this.context.router.history.location.pathname) ? null
+        : 
+        <div className='floating-toot-area'>
+          <IconButton
+            className='button icon-button-kiri'
+            icon='pencil'
+            title='toot'
+            size={20}
+            expanded={true}
+            active={false}
+            onClick={this.handleSubmit}
+            style={{ height: null, lineHeight: '30px' }}
+            disabled={disabledButton}
+            block
+          />
+
+          <textarea
+            className='toot__input'
+            // ref={input => {this.text = }}
+            type='text'
+            placeholder='トゥートしてね〜'
+            value={this.props.text}
+            onChange={this.handleChange}
+          />
+          <IconButton
+            className='button icon-button-kiri'
+            icon='pencil'
+            title='toot'
+            size={20}
+            expanded={true}
+            active={false}
+            onClick={this.handleSubmit}
+            style={{ height: null, lineHeight: '30px' }}
+            disabled={disabledButton}
+            block
+          />
+        </div>;
 
       const content = columnIndex !== -1 ? (
         <ReactSwipeableViews key='content' index={columnIndex} onChangeIndex={this.handleSwipe} onTransitionEnd={this.handleAnimationEnd} animateTransitions={shouldAnimate} springConfig={{ duration: '400ms', delay: '0s', easeFunction: 'ease' }} style={{ height: '100%' }}>
@@ -240,41 +279,7 @@ class ColumnsArea extends ImmutablePureComponent {
 
           {floatingActionButton}
 
-          <div className='floating-toot-area'>
-            <IconButton
-              className='button icon-button-kiri'
-              icon='pencil'
-              title='toot'
-              size={20}
-              expanded={true}
-              active={false}
-              onClick={this.handleSubmit}
-              style={{ height: null, lineHeight: '30px' }}
-              disabled={disabledButton}
-              block
-            />
-
-            <textarea
-              className='toot__input'
-              // ref={input => {this.text = }}
-              type='text'
-              placeholder='トゥートしてね〜'
-              value={this.props.text}
-              onChange={this.handleChange}
-            />
-            <IconButton
-              className='button icon-button-kiri'
-              icon='pencil'
-              title='toot'
-              size={20}
-              expanded={true}
-              active={false}
-              onClick={this.handleSubmit}
-              style={{ height: null, lineHeight: '30px' }}
-              disabled={disabledButton}
-              block
-            />
-          </div>
+          {floatingTootArea}
 
         </div>
       );
