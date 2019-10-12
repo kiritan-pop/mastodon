@@ -38,9 +38,12 @@ class MastodonMount extends React.PureComponent {
     showIntroduction: PropTypes.bool,
   };
 
-  shouldUpdateScroll (_, { location }) {
-    return location.state !== previewMediaState && location.state !== previewVideoState;
-  }
+  shouldUpdateScroll = (prevRouterProps, { location }) => {
+    if (prevRouterProps && location.pathname !== prevRouterProps.location.pathname) {
+      return [0, 0];
+    }
+  };
+
 
   render () {
     const { showIntroduction } = this.props;

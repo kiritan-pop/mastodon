@@ -71,6 +71,7 @@ class ColumnsArea extends ImmutablePureComponent {
     isSubmitting: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    shouldUpdateScroll: PropTypes.func.isRequired,
   };
 
   state = {
@@ -104,13 +105,6 @@ class ColumnsArea extends ImmutablePureComponent {
     }
     this.lastIndex = getIndex(this.context.router.history.location.pathname);
     this.setState({ shouldAnimate: true });
-    // console.log("componentDidUpdate")
-    // console.log(this.context.router.history.location.pathname)
-    if (this.props.singleColumn && this.context.router.history.location.pathname === '/statuses/new'){
-      setTimeout(() => {
-        scrollTop(window);
-      }, 1300);
-    }
   }
 
   componentWillUnmount () {
@@ -203,15 +197,8 @@ class ColumnsArea extends ImmutablePureComponent {
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
     this.props.onChange("");
-    setTimeout(() => {
-      scrollTop(window);
-    }, 300);
-  }
-
-  handleBlur = () => {
-    setTimeout(() => {
-      scrollTop(window);
-    }, 300);
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0,0);
   }
 
   render () {
@@ -249,7 +236,6 @@ class ColumnsArea extends ImmutablePureComponent {
             placeholder='トゥートしてね〜'
             value={this.props.text}
             onChange={this.handleChange}
-            onBlur={this.handleBlur}
           />
           <IconButton
             className='button icon-button-kiri'
