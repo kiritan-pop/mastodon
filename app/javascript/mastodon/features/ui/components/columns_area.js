@@ -106,10 +106,10 @@ class ColumnsArea extends ImmutablePureComponent {
     this.setState({ shouldAnimate: true });
     // console.log("componentDidUpdate")
     // console.log(this.context.router.history.location.pathname)
-    if (this.context.router.history.location.pathname === '/statuses/new'){
+    if (this.props.singleColumn && this.context.router.history.location.pathname === '/statuses/new'){
       setTimeout(() => {
         scrollTop(window);
-      }, 300);
+      }, 1300);
     }
   }
 
@@ -202,6 +202,10 @@ class ColumnsArea extends ImmutablePureComponent {
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
+    this.props.onChange("");
+    setTimeout(() => {
+      scrollTop(window);
+    }, 300);
   }
 
   handleBlur = () => {
