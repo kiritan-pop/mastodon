@@ -2280,14 +2280,14 @@ a.account__display-name {
 .floating-toot-area {
   position: fixed;
   display: flex;
-  width: 95%;
-  bottom: 1rem;
+  width: 99%;
+  bottom: 0.5rem;
   align-items: center;
 }
 
 .floating-toot-area > .toot__input {
   flex: auto;
-  background: rgba(30, 10, 0, .8);
+  background: rgba(30, 10, 0, .5);
   backdrop-filter: blur(2px);
   height: 2.625rem;
   font-size: 1.1rem;

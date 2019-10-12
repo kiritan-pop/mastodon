@@ -104,6 +104,13 @@ class ColumnsArea extends ImmutablePureComponent {
     }
     this.lastIndex = getIndex(this.context.router.history.location.pathname);
     this.setState({ shouldAnimate: true });
+    // console.log("componentDidUpdate")
+    // console.log(this.context.router.history.location.pathname)
+    if (this.context.router.history.location.pathname === '/statuses/new'){
+      setTimeout(() => {
+        scrollTop(window);
+      }, 300);
+    }
   }
 
   componentWillUnmount () {
@@ -195,9 +202,12 @@ class ColumnsArea extends ImmutablePureComponent {
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
-    // this.props.onChange('');
-    // scrollTop(window);
-    scroll(window, 'scrollTop', 0)
+  }
+
+  handleBlur = () => {
+    setTimeout(() => {
+      scrollTop(window);
+    }, 300);
   }
 
   render () {
@@ -235,6 +245,7 @@ class ColumnsArea extends ImmutablePureComponent {
             placeholder='トゥートしてね〜'
             value={this.props.text}
             onChange={this.handleChange}
+            onBlur={this.handleBlur}
           />
           <IconButton
             className='button icon-button-kiri'
