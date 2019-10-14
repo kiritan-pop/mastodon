@@ -1,3 +1,4 @@
-default: styles/application.scss
+default: styles/kiritan.scss
+origin: styles/application.scss
 contrast: styles/contrast.scss
 mastodon-light: styles/mastodon-light.scss

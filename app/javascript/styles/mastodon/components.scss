@@ -2259,9 +2259,10 @@ a.account__display-name {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3rem;
-  height: 3rem;
-  bottom: 4rem;
+  width: 3.9375rem;
+  height: 3.9375rem;
+  bottom: 1.3125rem;
+  right: 1.3125rem;
   background: darken($ui-highlight-color, 3%);
   color: $white;
   border-radius: 50%;
@@ -2275,39 +2276,6 @@ a.account__display-name {
   &:active {
     background: lighten($ui-highlight-color, 7%);
   }
-}
-
-.floating-toot-area {
-  position: fixed;
-  display: flex;
-  width: 99%;
-  bottom: 0.5rem;
-  align-items: center;
-}
-
-.floating-toot-area > .toot__input {
-  flex: auto;
-  background: rgba(30, 10, 0, .5);
-  backdrop-filter: blur(2px);
-  height: 2.625rem;
-  font-size: 1.1rem;
-  white-space: pre-wrap;
-  margin: 2px;
-  box-sizing: border-box;
-  color: #fff;
-  outline: 0;
-  font-family: inherit;
-  border: 2px solid rgba(255, 255, 255, .5);
-  border-radius: 10px;
-  padding: 4px;
-}
-
-.floating-toot-area > .icon-button-kiri {
-  flex: none;
-  width: 2.625rem;
-  height: 2.625rem;
-
-  border-radius: 25%;
 }
 
 @media screen and (min-width: $no-gap-breakpoint) {
@@ -2483,7 +2451,7 @@ a.account__display-name {
   > img {
     display: block;
     object-fit: contain;
-    object-position: bottom center;
+    object-position: bottom left;
     width: 100%;
     height: 100%;
     pointer-events: none;

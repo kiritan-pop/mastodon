@@ -1,28 +1,11 @@
-/* きりたん丼カスタムＣＳＳ 管理画面からカスタムCSSを設定する用 */
-
-/* 背景を画像に */
-body {
-  background: none;
-}
-
-body:before{
-  content:"";
-  display:block;
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
-  width:100%;
-  height:100vh;
-  background:url('/a1zunko64.png') center top no-repeat rgba(30, 10, 0);
-  background-size:cover;
-}
+// きりたん丼共通
 
 /* ファボを肉球に */
 .fa-star:before {
   font-size:large ;
   content: "\f1b0" ;
 }
+
 .notification__favourite-icon-wrapper .star-icon, .star-icon.active {
     color: #ed4d1c;
 }
@@ -31,6 +14,47 @@ body:before{
     color: #ffffff;
     background: #2b90d9;
     width: 36px !important;
+}
+
+.floating-toot-area {
+  position: fixed;
+  display: flex;
+  width: 99%;
+  bottom: 0.5rem;
+  align-items: center;
+}
+
+.floating-action-button {
+  width: 3rem;
+  height: 3rem;
+  bottom: 3.9375rem;
+  right: auto;
+}
+
+.floating-toot-area > .toot__input {
+  flex: auto;
+  height: 2.625rem;
+  font-size: 1.1rem;
+  white-space: pre-wrap;
+  margin: 2px;
+  box-sizing: border-box;
+  outline: 0;
+  font-family: inherit;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.floating-toot-area > .icon-button-kiri {
+  flex: none;
+  width: 2.625rem;
+  height: 2.625rem;
+
+  border-radius: 25%;
+}
+
+.drawer__inner__mastodon > img {
+    object-position: bottom center;
 }
 
 /* box header */
@@ -46,78 +70,21 @@ body:before{
   }
 }
 
-.dashboard__counters > div > div,
-.dashboard__counters > div > a,
-.simple_form input[type=text],
-.simple_form input[type=number],
-.simple_form input[type=email],
-.simple_form input[type=password],
-.simple_form textarea,
-.admin-wrapper .sidebar__toggle,
-.card__img,
-.floating-toot-area textarea
-{
-  background: rgba(30, 10, 0, .5);
-}
-
-.admin-wrapper,
-.admin-wrapper .sidebar ul a.selected,
-.drawer__header, 
-.column-header, 
-.drawer__inner, 
-.column > .scrollable,
-.tabs-bar, 
-.column-back-button,
-.notification__filter-bar,
-.search__input, 
-.search__input:focus,
-.columns-area > div .column-header,
-.getting-started,
-.columns-area__panels__pane,
-.card__bar
-{
-  background: rgba(30, 10, 0, .8);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-}
-
-.admin-wrapper .sidebar-wrapper,
-.admin-wrapper .sidebar-wrapper__inner,
-.admin-wrapper .sidebar ul ul,
-.admin-wrapper .sidebar a,
-.column-header__button,
-.column-header__back-button,
-.drawer__inner__mastodon,
-.compose-form__modifiers,
-.getting-started__footer, 
-.getting-started__wrapper,
-.columns-area__panels__pane__inner, 
-.column-link,
-.empty-column-indicator, 
-.error-column  
-{
-  background: transparent; 
-}
-
 .compose-form__publish-button-wrapper {
     padding-left: 5px;
 }
 
-.focusable:focus {
-  outline: rgba(255, 50, 90, 0.4) auto 5px;
-  background: rgba(150, 50, 40, 0.4);
-}
-
 .drawer__header {
   border-top-left-radius: 10px 10px ;
-  overflow: hidden ; }
+  }
 
 .column-header {
   border-top-left-radius: 10px 10px ;
 }
 
 .drawer__inner {
-  border-bottom-right-radius: 20px 20px ; }
+  border-bottom-right-radius: 20px 20px ; 
+}
 
 /* box scroll */
 .column > .scrollable {
@@ -126,7 +93,8 @@ body:before{
 
 /* toot option icon */
 .compose-form__buttons {
-  border-radius: 10px ; }
+  border-radius: 10px ; 
+}
 
 .compose-form__publish-button-wrapper > .button {
   border-radius: 10px ;
@@ -152,87 +120,20 @@ body:before{
 
 /* reply */
 .reply-indicator {
-  background: rgba(255, 255, 255, .3) ;
   border-radius: 4px ;
   margin-bottom: 15px ; }
 
-.reply-indicator__display-name,
-.reply-indicator__content {
-  color: #fee ; }
-
-.reply-indicator__display-avatar > .account__avatar {
-  box-shadow: none ; }
-
-/* culumn */
-.column-header.active .fa {
-  color: #000 ; }
-
-.columns-area > div .column-header{
-  color: #fee ;
-}
-
-.column-subheading {
-  background:rgba(30, 10, 0, .2);
-  color: #fee ;
-}
 
 .getting-started{
   border-bottom-right-radius: 20px 20px ;
 }
 
-
-/* scrollbar */
-::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 125, 64, .4) ; }
-
-::-webkit-scrollbar:active {
-  background: transparent ; }
-::-webkit-scrollbar:active:hover {
-  background: transparent ; }
-
-/* detail */
-.detailed-status,
-.detailed-status__action-bar {
- background:rgba(0, 0, 0, .1) ;
-}
-
-/* announcements */
-.announcements li {
-    padding: 5px;
-    color:rgba(255, 230, 230, .9);
-    background: none;
-    margin-top: 5px;
-    border: 1px solid rgba(255, 230, 230, .9);
-}
-
-.announcements .compose__extra__header{
-  background:rgba(30, 10, 0, .2);
-}
-
 .announcements .announcements__body p {
   white-space: pre-wrap;
-}
-.announcements .announcements__body .links a {
-    color: rgba(255, 230, 230, .9);
-    background: none;
-    border: 3px double rgba(255, 230, 230, .9);
-}
-
-.announcements .announcements__icon .icon-button{
-    color: #ed4d1c;
 }
 
 .announcements .announcements__icon .fa-check-circle-o:before {
     content: "\f1b0";
-}
-
-.account__section-headline a, .account__section-headline button, .notification__filter-bar a, .notification__filter-bar button {
-  background: none;
-}
-
-.account__header__image, .account__header__bar, .account__section-headline {
-  background: rgba(30, 10, 0, .2) ;
 }
 
 .table td, .table th {
@@ -248,7 +149,6 @@ body:before{
  .status__action-bar-button.icon-button.active .fa.fa-fw.fa-star{
      animation: blink 0.9s ease infinite;       
  }
-
 
 /*非公開色分け*/
 .status-private {
