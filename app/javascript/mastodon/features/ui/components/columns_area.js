@@ -29,7 +29,7 @@ import ComposePanel from './compose_panel';
 import NavigationPanel from './navigation_panel';
 
 import detectPassiveEvents from 'detect-passive-events';
-import { scrollRight, scrollTop } from '../../../scroll';
+import { scrollRight } from '../../../scroll';
 
 import IconButton from '../../../components/icon_button';
 import { countableText } from '../../compose/util/counter';

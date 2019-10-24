@@ -310,7 +310,7 @@ class Header extends ImmutablePureComponent {
             </h1>
           </div>
 
-          <div className='account__header__extra' ref={this.setRef}>
+          <div className='account__header__extra'>
             <div className='account__header__bio'>
               { (fields.size > 0 || identity_proofs.size > 0) && (
                 <div className='account__header__fields'>
