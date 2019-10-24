@@ -42,6 +42,9 @@ class MastodonMount extends React.PureComponent {
     if (prevRouterProps && location.pathname !== prevRouterProps.location.pathname) {
       return [0, 0];
     }
+    if (prevRouterProps && prevRouterProps.location.pathname === '/statuses/new') {
+      return [0, 0];
+    }
   };
 
 

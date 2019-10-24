@@ -71,7 +71,6 @@ class ColumnsArea extends ImmutablePureComponent {
     isSubmitting: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    shouldUpdateScroll: PropTypes.func.isRequired,
   };
 
   state = {
@@ -196,8 +195,6 @@ class ColumnsArea extends ImmutablePureComponent {
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
-    this.props.onChange("");
-    // window.scrollTo({ top: 0, behavior: 'smooth' });
     window.scrollTo(0,0);
   }
 
@@ -231,7 +228,6 @@ class ColumnsArea extends ImmutablePureComponent {
 
           <textarea
             className='toot__input'
-            // ref={input => {this.text = }}
             type='text'
             placeholder='トゥートしてね〜'
             value={this.props.text}

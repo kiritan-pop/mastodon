@@ -3,13 +3,13 @@ import ColumnsArea from '../components/columns_area';
 import {
   changeCompose,
   submitCompose,
-} from '../../../actions/compose';
+} from '../../../actions/compose_kiri';
 
 const mapStateToProps = state => ({
   columns: state.getIn(['settings', 'columns']),
   isModalOpen: !!state.get('modal').modalType,
-  text: state.getIn(['compose', 'text']),
-  isSubmitting: state.getIn(['compose', 'is_submitting']),
+  text: state.getIn(['compose_kiri', 'text']),
+  isSubmitting: state.getIn(['compose_kiri', 'is_submitting']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
