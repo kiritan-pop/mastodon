@@ -203,7 +203,10 @@ class ColumnsArea extends ImmutablePureComponent {
   }
 
   onBlur = () => {
-    setTimeout(window.scrollTo(0, 0), 400);
+    setTimeout(() => {
+      console.log("waiting")
+      window.scrollTo(0, 0);
+    }, 100);
   }
 
   render () {
