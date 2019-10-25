@@ -42,7 +42,6 @@ class MastodonMount extends React.PureComponent {
     return location.state !== previewMediaState && location.state !== previewVideoState;
   };
 
-
   render () {
     const { showIntroduction } = this.props;
 
