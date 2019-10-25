@@ -196,11 +196,14 @@ class ColumnsArea extends ImmutablePureComponent {
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
-    window.scrollTo(0,0);
   }
 
   setTextarea = (c) => {
     this.textarea = c;
+  }
+
+  onBlur = () => {
+    setTimeout(window.scrollTo(0, 0), 400);
   }
 
   render () {
@@ -237,6 +240,7 @@ class ColumnsArea extends ImmutablePureComponent {
             placeholder='トゥートしてね〜'
             value={this.props.text}
             onChange={this.handleChange}
+            onBlur={this.onBlur}
           />
           <IconButton
             className='button icon-button-kiri'
