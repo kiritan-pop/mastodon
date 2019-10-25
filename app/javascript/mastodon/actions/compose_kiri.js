@@ -1,10 +1,10 @@
 import api from '../api';
 import { updateTimeline } from './timelines';
 
-export const COMPOSE_CHANGE          = 'COMPOSE_CHANGE';
-export const COMPOSE_SUBMIT_REQUEST  = 'COMPOSE_SUBMIT_REQUEST';
-export const COMPOSE_SUBMIT_SUCCESS  = 'COMPOSE_SUBMIT_SUCCESS';
-export const COMPOSE_SUBMIT_FAIL     = 'COMPOSE_SUBMIT_FAIL';
+export const COMPOSE_CHANGE          = 'COMPOSE_CHANGE_KIRI';
+export const COMPOSE_SUBMIT_REQUEST = 'COMPOSE_SUBMIT_REQUEST_KIRI';
+export const COMPOSE_SUBMIT_SUCCESS = 'COMPOSE_SUBMIT_SUCCESS_KIRI';
+export const COMPOSE_SUBMIT_FAIL = 'COMPOSE_SUBMIT_FAIL_KIRI';
 
 export function changeCompose(text) {
   return {

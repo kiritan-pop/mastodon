@@ -34,6 +34,7 @@ import { scrollRight } from '../../../scroll';
 import IconButton from '../../../components/icon_button';
 import { countableText } from '../../compose/util/counter';
 import { length } from 'stringz';
+import Textarea from 'react-textarea-autosize';
 
 const componentMap = {
   'COMPOSE': Compose,
@@ -198,6 +199,10 @@ class ColumnsArea extends ImmutablePureComponent {
     window.scrollTo(0,0);
   }
 
+  setTextarea = (c) => {
+    this.textarea = c;
+  }
+
   render () {
     const { columns, children, singleColumn, isModalOpen, intl } = this.props;
     const { shouldAnimate } = this.state;
@@ -226,9 +231,9 @@ class ColumnsArea extends ImmutablePureComponent {
             block
           />
 
-          <textarea
+          <Textarea
+            inputRef={this.setTextarea}
             className='toot__input'
-            type='text'
             placeholder='トゥートしてね〜'
             value={this.props.text}
             onChange={this.handleChange}
