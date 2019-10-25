@@ -59,10 +59,6 @@ const dateFormatOptions = {
 export default @injectIntl
 class Header extends ImmutablePureComponent {
 
-  static contextTypes = {
-    router: PropTypes.object,
-  };
-
   static propTypes = {
     account: ImmutablePropTypes.map,
     identity_props: ImmutablePropTypes.list,
