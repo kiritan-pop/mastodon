@@ -17,7 +17,7 @@
 }
 
 .floating-toot-area {
-  position: fixed;
+  position: sticky;
   display: flex;
   width: 99%;
   bottom: 1.25rem;

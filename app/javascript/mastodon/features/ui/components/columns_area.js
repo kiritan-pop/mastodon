@@ -271,6 +271,7 @@ class ColumnsArea extends ImmutablePureComponent {
           <div className='columns-area__panels__main'>
             <TabsBar key='tabs' />
             {content}
+            {floatingTootArea}
           </div>
 
           <div className='columns-area__panels__pane columns-area__panels__pane--start columns-area__panels__pane--navigational'>
@@ -281,7 +282,6 @@ class ColumnsArea extends ImmutablePureComponent {
 
           {floatingActionButton}
 
-          {floatingTootArea}
 
         </div>
       );
