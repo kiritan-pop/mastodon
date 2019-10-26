@@ -209,7 +209,7 @@ class ColumnsArea extends ImmutablePureComponent {
   onBlur = () => {
     this.props.onSync(this.props.text);
     setTimeout(() => {
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 100);
   }
 
