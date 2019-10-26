@@ -72,6 +72,7 @@ class ColumnsArea extends ImmutablePureComponent {
     isSubmitting: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    onSync: PropTypes.func.isRequired,
   };
 
   state = {
@@ -196,6 +197,9 @@ class ColumnsArea extends ImmutablePureComponent {
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
+    setTimeout(() => {
+      this.props.onSync(this.props.text);
+    }, 2000);
   }
 
   setTextarea = (c) => {
@@ -203,6 +207,7 @@ class ColumnsArea extends ImmutablePureComponent {
   }
 
   onBlur = () => {
+    this.props.onSync(this.props.text);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 100);

@@ -3,6 +3,7 @@ import ColumnsArea from '../components/columns_area';
 import {
   changeCompose,
   submitCompose,
+  syncCompose,
 } from '../../../actions/compose_kiri';
 
 const mapStateToProps = state => ({
@@ -18,6 +19,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSubmit(router) {
     dispatch(submitCompose(router, "public"));
+  },
+  onSync(text) {
+    dispatch(syncCompose(text));
   },
 });
 

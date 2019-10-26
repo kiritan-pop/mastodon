@@ -36,6 +36,10 @@ import {
   COMPOSE_POLL_OPTION_REMOVE,
   COMPOSE_POLL_SETTINGS_CHANGE,
 } from '../actions/compose';
+import {
+  COMPOSE_SYNC_KIRI,
+} from '../actions/compose_kiri';
+
 import { TIMELINE_DELETE } from '../actions/timelines';
 import { STORE_HYDRATE } from '../actions/store';
 import { REDRAFT } from '../actions/statuses';
@@ -413,6 +417,10 @@ export default function compose(state = initialState, action) {
     return state.updateIn(['poll', 'options'], options => options.delete(action.index));
   case COMPOSE_POLL_SETTINGS_CHANGE:
     return state.update('poll', poll => poll.set('expires_in', action.expiresIn).set('multiple', action.isMultiple));
+  case COMPOSE_SYNC_KIRI:
+    return state
+      .set('text', action.text)
+      .set('idempotencyKey', uuid());
   default:
     return state;
   }
