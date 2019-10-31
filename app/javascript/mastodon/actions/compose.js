@@ -151,6 +151,9 @@ export function submitCompose(routerHistory, vis = null) {
         routerHistory.push('/timelines/direct');
       } else if (routerHistory && routerHistory.location.pathname === '/statuses/new' && window.history.state) {
         routerHistory.goBack();
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 1200);
       }
 
       dispatch(insertIntoTagHistory(response.data.tags, status));

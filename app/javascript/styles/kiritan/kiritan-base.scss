@@ -33,7 +33,7 @@
 
 .floating-toot-area > .toot__input {
   flex: auto;
-  height: 2.625rem;
+  min-height: 2.625rem;
   font-size: 1.1rem;
   white-space: pre-wrap;
   margin: 2px;

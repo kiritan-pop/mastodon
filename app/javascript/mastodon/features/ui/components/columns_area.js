@@ -210,7 +210,7 @@ class ColumnsArea extends ImmutablePureComponent {
     this.props.onSync(this.props.text);
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
+    }, 400);
   }
 
   render () {
