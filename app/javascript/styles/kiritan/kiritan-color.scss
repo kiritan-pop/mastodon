@@ -52,7 +52,14 @@ body:before{
 .columns-area > div .column-header,
 .getting-started,
 .columns-area__panels__pane,
-.card__bar
+.card__bar,
+.form-container,
+.public-layout .header,
+.public-layout .public-account-header,
+.account__section-headline,
+.activity-stream .entry,
+.public-layout .public-account-bio,
+.hero-widget__text
 {
   background: rgba(30, 10, 0, .8);
   backdrop-filter: blur(3px);
