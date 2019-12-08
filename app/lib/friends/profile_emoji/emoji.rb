@@ -43,7 +43,6 @@ module Friends
       end
       
       class << self
-        include RoutingHelper
         def from_text(text, domain)
           return [] if text.blank?
 
@@ -51,15 +50,11 @@ module Friends
 
           return [] if shortcodes.empty?
 
-          shortcodes.map { |_, username, _, shortcode_domain|
-            search_domain = shortcode_domain
-            if shortcode_domain then
-              search_domain = nil  if shortcode_domain == root_url.split("/")[-1]
-            else 
-              search_domain = domain    if domain
-            end
-            [EntityCache.instance.avatar(username, search_domain), shortcode_domain ? '@' + username + '@' + shortcode_domain : '@' + username]
-          }.compact.map { |account, shortcode| account ? new(account: account, shortcode: shortcode) : nil }.compact
+          shortcodes.map { |shortcode, username, _, server|
+            server ||= domain
+            server = nil  if server == Rails.configuration.x.local_domain
+            [EntityCache.instance.avatar(username, server), shortcode[1..-2]]
+          }.map { |account, shortcode| account ? new(account: account, shortcode: shortcode) : nil }.compact
         end
       end
     end

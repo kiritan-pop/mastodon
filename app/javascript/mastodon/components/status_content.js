@@ -143,14 +143,6 @@ export default class StatusContent extends React.PureComponent {
     target.src = target.getAttribute('data-static');
   }
 
-  handleEmojiMouseEnter = ({ target }) => {
-    target.src = target.getAttribute('data-original');
-  }
-
-  handleEmojiMouseLeave = ({ target }) => {
-    target.src = target.getAttribute('data-static');
-  }
-
   handleMouseDown = (e) => {
     this.startXY = [e.clientX, e.clientY];
   }

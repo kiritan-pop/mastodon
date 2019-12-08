@@ -17,10 +17,6 @@ class Api::V1::MediaController < Api::BaseController
   rescue Paperclip::Error => exception
     Bugsnag.notify(exception)
     render json: processing_error, status: 500
-    p e
-    p e.class
-    p e.message
-    p e.backtrace
   end
 
   def update
