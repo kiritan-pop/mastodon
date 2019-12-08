@@ -40,7 +40,7 @@ class MastodonMount extends React.PureComponent {
 
   shouldUpdateScroll (_, { location }) {
     return location.state !== previewMediaState && location.state !== previewVideoState;
-  };
+  }
 
   render () {
     const { showIntroduction } = this.props;
