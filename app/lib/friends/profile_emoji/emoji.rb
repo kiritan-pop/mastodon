@@ -52,7 +52,7 @@ module Friends
 
           shortcodes.map { |shortcode, username, _, server|
             server ||= domain
-            server = nil  if server == Rails.configuration.x.local_domain
+            server = nil if server == Rails.configuration.x.local_domain
             [EntityCache.instance.avatar(username, server), shortcode[1..-2]]
           }.map { |account, shortcode| account ? new(account: account, shortcode: shortcode) : nil }.compact
         end
