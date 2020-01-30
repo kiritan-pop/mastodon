@@ -61,9 +61,7 @@ body:before{
 .public-layout .public-account-bio,
 .hero-widget__text
 {
-  background: rgba(30, 10, 0, .8);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: rgba(30, 10, 0, .9);
 }
 
 .admin-wrapper .sidebar-wrapper,
@@ -117,7 +115,6 @@ body:before{
 .getting-started{
   border-bottom-right-radius: 20px 20px ;
 }
-
 
 /* scrollbar */
 ::-webkit-scrollbar-thumb,
