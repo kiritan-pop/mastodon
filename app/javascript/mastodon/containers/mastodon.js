@@ -16,7 +16,6 @@ import { previewState as previewMediaState } from 'mastodon/features/ui/componen
 import { previewState as previewVideoState } from 'mastodon/features/ui/components/video_modal';
 import initialState from '../initial_state';
 import ErrorBoundary from '../components/error_boundary';
-import { connectCommandStream } from '../actions/commands';
 
 const { localeData, messages } = getLocale();
 addLocaleData(localeData);
@@ -68,17 +67,12 @@ export default class Mastodon extends React.PureComponent {
 
   componentDidMount() {
     this.disconnect = store.dispatch(connectUserStream());
-    this.commandDisconnect = store.dispatch(connectCommandStream());
   }
 
   componentWillUnmount () {
     if (this.disconnect) {
       this.disconnect();
       this.disconnect = null;
-    }
-    if (this.commandDisconnect) {
-      this.commandDisconnect();
-      this.commandDisconnect = null;
     }
   }
 

@@ -436,7 +436,10 @@ const startWorker = (workerId) => {
     const accountId = req.accountId || req.remoteAddress;
 
     res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-store');
     res.setHeader('Transfer-Encoding', 'chunked');
+
+    res.write(':)\n');
 
     const heartbeat = setInterval(() => res.write(':thump\n'), 15000);
 
@@ -634,9 +637,6 @@ const startWorker = (workerId) => {
         channel = `timeline:list:${listId}`;
         streamFrom(channel, req, streamToWs(req, ws), streamWsEnd(req, ws, subscriptionHeartbeat(channel)));
       });
-      break;
-    case 'commands':
-      streamFrom('commands', req, streamToWs(req, ws), streamWsEnd(req, ws), false);
       break;
     default:
       ws.close();

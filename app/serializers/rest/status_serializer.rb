@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class REST::StatusSerializer < ActiveModel::Serializer
-  include RoutingHelper
-
   attributes :id, :created_at, :in_reply_to_id, :in_reply_to_account_id,
              :sensitive, :spoiler_text, :visibility, :language,
              :uri, :url, :replies_count, :reblogs_count,
@@ -11,6 +9,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   attribute :favourited, if: :current_user?
   attribute :reblogged, if: :current_user?
   attribute :muted, if: :current_user?
+  attribute :bookmarked, if: :current_user?
   attribute :pinned, if: :pinnable?
 
   attribute :content, unless: :source_requested?
@@ -95,6 +94,14 @@ class REST::StatusSerializer < ActiveModel::Serializer
     end
   end
 
+  def bookmarked
+    if instance_options && instance_options[:relationships]
+      instance_options[:relationships].bookmarks_map[object.id] || false
+    else
+      current_user.account.bookmarked?(object)
+    end
+  end
+
   def pinned
     if instance_options && instance_options[:relationships]
       instance_options[:relationships].pins_map[object.id] || false
@@ -138,7 +145,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
     end
 
     def acct
-      object.account_acct
+      object.account.pretty_acct
     end
   end
 

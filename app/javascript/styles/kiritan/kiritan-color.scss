@@ -59,7 +59,10 @@ body:before{
 .account__section-headline,
 .activity-stream .entry,
 .public-layout .public-account-bio,
-.hero-widget__text
+.hero-widget__text,
+.column-header__collapsible-inner,
+.column-header__button.active,
+.announcements
 {
   background: rgba(30, 10, 0, .9);
 }
@@ -130,33 +133,6 @@ body:before{
 .detailed-status,
 .detailed-status__action-bar {
  background:rgba(0, 0, 0, .1) ;
-}
-
-/* announcements */
-.announcements li {
-    padding: 5px;
-    color:rgba(255, 230, 230, .9);
-    background: transparent;
-    margin-top: 5px;
-    border: 1px solid rgba(255, 230, 230, .9);
-}
-
-.announcements .compose__extra__header{
-  background:rgba(30, 10, 0, .2);
-}
-
-.announcements .announcements__body .links a {
-    color: rgba(255, 230, 230, .9);
-    background: transparent;
-    border: 3px double rgba(255, 230, 230, .9);
-}
-
-.announcements .announcements__icon .icon-button{
-    color: #ed4d1c;
-}
-
-.announcements .announcements__icon .fa-check-circle-o:before {
-    content: "\f1b0";
 }
 
 .account__section-headline a, .account__section-headline button, .notification__filter-bar a, .notification__filter-bar button {

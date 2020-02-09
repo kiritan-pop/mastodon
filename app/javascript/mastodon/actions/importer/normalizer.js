@@ -50,6 +50,12 @@ const kiriAminefy = (text) => {
   return tmp_content;
 }
 
+export function searchTextFromRawStatus (status) {
+  const spoilerText   = status.spoiler_text || '';
+  const searchContent = ([spoilerText, status.content].concat((status.poll && status.poll.options) ? status.poll.options.map(option => option.title) : [])).join('\n\n').replace(/<br\s*\/?>/g, '\n').replace(/<\/p><p>/g, '\n\n');
+  return domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
+}
+
 export function normalizeAccount(account) {
   account = { ...account };
 
@@ -110,7 +116,6 @@ export function normalizeStatus(status, normalOldStatus) {
 
 export function normalizePoll(poll) {
   const normalPoll = { ...poll };
-
   const emojiMap = makeEmojiMap(normalPoll);
 
   normalPoll.options = poll.options.map((option, index) => ({
@@ -120,4 +125,13 @@ export function normalizePoll(poll) {
   }));
 
   return normalPoll;
+}
+
+export function normalizeAnnouncement(announcement) {
+  const normalAnnouncement = { ...announcement };
+  const emojiMap = makeEmojiMap(normalAnnouncement);
+
+  normalAnnouncement.contentHtml = kiriAminefy(emojify(normalAnnouncement.content, emojiMap));
+
+  return normalAnnouncement;
 }

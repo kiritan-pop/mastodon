@@ -26,8 +26,6 @@ class CustomEmoji < ApplicationRecord
 
   SCAN_RE = /:(#{SHORTCODE_RE_FRAGMENT}):/x
 
-  IMAGE_MIME_TYPES = %w(image/png image/gif image/webp).freeze
-
   IMAGE_MIME_TYPES = %w(image/png image/gif).freeze
 
   belongs_to :category, class_name: 'CustomEmojiCategory', optional: true
@@ -67,7 +65,7 @@ class CustomEmoji < ApplicationRecord
   end
 
   class << self
-    def from_text(text, domain)
+    def from_text(text, domain = nil)
       return [] if text.blank?
 
       shortcodes = text.scan(SCAN_RE).map(&:first).uniq
