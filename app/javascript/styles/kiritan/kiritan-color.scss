@@ -33,7 +33,8 @@ body:before{
 .simple_form input[type=password],
 .simple_form textarea,
 .admin-wrapper .sidebar__toggle,
-.card__img
+.card__img,
+.announcements__kiriwrapper
 {
   background: rgba(30, 10, 0, .5);
 }
@@ -80,14 +81,9 @@ body:before{
 .columns-area__panels__pane__inner, 
 .column-link,
 .empty-column-indicator, 
-.error-column  
+.error-column,
 {
   background: transparent; 
-}
-
-.focusable:focus {
-  outline: rgba(255, 50, 90, 0.4) auto 5px;
-  background: rgba(150, 50, 40, 0.4);
 }
 
 /* reply */

@@ -17,6 +17,10 @@ import elephantUIPlane from '../../../images/elephant_ui_plane.svg';
 import { mascot } from '../../initial_state';
 import Icon from 'mastodon/components/icon';
 import { logOut } from 'mastodon/utils/log_out';
+import classNames from 'classnames';
+import IconWithBadge from 'mastodon/components/icon_with_badge';
+import { fetchAnnouncements, toggleShowAnnouncements } from 'mastodon/actions/announcements';
+import AnnouncementsContainer from 'mastodon/features/getting_started/containers/announcements_container';
 
 const messages = defineMessages({
   start: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
@@ -29,11 +33,18 @@ const messages = defineMessages({
   compose: { id: 'navigation_bar.compose', defaultMessage: 'Compose new toot' },
   logoutMessage: { id: 'confirmations.logout.message', defaultMessage: 'Are you sure you want to log out?' },
   logoutConfirm: { id: 'confirmations.logout.confirm', defaultMessage: 'Log out' },
+  show_announcements: { id: 'home.show_announcements', defaultMessage: 'Show announcements' },
+  hide_announcements: { id: 'home.hide_announcements', defaultMessage: 'Hide announcements' },
 });
 
 const mapStateToProps = (state, ownProps) => ({
   columns: state.getIn(['settings', 'columns']),
   showSearch: ownProps.multiColumn ? state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']) : ownProps.isSearchPage,
+  hasUnread: state.getIn(['timelines', 'home', 'unread']) > 0,
+  isPartial: state.getIn(['timelines', 'home', 'isPartial']),
+  hasAnnouncements: !state.getIn(['announcements', 'items']).isEmpty(),
+  unreadAnnouncements: state.getIn(['announcements', 'items']).count(item => !item.get('read')),
+  showAnnouncements: state.getIn(['announcements', 'show']),
 });
 
 export default @connect(mapStateToProps)
@@ -47,6 +58,9 @@ class Compose extends React.PureComponent {
     showSearch: PropTypes.bool,
     isSearchPage: PropTypes.bool,
     intl: PropTypes.object.isRequired,
+    hasAnnouncements: PropTypes.bool,
+    unreadAnnouncements: PropTypes.number,
+    showAnnouncements: PropTypes.bool,
   };
 
   componentDidMount () {
@@ -55,6 +69,7 @@ class Compose extends React.PureComponent {
     if (!isSearchPage) {
       this.props.dispatch(mountCompose());
     }
+    this.props.dispatch(fetchAnnouncements());
   }
 
   componentWillUnmount () {
@@ -88,10 +103,26 @@ class Compose extends React.PureComponent {
     this.props.dispatch(changeComposing(false));
   }
 
+  handleToggleAnnouncementsClick = (e) => {
+    e.stopPropagation();
+    this.props.dispatch(toggleShowAnnouncements());
+  }
+
   render () {
-    const { multiColumn, showSearch, isSearchPage, intl } = this.props;
+    const { multiColumn, showSearch, isSearchPage, intl, hasAnnouncements, unreadAnnouncements, showAnnouncements } = this.props;
 
     let header = '';
+    const announcementsButton = (
+      <button
+        className={classNames('column-header__button', { 'active': showAnnouncements })}
+        title={intl.formatMessage(showAnnouncements ? messages.hide_announcements : messages.show_announcements)}
+        aria-label={intl.formatMessage(showAnnouncements ? messages.hide_announcements : messages.show_announcements)}
+        aria-pressed={showAnnouncements ? 'true' : 'false'}
+        onClick={this.handleToggleAnnouncementsClick}
+      >
+        <IconWithBadge id='bullhorn' count={unreadAnnouncements} />
+      </button>
+    );
 
     if (multiColumn) {
       const { columns } = this.props;
@@ -127,6 +158,11 @@ class Compose extends React.PureComponent {
             <NavigationContainer onClose={this.onBlur} />
 
             <ComposeFormContainer />
+
+            {hasAnnouncements && <div className='announcements__kiriwrapper'>
+              {announcementsButton}
+              {hasAnnouncements && showAnnouncements && <AnnouncementsContainer />}
+            </div>}
 
             <div className='drawer__inner__mastodon'>
               <img alt='' draggable='false' src={mascot || elephantUIPlane} />

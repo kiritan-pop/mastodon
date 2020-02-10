@@ -17,7 +17,7 @@ import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable';
 const initialState = ImmutableMap({
   items: ImmutableList(),
   isLoading: false,
-  show: false,
+  show: true,
 });
 
 const updateReaction = (state, id, name, updater) => state.update('items', list => list.map(announcement => {
