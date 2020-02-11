@@ -136,6 +136,10 @@
   font-size: x-large;
 }
 
+.announcements__item__range{
+    font-weight: bold;
+}
+
 @keyframes blink {
   0% {opacity: 1;}
   50% {opacity:0;}

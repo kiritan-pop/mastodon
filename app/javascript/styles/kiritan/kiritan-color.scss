@@ -37,6 +37,8 @@ body:before{
 .announcements__kiriwrapper
 {
   background: rgba(30, 10, 0, .5);
+  border-radius: 10px;
+  border: 3px solid rgba(230, 230, 230, .3);
 }
 
 .admin-wrapper,
@@ -137,4 +139,8 @@ body:before{
 
 .account__header__image, .account__header__bar, .account__section-headline {
   background: rgba(30, 10, 0, .2) ;
+}
+
+.announcements__kiriwrapper .column-header__button.active,column-header__button{
+    background: none;
 }
