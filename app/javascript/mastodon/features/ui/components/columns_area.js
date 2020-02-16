@@ -201,7 +201,7 @@ class ColumnsArea extends ImmutablePureComponent {
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
     setTimeout(() => {
       this.props.onSync(this.props.text);
-    }, 2000);
+    }, 200);
   }
 
   setTextarea = (c) => {
@@ -211,8 +211,8 @@ class ColumnsArea extends ImmutablePureComponent {
   onBlur = () => {
     this.props.onSync(this.props.text);
     setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 400);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 300);
   }
 
   render () {
@@ -227,22 +227,23 @@ class ColumnsArea extends ImmutablePureComponent {
 
     if (singleColumn) {
       const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <Link key='floating-action-button' to='/statuses/new' className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}><Icon id='pencil' /></Link>;
+      const iconButtonKiri =
+        <IconButton
+          className='button icon-button-kiri'
+          icon='pencil'
+          title='toot'
+          size={20}
+          expanded={true}
+          active={false}
+          onClick={this.handleSubmit}
+          style={{ height: null, lineHeight: '30px' }}
+          disabled={disabledButton}
+          block
+        />
       const floatingTootArea = shouldHideFAB(this.context.router.history.location.pathname) ? null
         : 
         <div className='floating-toot-area'>
-          <IconButton
-            className='button icon-button-kiri'
-            icon='pencil'
-            title='toot'
-            size={20}
-            expanded={true}
-            active={false}
-            onClick={this.handleSubmit}
-            style={{ height: null, lineHeight: '30px' }}
-            disabled={disabledButton}
-            block
-          />
-
+          {iconButtonKiri}
           <Textarea
             inputRef={this.setTextarea}
             className='toot__input'
@@ -251,18 +252,7 @@ class ColumnsArea extends ImmutablePureComponent {
             onChange={this.handleChange}
             onBlur={this.onBlur}
           />
-          <IconButton
-            className='button icon-button-kiri'
-            icon='pencil'
-            title='toot'
-            size={20}
-            expanded={true}
-            active={false}
-            onClick={this.handleSubmit}
-            style={{ height: null, lineHeight: '30px' }}
-            disabled={disabledButton}
-            block
-          />
+          {iconButtonKiri}
         </div>;
 
       const content = columnIndex !== -1 ? (
@@ -284,7 +274,6 @@ class ColumnsArea extends ImmutablePureComponent {
           <div className='columns-area__panels__main'>
             <TabsBar key='tabs' />
             {content}
-            {floatingTootArea}
           </div>
 
           <div className='columns-area__panels__pane columns-area__panels__pane--start columns-area__panels__pane--navigational'>
@@ -294,6 +283,7 @@ class ColumnsArea extends ImmutablePureComponent {
           </div>
 
           {floatingActionButton}
+          {floatingTootArea}
 
 
         </div>

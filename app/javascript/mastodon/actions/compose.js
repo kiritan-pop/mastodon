@@ -152,8 +152,8 @@ export function submitCompose(routerHistory, vis = null) {
       } else if (routerHistory && routerHistory.location.pathname === '/statuses/new' && window.history.state) {
         routerHistory.goBack();
         setTimeout(() => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 1200);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }, 900);
       }
 
       dispatch(insertIntoTagHistory(response.data.tags, status));
