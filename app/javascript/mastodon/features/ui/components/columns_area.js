@@ -216,7 +216,7 @@ class ColumnsArea extends ImmutablePureComponent {
   }
 
   onFocus = () => {
-    window.scrollBy(0, 0)
+    window.scrollBy(0, 1)
   }
 
   render () {
