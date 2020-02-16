@@ -215,6 +215,10 @@ class ColumnsArea extends ImmutablePureComponent {
     }, 300);
   }
 
+  onFocus = () => {
+    window.scrollBy(0, 0)
+  }
+
   render () {
     const { columns, children, singleColumn, isModalOpen, intl } = this.props;
     const { shouldAnimate } = this.state;
@@ -251,6 +255,7 @@ class ColumnsArea extends ImmutablePureComponent {
             value={this.props.text}
             onChange={this.handleChange}
             onBlur={this.onBlur}
+            onFocus={this.onFocus}
           />
           {iconButtonKiri}
         </div>;
