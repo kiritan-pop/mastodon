@@ -38,6 +38,7 @@ import {
 } from '../actions/compose';
 import {
   COMPOSE_SYNC_KIRI,
+  COMPOSE_SUBMIT_SUCCESS_KIRI,
 } from '../actions/compose_kiri';
 
 import { TIMELINE_DELETE } from '../actions/timelines';
@@ -322,6 +323,7 @@ export default function compose(state = initialState, action) {
   case COMPOSE_UPLOAD_CHANGE_REQUEST:
     return state.set('is_changing_upload', true);
   case COMPOSE_SUBMIT_SUCCESS:
+  case COMPOSE_SUBMIT_SUCCESS_KIRI:
     return clearAll(state);
   case COMPOSE_SUBMIT_FAIL:
     return state.set('is_submitting', false);

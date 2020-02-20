@@ -199,9 +199,6 @@ class ColumnsArea extends ImmutablePureComponent {
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
-    setTimeout(() => {
-      this.props.onSync(this.props.text);
-    }, 200);
   }
 
   setTextarea = (c) => {
@@ -212,13 +209,13 @@ class ColumnsArea extends ImmutablePureComponent {
     this.props.onSync(this.props.text);
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 300);
+    }, 200);
   }
 
   onFocus = () => {
-    setTimeout(() => {
-      window.scrollBy(0, 1)
-    }, 200);
+    // setTimeout(() => {
+    //   window.scrollBy(0, 1)
+    // }, 200);
   }
 
   render () {
