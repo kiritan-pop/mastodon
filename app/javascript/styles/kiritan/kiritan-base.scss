@@ -145,6 +145,12 @@
     font-weight: bold;
 }
 
+.column-header__button {
+  font-size: x-large;
+  width: 100%;
+  text-align: left;
+}
+
 @keyframes blink {
   0% {opacity: 1;}
   50% {opacity:0;}
