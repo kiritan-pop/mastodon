@@ -569,6 +569,10 @@ GEM
       redis (>= 4.1.0)
     sidekiq-bulk (0.2.0)
       sidekiq
+    sidekiq-failures (1.0.0)
+      sidekiq (>= 4.0.0)
+    sidekiq-history (0.0.11)
+      sidekiq (>= 3.0.0)
     sidekiq-scheduler (3.0.1)
       e2mmap
       redis (>= 3, < 5)
@@ -576,6 +580,9 @@ GEM
       sidekiq (>= 3)
       thwait
       tilt (>= 1.4.0)
+    sidekiq-statistic (1.4.0)
+      sidekiq (>= 5.0)
+      tilt (~> 2.0)
     sidekiq-unique-jobs (6.0.21)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       sidekiq (>= 4.0, < 7.0)
@@ -769,10 +776,10 @@ DEPENDENCIES
   sanitize (~> 5.1)
   sidekiq (~> 6.0)
   sidekiq-bulk (~> 0.2.0)
-  sidekiq-failures (~> 1.0.0)
+  sidekiq-failures
   sidekiq-history
   sidekiq-scheduler (~> 3.0)
-  sidekiq-statistic (~> 1.4)
+  sidekiq-statistic
   sidekiq-unique-jobs (~> 6.0)
   simple-navigation (~> 4.1)
   simple_form (~> 5.0)
@@ -797,4 +804,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.0.2
+   2.1.4
