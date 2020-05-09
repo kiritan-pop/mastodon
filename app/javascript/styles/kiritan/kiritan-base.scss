@@ -151,6 +151,15 @@
   text-align: left;
 }
 
+/*連合の表示*/
+a:not([href*="kiritan.work"])[class="status__display-name"] .display-name:before  {
+    content: '🌏';
+}
+
+a:not([href*="kiritan.work"])[class="status__display-name"]  {
+    background: rgba(0,0,255,0.4);
+}
+
 @keyframes blink {
   0% {opacity: 1;}
   50% {opacity:0;}
