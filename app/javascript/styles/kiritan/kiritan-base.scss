@@ -6,14 +6,18 @@
   content: "\f1b0" ;
 }
 
-.notification__favourite-icon-wrapper .star-icon, .star-icon.active {
-    color: #ed4d1c;
+.icon-button-kiri {
+    color: $primary-text-color;
+    background: $ui-highlight-color;
+    width: 36px !important;
 }
 
-.icon-button-kiri {
-    color: #ffffff;
-    background: #2b90d9;
-    width: 36px !important;
+.icon-button-kiri:active,
+.icon-button-kiri:focus,
+.icon-button-kiri:hover {
+    color: $primary-text-color;
+    background-color: lighten($ui-highlight-color, 10%);
+    transition: all 200ms ease-out;
 }
 
 .floating-toot-area {
