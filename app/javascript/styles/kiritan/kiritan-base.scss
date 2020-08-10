@@ -201,7 +201,6 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
 }
 
 .status__visibility-icon .fa-lock, .status__visibility-icon .fa-envelope {
-  .status-private  .icon-button.disabled,.status.status-direct .icon-button.disabled {
     color: #FFFFFF;    
     animation: blink 1.1s ease infinite;
 }
