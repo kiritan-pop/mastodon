@@ -433,3 +433,8 @@ animation: bounce 1.1s ease infinite;
   transform: scaleY(-1);  
   filter: FlipV;  
 }
+
+.rotate90{
+  display: inline-block;
+  rotate: 90deg;
+}

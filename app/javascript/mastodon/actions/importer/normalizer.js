@@ -51,7 +51,7 @@ const kiriAminefy = (text) => {
     if (match_result && match_result.length > 0) {
       loop = true
       for (let p of match_result) {
-        var replacement = `<span class="flip-v"><span>${p.slice(3, -3)}</span></span>`;
+        var replacement = `<span class="rotate90"><span>${p.slice(3, -3)}</span></span>`;
         tmp_content = tmp_content.replace(p, replacement);
       }
     }
