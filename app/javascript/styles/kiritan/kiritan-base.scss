@@ -9,7 +9,8 @@
 .icon-button-kiri {
     color: $primary-text-color;
     background: $ui-highlight-color;
-    width: 36px;
+    width: 36px !important;
+    margin: 0 1px 0;
 }
 
 .icon-button-kiri:active,
@@ -55,6 +56,15 @@
   height: 2.625rem;
 
   border-radius: 25%;
+}
+
+.status {
+  padding: 4px 4px;
+  padding-left: 68px;
+}
+
+.status__action-bar{
+  margin-top: 4px;
 }
 
 /* box header */
@@ -112,9 +122,24 @@
   white-space: pre-wrap;
 }
 
-.announcements__kiriwrapper {
+.announcements__kiriwrapper{
   margin: 3px;
   border-radius: 10px;
+  border: solid 2px $ui-base-lighter-color;
+  .column-header__button {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .announcements {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .column-header__button.active{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
 }
 
 .announcements__kiriwrapper .fa-fw.fa-bullhorn {
