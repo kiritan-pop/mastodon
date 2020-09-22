@@ -1,10 +1,6 @@
-/* きりたん丼カラーとな */
+/* きりたん丼カラー */
 
 /* 背景を画像に */
-body {
-  background: none;
-}
-
 body:before{
   content:"";
   display:block;
@@ -14,132 +10,19 @@ body:before{
   z-index:-1;
   height:100vh;
   width: 100%;
-  background: url('/a1zunko100.png') 20px bottom no-repeat rgba(30, 10, 0);
+  background: url('/a1zunko100.png') 98% bottom no-repeat $black;
   background-size: auto 40%;
 }
 
+// 設定画面
+.admin-wrapper {
+  background: $ui-base-color;
+}
+
+// フローティングトゥートエリア
 .floating-toot-area > .toot__input {
-  background: rgba(30, 10, 0, .5);
+  background: rgba($ui-base-color, .5);
   backdrop-filter: blur(2px);
-  color: #fff;
-  border: 2px solid rgba(255, 255, 255, .5);
-}
-
-.dashboard__counters > div > div,
-.dashboard__counters > div > a,
-.simple_form input[type=text],
-.simple_form input[type=number],
-.simple_form input[type=email],
-.simple_form input[type=password],
-.simple_form textarea,
-.admin-wrapper .sidebar__toggle,
-.card__img,
-.announcements__kiriwrapper
-{
-  background: rgba(30, 10, 0, .5);
-  border: 3px solid rgba(230, 230, 230, .3);
-}
-
-.admin-wrapper,
-.admin-wrapper .sidebar ul a.selected,
-.drawer__header, 
-.column-header, 
-.drawer__inner, 
-.column > .scrollable,
-.tabs-bar, 
-.column-back-button,
-.notification__filter-bar,
-.search__input, 
-.search__input:focus,
-.columns-area > div .column-header,
-.getting-started,
-.columns-area__panels__pane,
-.card__bar,
-.form-container,
-.public-layout .header,
-.public-layout .public-account-header,
-.account__section-headline,
-.activity-stream .entry,
-.public-layout .public-account-bio,
-.hero-widget__text,
-.column-header__collapsible-inner,
-.column-header__button.active
-{
-  background: rgba(30, 10, 0, .9);
-}
-
-.admin-wrapper .sidebar-wrapper,
-.admin-wrapper .sidebar-wrapper__inner,
-.admin-wrapper .sidebar ul ul,
-.admin-wrapper .sidebar a,
-.column-header__button,
-.column-header__back-button,
-.drawer__inner__mastodon,
-.compose-form__modifiers,
-.getting-started__footer, 
-.getting-started__wrapper,
-.columns-area__panels__pane__inner, 
-.column-link,
-.empty-column-indicator, 
-.error-column,
-.announcements
-{
-  background: transparent; 
-}
-
-/* reply */
-.reply-indicator {
-  background: rgba(255, 255, 255, .3) ;
-}
-
-.reply-indicator__display-name,
-.reply-indicator__content {
-  color: #fee ; }
-
-.reply-indicator__display-avatar > .account__avatar {
-  box-shadow: none ; }
-
-/* culumn */
-.column-header.active .fa {
-  color: #000 ; }
-
-.columns-area > div .column-header{
-  color: #fee ;
-}
-
-.column-subheading {
-  background:rgba(30, 10, 0, .2);
-  color: #fee ;
-}
-
-.getting-started{
-  border-bottom-right-radius: 20px 20px ;
-}
-
-/* scrollbar */
-::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 125, 64, .4) ; }
-
-::-webkit-scrollbar:active {
-  background: transparent ; }
-::-webkit-scrollbar:active:hover {
-  background: transparent ; }
-
-/* detail */
-.detailed-status,
-.detailed-status__action-bar {
- background:rgba(0, 0, 0, .1) ;
-}
-
-.account__section-headline a, .account__section-headline button, .notification__filter-bar a, .notification__filter-bar button {
-  background: none;
-}
-
-.account__header__image, .account__header__bar, .account__section-headline {
-  background: rgba(30, 10, 0, .2) ;
-}
-
-.announcements__kiriwrapper .column-header__button.active,column-header__button{
-    background: none;
+  color :$primary-text-color;
+  border: 2px solid rgba($primary-text-color, .5);
 }
