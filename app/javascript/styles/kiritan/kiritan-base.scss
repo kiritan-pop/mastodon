@@ -179,9 +179,6 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
 .status-private {
     background: rgba(180,55,132,0.2) ;
 }
-.status .fa-lock::before {
- color: #d0d662;
-}
 
 /*未収載色分け*/
 .status-unlisted {
@@ -197,9 +194,16 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
   background: rgba(20,60,255,0.4);
 }
 
-.status__visibility-icon .fa-lock, .status__visibility-icon .fa-envelope {
-    // color: #FFFFFF;    
-    animation: blink 1.1s ease infinite;
+// 非公開・DMマーク点滅
+.status__visibility-icon {
+    .fa-lock{
+      color: #d0d662;
+      animation: blink 1.3s ease infinite;
+    }
+    .fa-envelope{
+      color: $white;    
+      animation: blink 1.3s ease infinite;
+    }
 }
 
 .emoji-mart-scroll {
@@ -208,14 +212,20 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
 }
 
 /* ユーザ絵文字拡大  */
-.reply-indicator__content .emojione,
-.announcements__item__content .emojione,
-.status__content .emojione
+.reply-indicator__content,
+.announcements__item__content,
+.status__content,
+.account__header__tabs__name,
+.display-name,
+.status__wrapper,
+.permalink
 {
-  width: auto  !important; 
-  max-width: 4em  !important;  
-  height: 2em  !important;
-  margin: -.2em 0 0 !important;
+  .emojione{
+    width: auto  !important; 
+    max-width: 4em  !important;  
+    height: 1.8em  !important;
+    margin: 0 0 0 !important;
+  }
 }
 
 @-webkit-keyframes rubberBand {
