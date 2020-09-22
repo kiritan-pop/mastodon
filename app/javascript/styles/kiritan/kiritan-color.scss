@@ -26,3 +26,34 @@ body:before{
   color :$primary-text-color;
   border: 2px solid rgba($primary-text-color, .5);
 }
+
+// 入力フォーム系
+.compose-form {
+  .autosuggest-textarea__textarea,
+  .spoiler-input__input,
+  .autosuggest-textarea__suggestions,
+  .compose-form__buttons-wrapper,
+  .compose-form__modifiers
+  {
+    color: $ui-secondary-color;
+    background: $ui-base-color;
+  }
+}
+
+.compose-form .autosuggest-textarea__suggestions__item:hover, 
+.compose-form .autosuggest-textarea__suggestions__item:focus, 
+.compose-form .autosuggest-textarea__suggestions__item:active, 
+.compose-form .autosuggest-textarea__suggestions__item.selected
+{
+  background: lighten($ui-base-color, 30%);
+}
+
+// その他色合わせ
+.emoji-picker-dropdown__menu,
+.emoji-mart, .emoji-mart *,
+.emoji-mart-category-label span,
+.dropdown-menu, .dropdown-menu__item a
+ {
+  color: $ui-secondary-color;
+  background: $ui-base-color;
+ }
