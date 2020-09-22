@@ -229,6 +229,12 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
   }
 }
 
+.compose-form .autosuggest-account-icon {
+    margin-right: 4px;
+    width: 26px;
+    height: 26px;
+}
+
 @-webkit-keyframes rubberBand {
   from {
     -webkit-transform: scale3d(1, 1, 1);
