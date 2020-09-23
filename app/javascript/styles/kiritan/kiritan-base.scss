@@ -10,23 +10,15 @@
     color: $primary-text-color;
     background: $ui-highlight-color;
     width: 36px !important;
-    margin: 0 1px 0;
-}
+    margin: 0 2px 0 0;
 
-.icon-button-kiri:active,
-.icon-button-kiri:focus,
-.icon-button-kiri:hover {
+  &:active,
+  &:focus,
+  &:hover {
     color: $primary-text-color;
     background-color: lighten($ui-highlight-color, 10%);
     transition: all 200ms ease-out;
-}
-
-.floating-toot-area {
-  position: fixed;
-  display: flex;
-  width: 99%;
-  bottom: 1.35rem;
-  align-items: center;
+  }
 }
 
 .floating-action-button {
@@ -36,26 +28,34 @@
   right: auto;
 }
 
-.floating-toot-area > .toot__input {
-  flex: auto;
-  min-height: 2.625rem;
-  font-size: 1.1rem;
-  white-space: pre-wrap;
-  margin: 2px;
-  box-sizing: border-box;
-  outline: 0;
-  font-family: inherit;
-  border: 2px solid #333;
-  border-radius: 10px;
-  padding: 4px;
-}
+.floating-toot-area {
+  position: fixed;
+  display: flex;
+  width: 99%;
+  bottom: 1.35rem;
+  align-items: center;
 
-.floating-toot-area > .icon-button-kiri {
-  flex: none;
-  width: 2.625rem;
-  height: 2.625rem;
+  .toot__input {
+    flex: auto;
+    min-height: 2.625rem;
+    font-size: 1.1rem;
+    white-space: pre-wrap;
+    margin: 2px;
+    box-sizing: border-box;
+    outline: 0;
+    font-family: inherit;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 4px;
+  }
 
-  border-radius: 25%;
+  .icon-button-kiri {
+    flex: none;
+    width: 2.625rem;
+    height: 2.625rem;
+
+    border-radius: 25%;
+  }
 }
 
 .status {
@@ -140,10 +140,9 @@
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
   }
-}
-
-.announcements__kiriwrapper .fa-fw.fa-bullhorn {
-  font-size: x-large;
+  .fa-fw.fa-bullhorn {
+    font-size: x-large;
+  }
 }
 
 .announcements__item__range{
@@ -157,12 +156,11 @@
 }
 
 /*連合の表示*/
-a:not([href*="kiritan.work"])[class="status__display-name"] .display-name:before  {
-    content: '🌏';
-}
-
 a:not([href*="kiritan.work"])[class="status__display-name"]  {
-    background: rgba(0,0,255,0.4);
+  background: rgba(0,0,255,0.4);
+  .display-name:before  {
+    content: '🌏';
+  }
 }
 
 @keyframes blink {
