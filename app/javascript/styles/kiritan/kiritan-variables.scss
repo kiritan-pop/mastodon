@@ -1,1 +1,20 @@
 $gold-star: #ed4d1c ;
+
+// kiritan base color 
+$kiri-base-color: rgb(30,15,20);
+$kiri-base-lighter-color: #e4d0da;
+
+// Variables for defaults in UI
+$base-shadow-color: $kiri-base-color;
+$base-overlay-background:  rgba($base-shadow-color, .2);
+$base-border-color: $kiri-base-lighter-color;
+
+// Tell UI to use selected colors
+$ui-base-color:  rgba($kiri-base-color, 0.8); 
+$ui-base-lighter-color: lighten(desaturate($ui-base-color, 30%), 30%); 
+$ui-primary-color:  $kiri-base-lighter-color;
+$ui-secondary-color: lighten($kiri-base-lighter-color, 30%);
+
+// Variables for texts
+$primary-text-color: $base-border-color;
+$darker-text-color: darken($kiri-base-lighter-color, 15%);

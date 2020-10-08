@@ -7,11 +7,11 @@ gem 'pkg-config', '~> 1.4'
 
 gem 'puma', '~> 4.3'
 gem 'rails', '~> 5.2.4.3'
-gem 'sprockets', '~> 3.7.2'
+gem 'sprockets', '~> 4.0.2'
 gem 'thor', '~> 0.20'
 gem 'rack', '~> 2.2.3'
 
-gem 'thwait', '~> 0.1.0'
+gem 'thwait', '~> 0.2.0'
 gem 'e2mmap', '~> 0.1.0'
 
 gem 'hamlit-rails', '~> 0.2'
@@ -23,7 +23,7 @@ gem 'dotenv-rails', '~> 2.7'
 gem 'aws-sdk-s3', '~> 1.73', require: false
 gem 'fog-core', '<= 2.1.0'
 gem 'fog-openstack', '~> 0.3', require: false
-gem 'paperclip', '~> 6.0'
+gem 'paperclip', '~> 6.1'
 gem 'paperclip-av-transcoder', '~> 0.6'
 gem 'streamio-ffmpeg', '~> 3.0'
 gem 'blurhash', '~> 0.1'
@@ -74,13 +74,13 @@ gem 'oj', '~> 3.10'
 gem 'ox', '~> 2.13'
 gem 'parslet'
 gem 'parallel', '~> 1.19'
-gem 'posix-spawn', git: 'https://github.com/rtomayko/posix-spawn', ref: '58465d2e213991f8afb13b984854a49fcdcc980c'
+gem 'posix-spawn'
 gem 'pundit', '~> 2.1'
 gem 'premailer-rails'
 gem 'rack-attack', '~> 6.3'
 gem 'rack-cors', '~> 1.1', require: 'rack/cors'
 gem 'rails-i18n', '~> 5.1'
-gem 'rails-settings-cached', '~> 0.6'
+gem 'rails-settings-cached', '~> 2.2'
 gem 'redis', '~> 4.2', require: ['redis', 'redis/connection/hiredis']
 gem 'mario-redis-lock', '~> 1.2', require: 'redis_lock'
 gem 'rqrcode', '~> 1.1'
@@ -96,7 +96,7 @@ gem 'sidekiq-statistic'
 gem 'simple-navigation', '~> 4.1'
 gem 'simple_form', '~> 5.0'
 gem 'sprockets-rails', '~> 3.2', require: 'sprockets/railtie'
-gem 'stoplight', '~> 2.2.0'
+gem 'stoplight', '~> 2.2.1'
 gem 'strong_migrations', '~> 0.6'
 gem 'tty-prompt', '~> 0.21', require: false
 gem 'twitter-text', '~> 1.14'
@@ -130,7 +130,7 @@ group :test do
   gem 'rspec-sidekiq', '~> 3.1'
   gem 'simplecov', '~> 0.18', require: false
   gem 'webmock', '~> 3.8'
-  gem 'parallel_tests', '~> 3.0'
+  gem 'parallel_tests', '~> 3.1'
   gem 'rspec_junit_formatter', '~> 0.4'
 end
 
