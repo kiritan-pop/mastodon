@@ -80,7 +80,7 @@ gem 'premailer-rails'
 gem 'rack-attack', '~> 6.3'
 gem 'rack-cors', '~> 1.1', require: 'rack/cors'
 gem 'rails-i18n', '~> 5.1'
-gem 'rails-settings-cached', '~> 0.6'
+gem 'rails-settings-cached', '~> 2.2'
 gem 'redis', '~> 4.2', require: ['redis', 'redis/connection/hiredis']
 gem 'mario-redis-lock', '~> 1.2', require: 'redis_lock'
 gem 'rqrcode', '~> 1.1'
@@ -96,7 +96,7 @@ gem 'sidekiq-statistic'
 gem 'simple-navigation', '~> 4.1'
 gem 'simple_form', '~> 5.0'
 gem 'sprockets-rails', '~> 3.2', require: 'sprockets/railtie'
-gem 'stoplight', '~> 2.2.0'
+gem 'stoplight', '~> 2.2.1'
 gem 'strong_migrations', '~> 0.6'
 gem 'tty-prompt', '~> 0.21', require: false
 gem 'twitter-text', '~> 1.14'
@@ -149,7 +149,7 @@ group :development do
   gem 'bundler-audit', '~> 0.7', require: false
 
   gem 'capistrano', '~> 3.14'
-  gem 'capistrano-rails', '~> 1.5'
+  gem 'capistrano-rails', '~> 1.6'
   gem 'capistrano-rbenv', '~> 2.1'
   gem 'capistrano-yarn', '~> 2.0'
 
