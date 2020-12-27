@@ -37,6 +37,7 @@ import trends from './trends';
 import missed_updates from './missed_updates';
 import announcements from './announcements';
 import markers from './markers';
+import picture_in_picture from './picture_in_picture';
 
 const reducers = {
   announcements,
@@ -77,6 +78,7 @@ const reducers = {
   trends,
   missed_updates,
   markers,
+  picture_in_picture,
 };
 
 export default combineReducers(reducers);
