@@ -233,6 +233,11 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
     height: 26px;
 }
 
+.drawer__inner__mastodon>img {
+  object-position: center bottom;
+  width: 100%;
+}
+
 @-webkit-keyframes rubberBand {
   from {
     -webkit-transform: scale3d(1, 1, 1);
