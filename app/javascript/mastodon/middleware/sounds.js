@@ -34,6 +34,36 @@ export default function soundsMiddleware() {
         type: 'audio/mpeg',
       },
     ]),
+    faaa: createAudio([
+      {
+        src: '/sounds/faaa.ogg',
+        type: 'audio/ogg',
+      },
+      {
+        src: '/sounds/faaa.mp3',
+        type: 'audio/mpeg',
+      },
+    ]),
+    dosa: createAudio([
+      {
+        src: '/sounds/dosa.ogg',
+        type: 'audio/ogg',
+      },
+      {
+        src: '/sounds/dosa.mp3',
+        type: 'audio/mpeg',
+      },
+    ]),
+    tett: createAudio([
+      {
+        src: '/sounds/tett.ogg',
+        type: 'audio/ogg',
+      },
+      {
+        src: '/sounds/tett.mp3',
+        type: 'audio/mpeg',
+      },
+    ]),
   };
 
   return () => next => action => {
