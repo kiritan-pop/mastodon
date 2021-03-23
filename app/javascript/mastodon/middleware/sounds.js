@@ -64,6 +64,26 @@ export default function soundsMiddleware() {
         type: 'audio/mpeg',
       },
     ]),
+    nank: createAudio([
+      {
+        src: '/sounds/nank.ogg',
+        type: 'audio/ogg',
+      },
+      {
+        src: '/sounds/nank.mp3',
+        type: 'audio/mpeg',
+      },
+    ]),
+    bbhr: createAudio([
+      {
+        src: '/sounds/bbhr.ogg',
+        type: 'audio/ogg',
+      },
+      {
+        src: '/sounds/bbhr.mp3',
+        type: 'audio/mpeg',
+      },
+    ]),
   };
 
   return () => next => action => {
