@@ -91,14 +91,14 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
         type: NOTIFICATIONS_UPDATE,
         notification,
         usePendingItems: preferPendingItems,
-        meta: (playSound && !filtered) ? (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : { sound: 'boop' } : undefined,
+        meta: (playSound && !filtered) ? (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : { sound: 'boop' } : undefined,
       });
 
       fetchRelatedRelationships(dispatch, [notification]);
     } else if (playSound && !filtered) {
       dispatch({
         type: NOTIFICATIONS_UPDATE_NOOP,
-        meta: (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : { sound: 'boop' },
+        meta: (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : { sound: 'boop' },
       });
     }
 
