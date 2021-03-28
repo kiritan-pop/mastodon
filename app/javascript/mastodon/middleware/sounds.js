@@ -19,6 +19,7 @@ const play = audio => {
     }
   }
 
+  audio.volume = 0.7;
   audio.play();
 };
 
