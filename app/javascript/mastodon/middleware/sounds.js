@@ -85,6 +85,16 @@ export default function soundsMiddleware() {
         type: 'audio/mpeg',
       },
     ]),
+    prpr: createAudio([
+      {
+        src: '/sounds/prpr.ogg',
+        type: 'audio/ogg',
+      },
+      {
+        src: '/sounds/prpr.mp3',
+        type: 'audio/mpeg',
+      },
+    ]),
   };
 
   return () => next => action => {

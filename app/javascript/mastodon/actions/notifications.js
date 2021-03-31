@@ -63,7 +63,8 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
     const showAlert    = getState().getIn(['settings', 'notifications', 'alerts', notification.type], true);
     const playSound    = getState().getIn(['settings', 'notifications', 'sounds', notification.type], true);
     const filters      = getFiltersRegex(getState(), { contextType: 'notifications' });
-
+    var today = new Date();
+    var aprilfool = (today.getMonth() === 3 && today.getDate() === 1) ? true : false;
     let filtered = false;
 
     if (['mention', 'status'].includes(notification.type)) {
@@ -91,14 +92,14 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
         type: NOTIFICATIONS_UPDATE,
         notification,
         usePendingItems: preferPendingItems,
-        meta: (playSound && !filtered) ? (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : { sound: 'boop' } : undefined,
+        meta: (playSound && !filtered) ? (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : (aprilfool) ? { sound: 'prpr'} : { sound: 'boop' } : undefined,
       });
 
       fetchRelatedRelationships(dispatch, [notification]);
     } else if (playSound && !filtered) {
       dispatch({
         type: NOTIFICATIONS_UPDATE_NOOP,
-        meta: (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : { sound: 'boop' },
+        meta: (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : (aprilfool) ? { sound: 'prpr' } : { sound: 'boop' },
       });
     }
 
