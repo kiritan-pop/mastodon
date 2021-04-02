@@ -35,6 +35,16 @@ export default function soundsMiddleware() {
         type: 'audio/mpeg',
       },
     ]),
+    nade: createAudio([
+      {
+        src: '/sounds/nade.ogg',
+        type: 'audio/ogg',
+      },
+      {
+        src: '/sounds/nade.mp3',
+        type: 'audio/mpeg',
+      },
+    ]),
     faaa: createAudio([
       {
         src: '/sounds/faaa.ogg',
