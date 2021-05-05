@@ -1,6 +1,6 @@
 import EXIF from 'exif-js';
 
-const MAX_IMAGE_PIXELS = 3840*3840; // 3840px * 3840px
+const MAX_IMAGE_PIXELS = 1920*1080; // 1920 * 1080px
 
 const _browser_quirks = {};
 
@@ -155,8 +155,13 @@ const processImage = (img, { width, height, orientation, type = 'image/png' }) =
 const resizeImage = (img, type = 'image/png') => new Promise((resolve, reject) => {
   const { width, height } = img;
 
-  const newWidth  = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (width / height)));
-  const newHeight = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (height / width)));
+  if (width * height > MAX_IMAGE_PIXELS) {
+    const newWidth = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (width / height)));
+    const newHeight = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (height / width)));
+  } else {
+    const newWidth = width;
+    const newHeight = height;
+  }
 
   checkCanvasReliability()
     .then(getOrientation(img, type))
