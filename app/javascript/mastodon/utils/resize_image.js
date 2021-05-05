@@ -155,13 +155,8 @@ const processImage = (img, { width, height, orientation, type = 'image/png' }) =
 const resizeImage = (img, type = 'image/png') => new Promise((resolve, reject) => {
   const { width, height } = img;
 
-  if (width * height > MAX_IMAGE_PIXELS) {
-    const newWidth = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (width / height)));
-    const newHeight = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (height / width)));
-  } else {
-    const newWidth = width;
-    const newHeight = height;
-  }
+  const newWidth = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (width / height)));
+  const newHeight = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (height / width)));
 
   checkCanvasReliability()
     .then(getOrientation(img, type))
