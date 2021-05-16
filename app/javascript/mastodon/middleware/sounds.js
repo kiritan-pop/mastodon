@@ -1,10 +1,11 @@
 const createAudio = sources => {
   const audio = new Audio();
-  sources.forEach(({ type, src }) => {
+  sources.forEach(({ type, src, vol }) => {
     const source = document.createElement('source');
     source.type = type;
     source.src = src;
     audio.appendChild(source);
+    audio.volume = vol
   });
   return audio;
 };
@@ -19,7 +20,6 @@ const play = audio => {
     }
   }
 
-  audio.volume = 0.7;
   audio.play();
 };
 
@@ -29,80 +29,96 @@ export default function soundsMiddleware() {
       {
         src: '/sounds/boop.ogg',
         type: 'audio/ogg',
+        vol: 1.0,
       },
       {
         src: '/sounds/boop.mp3',
         type: 'audio/mpeg',
+        vol: 1.0,
       },
     ]),
     nade: createAudio([
       {
         src: '/sounds/nade.ogg',
         type: 'audio/ogg',
+        vol: 0.7,
       },
       {
         src: '/sounds/nade.mp3',
         type: 'audio/mpeg',
+        vol: 0.7,
       },
     ]),
     faaa: createAudio([
       {
         src: '/sounds/faaa.ogg',
         type: 'audio/ogg',
+        vol: 0.5,
       },
       {
         src: '/sounds/faaa.mp3',
         type: 'audio/mpeg',
+        vol: 0.5,
       },
     ]),
     dosa: createAudio([
       {
         src: '/sounds/dosa.ogg',
         type: 'audio/ogg',
+        vol: 0.9,
       },
       {
         src: '/sounds/dosa.mp3',
         type: 'audio/mpeg',
+        vol: 0.9,
       },
     ]),
     tett: createAudio([
       {
         src: '/sounds/tett.ogg',
         type: 'audio/ogg',
+        vol: 0.7,
       },
       {
         src: '/sounds/tett.mp3',
         type: 'audio/mpeg',
+        vol: 0.7,
       },
     ]),
     nank: createAudio([
       {
         src: '/sounds/nank.ogg',
         type: 'audio/ogg',
+        vol: 0.9,
       },
       {
         src: '/sounds/nank.mp3',
         type: 'audio/mpeg',
+        vol: 0.9,
       },
     ]),
     bbhr: createAudio([
       {
         src: '/sounds/bbhr.ogg',
         type: 'audio/ogg',
+        vol: 1.0,
       },
       {
         src: '/sounds/bbhr.mp3',
         type: 'audio/mpeg',
+        vol: 1.0,
       },
     ]),
     prpr: createAudio([
       {
         src: '/sounds/prpr.ogg',
         type: 'audio/ogg',
+        vol: 1.0,
       },
       {
         src: '/sounds/prpr.mp3',
         type: 'audio/mpeg',
+        vol: 1.0,
       },
     ]),
   };
