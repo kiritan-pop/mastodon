@@ -69,7 +69,7 @@ class Compose extends React.PureComponent {
     if (!isSearchPage) {
       this.props.dispatch(mountCompose());
     }
-    this.props.dispatch(fetchAnnouncements());
+    setTimeout(() => this.props.dispatch(fetchAnnouncements()), 700);
   }
 
   componentWillUnmount () {
