@@ -330,10 +330,15 @@ class Formatter
        [/(＜＜＜[^＞]+＞＞＞)/, 'flip'],
        [/(「「「[^」]+」」」)/, 'rotate90']
       ].map {|scan_re, class_name|
-        match_result = html.scan(scan_re).uniq.map { |animate_text, _|
-          loop = true
-          html = html.gsub(animate_text, "<span class=\"#{class_name}\"><span>#{animate_text[3...-3]}</span></span>")
-        }
+        match_result = html.scan(scan_re).uniq
+        if !match_result.empty? then
+          match_result.map { |animate_text, _|
+            if animate_text then
+              loop = true
+              html = html.gsub(animate_text, "<span class=\"#{class_name}\"><span>#{animate_text[3...-3]}</span></span>")
+            end
+          }
+        end
       }
     end
     html
