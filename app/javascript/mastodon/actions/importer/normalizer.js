@@ -10,56 +10,6 @@ const makeEmojiMap = record => record.all_emojis.reduce((obj, emoji) => {
   return obj;
 }, {});
 
-const kiriAminefy = (text) => {
-  var tmp_content = text;
-  var loop = true
-  while(loop){
-    loop = false
-    var match_result = tmp_content.match(/(\(\(\([^\)]+\)\)\))|(（（（[^）]+）））)/g);
-    if (match_result && match_result.length > 0) {
-      loop = true
-      for (let p of match_result) {
-        var replacement = `<span class="rubberband"><span>${p.slice(3, -3)}</span></span>`;
-        tmp_content = tmp_content.replace(p, replacement);
-      }
-    }
-    var match_result = tmp_content.match(/(\[\[\[[^\]]+\]\]\])|(［［［[^］]+］］］)/g);
-    if (match_result && match_result.length > 0) {
-      loop = true
-      for (let p of match_result) {
-        var replacement = `<span class="spin"><span>${p.slice(3, -3)}</span></span>`;
-        tmp_content = tmp_content.replace(p, replacement);
-      }
-    }
-    var match_result = tmp_content.match(/(\{\{\{[^\}]+\}\}\})|(｛｛｛[^｝]+｝｝｝)/g);
-    if (match_result && match_result.length > 0) {
-      loop = true
-      for (let p of match_result) {
-        var replacement = `<span class="jump"><span>${p.slice(3, -3)}</span></span>`;
-        tmp_content = tmp_content.replace(p, replacement);
-      }
-    }
-    var match_result = tmp_content.match(/(＜＜＜[^＞]+＞＞＞)/g);
-    if (match_result && match_result.length > 0) {
-      loop = true
-      for (let p of match_result) {
-        var replacement = `<span class="flip"><span>${p.slice(3, -3)}</span></span>`;
-        tmp_content = tmp_content.replace(p, replacement);
-      }
-    }
-    var match_result = tmp_content.match(/(「「「[^」]+」」」)/g);
-    if (match_result && match_result.length > 0) {
-      loop = true
-      for (let p of match_result) {
-        var replacement = `<span class="rotate90"><span>${p.slice(3, -3)}</span></span>`;
-        tmp_content = tmp_content.replace(p, replacement);
-      }
-    }
-  }
-
-  return tmp_content;
-}
-
 export function searchTextFromRawStatus (status) {
   const spoilerText   = status.spoiler_text || '';
   const searchContent = ([spoilerText, status.content].concat((status.poll && status.poll.options) ? status.poll.options.map(option => option.title) : [])).concat(status.media_attachments.map(att => att.description)).join('\n\n').replace(/<br\s*\/?>/g, '\n').replace(/<\/p><p>/g, '\n\n');
@@ -125,7 +75,7 @@ export function normalizeStatus(status, normalOldStatus) {
     const emojiMap      = makeEmojiMap(normalStatus);
 
     normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
-    normalStatus.contentHtml  = kiriAminefy(emojify(normalStatus.content, emojiMap));
+    normalStatus.contentHtml  = emojify(normalStatus.content, emojiMap);
     normalStatus.spoilerHtml  = emojify(escapeTextContentForBrowser(spoilerText), emojiMap);
     normalStatus.hidden       = expandSpoilers ? false : spoilerText.length > 0 || normalStatus.sensitive;
   }
@@ -150,7 +100,7 @@ export function normalizeAnnouncement(announcement) {
   const normalAnnouncement = { ...announcement };
   const emojiMap = makeEmojiMap(normalAnnouncement);
 
-  normalAnnouncement.contentHtml = kiriAminefy(emojify(normalAnnouncement.content, emojiMap));
+  normalAnnouncement.contentHtml = emojify(normalAnnouncement.content, emojiMap);
 
   return normalAnnouncement;
 }

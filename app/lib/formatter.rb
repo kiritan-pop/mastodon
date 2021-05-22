@@ -37,6 +37,7 @@ class Formatter
     html = "RT @#{prepend_reblog} #{html}" if prepend_reblog
     html = encode_and_link_urls(html, linkable_accounts)
     html = encode_custom_emojis(html, status.all_emojis, options[:autoplay]) if options[:custom_emojify]
+    html = encode_kirianimation(html)
     html = simple_format(html, {}, sanitize: false)
     html = html.delete("\n")
 
@@ -318,4 +319,24 @@ class Formatter
   def mention_html(account, with_domain: false)
     "<span class=\"h-card\"><a href=\"#{encode(ActivityPub::TagManager.instance.url_for(account))}\" class=\"u-url mention\">@<span>#{encode(with_domain ? account.pretty_acct : account.username)}</span></a></span>"
   end
+
+  def encode_kirianimation(html)
+    loop = true
+    while loop do
+      loop = false
+      [[/(\(\(\([^\)]+\)\)\))|(（（（[^）]+）））)/, 'rubberband'],
+       [/(\[\[\[[^\]]+\]\]\])|(［［［[^］]+］］］)/, 'spin'],
+       [/(\{\{\{[^\}]+\}\}\})|(｛｛｛[^｝]+｝｝｝)/, 'jump'],
+       [/(＜＜＜[^＞]+＞＞＞)/, 'flip'],
+       [/(「「「[^」]+」」」)/, 'rotate90']
+      ].map {|scan_re, class_name|
+        match_result = html.scan(scan_re).uniq.map { |animate_text, _|
+          loop = true
+          html = html.gsub(animate_text, "<span class=\"#{class_name}\"><span>#{animate_text[3...-3]}</span></span>")
+        }
+      }
+    end
+    html
+  end
+
 end
