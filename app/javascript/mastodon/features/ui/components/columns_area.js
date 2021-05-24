@@ -32,7 +32,7 @@ import ComposePanel from './compose_panel';
 import NavigationPanel from './navigation_panel';
 
 import { supportsPassiveEvents } from 'detect-passive-events';
-import { scrollRight, scrollTop } from '../../../scroll';
+import { scrollRight } from '../../../scroll';
 
 import IconButton from '../../../components/icon_button';
 import { countableText } from '../../compose/util/counter';
@@ -243,16 +243,16 @@ class ColumnsArea extends ImmutablePureComponent {
   onBlur = () => {
     this.props.onSync(this.props.text);
     setTimeout(() => {
-      scrollTop(window);
+      window.scrollTo({ top: 0 });
     }, 300);
   }
 
   onFocus = () => {
     setTimeout(() => {
-      scrollTop(window);
+      window.scrollTo({ top: 0 });
     }, 300);
   }
-
+  
   render () {
     const { columns, children, singleColumn, isModalOpen, intl } = this.props;
     const { shouldAnimate, renderComposePanel } = this.state;
