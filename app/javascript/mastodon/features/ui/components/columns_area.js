@@ -248,9 +248,9 @@ class ColumnsArea extends ImmutablePureComponent {
   }
 
   onFocus = () => {
-    setTimeout(() => {
-      window.scrollTo({ top: 0 });
-    }, 300);
+    // setTimeout(() => {
+    //   window.scrollTo({ top: 0 });
+    // }, 300);
   }
   
   render () {
