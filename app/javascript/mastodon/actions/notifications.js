@@ -92,14 +92,14 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
         type: NOTIFICATIONS_UPDATE,
         notification,
         usePendingItems: preferPendingItems,
-        meta: (playSound && !filtered) ? (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : (aprilfool) ? { sound: 'prpr'} : { sound: 'nade' } : undefined,
+        meta: (playSound && !filtered) ? (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'jan' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : (aprilfool) ? { sound: 'prpr'} : { sound: 'nade' } : undefined,
       });
 
       fetchRelatedRelationships(dispatch, [notification]);
     } else if (playSound && !filtered) {
       dispatch({
         type: NOTIFICATIONS_UPDATE_NOOP,
-        meta: (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'dosa' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : (aprilfool) ? { sound: 'prpr' } : { sound: 'nade' },
+        meta: (notification.type === 'reblog') ? { sound: 'faaa' } : (notification.type === 'mention') ? { sound: 'jan' } : (notification.type === 'follow') ? { sound: 'tett' } : (notification.type === 'poll') ? { sound: 'nank' } : (notification.type === 'status') ? { sound: 'bbhr' } : (aprilfool) ? { sound: 'prpr' } : { sound: 'nade' },
       });
     }
 

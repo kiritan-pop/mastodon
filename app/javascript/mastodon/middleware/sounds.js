@@ -121,7 +121,18 @@ export default function soundsMiddleware() {
         vol: 1.0,
       },
     ]),
-  };
+    jan: createAudio([
+      {
+        src: '/sounds/jan.ogg',
+        type: 'audio/ogg',
+        vol: 0.6,
+      },
+      {
+        src: '/sounds/jan.mp3',
+        type: 'audio/mpeg',
+        vol: 0.6,
+      },
+    ]),  };
 
   return () => next => action => {
     if (action.meta && action.meta.sound && soundCache[action.meta.sound]) {
