@@ -48,13 +48,32 @@ body::before{
 }
 
 // その他色合わせ
-.emoji-picker-dropdown__menu,
-.emoji-mart, .emoji-mart *,
-.emoji-mart-category-label span,
-.emoji-mart-search input,
-.dropdown-menu, .dropdown-menu__item a,
-.getting-started__trends
- {
-  color: $ui-secondary-color;
+.emoji-picker-dropdown__menu {
   background: $ui-base-color;
- }
+  .emoji-mart-search input,
+  .emoji-mart,
+  .emoji-mart-bar
+  {
+    color: $ui-secondary-color;
+    background: $ui-base-color;
+  }
+  .emoji-mart-anchor{
+    color: $ui-secondary-color;
+    &:hover {
+      color: darken($ui-secondary-color, 4%);
+    }
+  }
+  .emoji-mart-anchor-selected{
+    color: $highlight-text-color;
+    &:hover {
+      color: darken($highlight-text-color, 4%);
+    }
+  }
+  .emoji-mart-search,
+  .emoji-mart-scroll,
+  .emoji-mart-category-label span
+  {
+    background: $ui-base-color;
+  }
+}
+
