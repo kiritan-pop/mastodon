@@ -8,7 +8,10 @@ module Friends
     class Emoji < ActiveModelSerializers::Model
       SHORTCODE_RE_FRAGMENT = /@(#{Account::USERNAME_RE})(?:@([a-z0-9\.\-]+[a-z0-9]+))?/i
 
-      SCAN_RE = /(:#{SHORTCODE_RE_FRAGMENT}:)/x        
+      # SCAN_RE = /(:#{SHORTCODE_RE_FRAGMENT}:)/x        
+      SCAN_RE = /(?<=[^[:digit:]]|\n|^)
+        (:#{SHORTCODE_RE_FRAGMENT}:)
+        (?=[^[:digit:]]|$)/x
       attributes :account, :shortcode
 
       Image = Struct.new(:source) do
