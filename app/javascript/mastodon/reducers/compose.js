@@ -114,7 +114,6 @@ function clearAll(state) {
     map.update('media_attachments', list => list.clear());
     map.set('poll', null);
     map.set('idempotencyKey', uuid());
-    map.set('local_only', false)
   });
 };
 
