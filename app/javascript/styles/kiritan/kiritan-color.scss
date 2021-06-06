@@ -77,3 +77,11 @@ body::before{
   }
 }
 
+.react-toggle-track {
+  border: solid 1.5px rgba($base-border-color, .5);
+  box-sizing: border-box;
+}
+
+.react-toggle-thumb {
+    background: rgba($base-border-color, .5);
+}

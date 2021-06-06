@@ -23,6 +23,7 @@
 #  in_reply_to_account_id :bigint(8)
 #  poll_id                :bigint(8)
 #  deleted_at             :datetime
+#  local_only             :boolean          default(FALSE), not null
 #
 
 class Status < ApplicationRecord
@@ -106,6 +107,7 @@ class Status < ApplicationRecord
             .where("t#{id}.tag_id IS NULL")
     end
   }
+  scope :not_local_only, -> { where(local_only: false) }
 
   cache_associated :application,
                    :media_attachments,
@@ -259,6 +261,8 @@ class Status < ApplicationRecord
   after_create_commit :update_statistics, if: :local?
 
   around_create Mastodon::Snowflake::Callbacks
+
+  before_create :set_locality
 
   before_validation :prepare_contents, if: :local?
   before_validation :set_reblog
@@ -442,6 +446,21 @@ class Status < ApplicationRecord
     inbox_owners.each do |inbox_owner|
       AccountConversation.remove_status(inbox_owner, self)
     end
+  end
+
+  def set_locality
+    if account.domain.nil? && !will_save_change_to_attribute?(:local_only)
+      self.local_only = marked_local_only?
+    end
+  end
+
+  def marked_local_only?
+    # match both with and without U+FE0F (the emoji variation selector)
+    /#{local_only_emoji}\ufe0f?\z/.match?(content)
+  end
+
+  def local_only_emoji
+    '👁'
   end
 
   include Friends::ProfileEmoji::StatusExtension

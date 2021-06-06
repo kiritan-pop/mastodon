@@ -21,6 +21,8 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { length } from 'stringz';
 import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
+import classNames from 'classnames';
+import Toggle from 'react-toggle';
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 
@@ -29,6 +31,7 @@ const messages = defineMessages({
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
   publish: { id: 'compose_form.publish', defaultMessage: 'Toot' },
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}!' },
+  local_only: { id: 'compose_form.local_only', defaultMessage: 'local only' },
 });
 
 const iconStyle = {
@@ -69,6 +72,8 @@ class ComposeForm extends ImmutablePureComponent {
     showSearch: PropTypes.bool,
     anyMedia: PropTypes.bool,
     singleColumn: PropTypes.bool,
+    localOnly: PropTypes.bool,
+    onChangeLocalOnly: PropTypes.func,
   };
 
   static defaultProps = {
@@ -239,6 +244,10 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onPickEmoji(position, data, needsSpace);
   }
 
+  onChangeLocalOnly = () => {
+    this.props.onChangeLocalOnly();
+  }
+
   render () {
     const { intl, onPaste, showSearch } = this.props;
     const disabled = this.props.isSubmitting;
@@ -249,6 +258,24 @@ class ComposeForm extends ImmutablePureComponent {
     } else {
       publishText = this.props.privacy !== 'unlisted' ? intl.formatMessage(messages.publishLoud, { publish: intl.formatMessage(messages.publish) }) : intl.formatMessage(messages.publish);
     }
+
+    const LocalOnlyToggle = 
+      <div
+        className={classNames('compose-form__local-only', {
+          'toggled-off': !this.props.localOnly,
+          'toggled-on': this.props.localOnly,
+        })}
+        onClick={this.onChangeLocalOnly}
+        onKeyDown={this.onChangeLocalOnly}
+        role='option'
+        tabIndex='0'
+        key='local_only'
+        data-index='local_only'
+        title={intl.formatMessage(messages.local_only)}
+        aria-label={intl.formatMessage(messages.local_only)}
+      >
+        <Toggle checked={this.props.localOnly} onChange={this.onChangeLocalOnly} />
+      </div>
 
     return (
       <div className='compose-form'>
@@ -302,6 +329,7 @@ class ComposeForm extends ImmutablePureComponent {
             <PollButtonContainer />
             <PrivacyDropdownContainer />
             <SpoilerButtonContainer />
+            {LocalOnlyToggle}
           </div>
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={this.getFulltextForCharacterCounting()} /></div>
         </div>

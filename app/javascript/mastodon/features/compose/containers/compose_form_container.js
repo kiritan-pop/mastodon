@@ -9,6 +9,7 @@ import {
   changeComposeSpoilerText,
   insertEmojiCompose,
   uploadCompose,
+  changeLocalOnly,
 } from '../../../actions/compose';
 
 const mapStateToProps = state => ({
@@ -25,6 +26,7 @@ const mapStateToProps = state => ({
   isUploading: state.getIn(['compose', 'is_uploading']),
   showSearch: state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
   anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
+  localOnly: state.getIn(['compose', 'local_only']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -67,6 +69,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   onPickEmoji (position, data, needsSpace) {
     dispatch(insertEmojiCompose(position, data, needsSpace));
+  },
+
+  onChangeLocalOnly() {
+    dispatch(changeLocalOnly());
   },
 
 });

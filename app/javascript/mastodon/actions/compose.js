@@ -63,6 +63,8 @@ export const COMPOSE_POLL_OPTION_CHANGE   = 'COMPOSE_POLL_OPTION_CHANGE';
 export const COMPOSE_POLL_OPTION_REMOVE   = 'COMPOSE_POLL_OPTION_REMOVE';
 export const COMPOSE_POLL_SETTINGS_CHANGE = 'COMPOSE_POLL_SETTINGS_CHANGE';
 
+export const COMPOSE_LOCALONLY_CHANGE = 'COMPOSE_LOCALONLY_CHANGE';
+
 const messages = defineMessages({
   uploadErrorLimit: { id: 'upload_error.limit', defaultMessage: 'File upload limit exceeded.' },
   uploadErrorPoll:  { id: 'upload_error.poll', defaultMessage: 'File upload not allowed with polls.' },
@@ -138,7 +140,7 @@ export function submitCompose(routerHistory, vis = null) {
     }
 
     dispatch(submitComposeRequest());
-
+    
     api(getState).post('/api/v1/statuses', {
       status,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
@@ -147,6 +149,7 @@ export function submitCompose(routerHistory, vis = null) {
       spoiler_text: getState().getIn(['compose', 'spoiler']) ? getState().getIn(['compose', 'spoiler_text'], '') : '',
       visibility: vis ? vis : getState().getIn(['compose', 'privacy']),
       poll: getState().getIn(['compose', 'poll'], null),
+      local_only: getState().getIn(['compose', 'local_only'], false),
     }, {
       headers: {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
@@ -657,5 +660,11 @@ export function changePollSettings(expiresIn, isMultiple) {
     type: COMPOSE_POLL_SETTINGS_CHANGE,
     expiresIn,
     isMultiple,
+  };
+};
+
+export function changeLocalOnly() {
+  return {
+    type: COMPOSE_LOCALONLY_CHANGE,
   };
 };

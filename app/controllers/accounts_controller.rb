@@ -28,7 +28,7 @@ class AccountsController < ApplicationController
           return
         end
 
-        @pinned_statuses = cache_collection(@account.pinned_statuses, Status) if show_pinned_statuses?
+        @pinned_statuses = cache_collection(@account.pinned_statuses.not_local_only, Status) if show_pinned_statuses?
         @statuses        = cached_filtered_status_page
         @rss_url         = rss_url
 
@@ -73,7 +73,7 @@ class AccountsController < ApplicationController
   end
 
   def default_statuses
-    @account.statuses.where(visibility: [:public, :unlisted])
+    @account.statuses.not_local_only.where(visibility: [:public, :unlisted])
   end
 
   def only_media_scope

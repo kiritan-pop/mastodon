@@ -45,6 +45,7 @@ class Api::V1::StatusesController < Api::BaseController
                                          scheduled_at: status_params[:scheduled_at],
                                          application: doorkeeper_token.application,
                                          poll: status_params[:poll],
+                                         local_only: status_params[:local_only],
                                          idempotency: request.headers['Idempotency-Key'],
                                          with_rate_limit: true)
 
@@ -85,6 +86,7 @@ class Api::V1::StatusesController < Api::BaseController
       :spoiler_text,
       :visibility,
       :scheduled_at,
+      :local_only,
       media_ids: [],
       poll: [
         :multiple,

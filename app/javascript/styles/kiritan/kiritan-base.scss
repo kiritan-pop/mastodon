@@ -203,6 +203,11 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
     }
 }
 
+/*ローカル限定*/
+.status.status-local-only {
+  border-left: double 4px rgba($success-green, .3);
+}
+
 .emoji-mart-scroll {
   height: 500px;
   max-height: 90vh;
@@ -235,6 +240,10 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
 .drawer__inner__mastodon>img {
   object-position: center bottom;
   width: 100%;
+}
+
+.compose-form__local-only{
+  margin-left: 4px;
 }
 
 @-webkit-keyframes rubberBand {

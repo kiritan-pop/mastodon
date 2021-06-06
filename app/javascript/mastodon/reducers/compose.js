@@ -39,6 +39,7 @@ import {
   COMPOSE_POLL_OPTION_CHANGE,
   COMPOSE_POLL_OPTION_REMOVE,
   COMPOSE_POLL_SETTINGS_CHANGE,
+  COMPOSE_LOCALONLY_CHANGE,
 } from '../actions/compose';
 import {
   COMPOSE_SYNC_KIRI,
@@ -81,6 +82,7 @@ const initialState = ImmutableMap({
   resetFileKey: Math.floor((Math.random() * 0x10000)),
   idempotencyKey: null,
   tagHistory: ImmutableList(),
+  local_only: false,
 });
 
 const initialPoll = ImmutableMap({
@@ -112,6 +114,7 @@ function clearAll(state) {
     map.update('media_attachments', list => list.clear());
     map.set('poll', null);
     map.set('idempotencyKey', uuid());
+    map.set('local_only', false)
   });
 };
 
@@ -311,6 +314,8 @@ export default function compose(state = initialState, action) {
         map.set('spoiler', false);
         map.set('spoiler_text', '');
       }
+
+      map.set('local_only', action.status.get('local_only'));
     });
   case COMPOSE_REPLY_CANCEL:
   case COMPOSE_RESET:
@@ -429,6 +434,9 @@ export default function compose(state = initialState, action) {
           expires_in: expiresInFromExpiresAt(action.status.getIn(['poll', 'expires_at'])),
         }));
       }
+
+      map.set('local_only', action.status.get('local_only'));
+
     });
   case COMPOSE_POLL_ADD:
     return state.set('poll', initialPoll);
@@ -446,6 +454,9 @@ export default function compose(state = initialState, action) {
     return state
       .set('text', action.text)
       .set('idempotencyKey', uuid());
+  case COMPOSE_LOCALONLY_CHANGE:
+    return state
+      .set('local_only', !state.get('local_only'))
   default:
     return state;
   }
