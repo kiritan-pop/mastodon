@@ -23,7 +23,7 @@
 #  in_reply_to_account_id :bigint(8)
 #  poll_id                :bigint(8)
 #  deleted_at             :datetime
-#  local_only             :boolean          default(FALSE), not null
+#  local_only             :boolean
 #
 
 class Status < ApplicationRecord
@@ -107,7 +107,7 @@ class Status < ApplicationRecord
             .where("t#{id}.tag_id IS NULL")
     end
   }
-  scope :not_local_only, -> { where(local_only: false) }
+  scope :not_local_only, -> { where(local_only: [false, nil]) }
 
   cache_associated :application,
                    :media_attachments,
