@@ -204,7 +204,7 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
 }
 
 /*ローカル限定*/
-.status.status-local-only:before {
+.status.status-local-only::before {
   content: "";
   position: absolute;
   top: 0;
@@ -214,6 +214,15 @@ a:not([href*="kiritan.work"])[class="status__display-name"]  {
   height: 100%;
   border-left: solid 4px rgba($success-green, .7);
   pointer-events: none;
+}
+
+.notification,
+.status__wrapper {
+  &.unread {
+    &::before {
+      border-left: 4px solid $highlight-text-color;
+    }
+  }
 }
 
 .emoji-mart-scroll {
