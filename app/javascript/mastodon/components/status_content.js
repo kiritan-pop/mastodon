@@ -51,8 +51,6 @@ export default class StatusContent extends React.PureComponent {
       if (link.classList.contains('profile-emoji')) {
         const accountName = link.getAttribute('data-account-name') || '';
         const profileEmoji = this.props.status.get('profile_emojis').find(item => accountName === item.get('shortcode'));
-        this.props.status.get('profile_emojis').forEach(e => {
-        })
         if (profileEmoji) {
           link.addEventListener('click', this.onProfileEmojiClick.bind(this, profileEmoji), false);
         }
