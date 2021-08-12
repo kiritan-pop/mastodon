@@ -32,6 +32,7 @@ default: &default
     - .woff
     - .woff2
     - .jp2
+    - .webp
 
   extensions:
     - .mjs
@@ -48,6 +49,7 @@ default: &default
     - .jpeg
     - .jpg
     - .jp2
+    - .webp
 
 development:
   <<: *default
