@@ -322,7 +322,8 @@ class Formatter
 
   def encode_kirianimation(html)
     loop = true
-    while loop do
+    cnt = 0
+    while loop && cnt < 6 do
       loop = false
       [[/(\(\(\([^\)]+\)\)\))/, 'rubberband'],
        [/(（（（[^）]+）））)/, 'rubberband'],
@@ -335,6 +336,7 @@ class Formatter
       ].map {|scan_re, class_name|
         html.scan(scan_re).uniq.compact.map {|animate_text, _|
           loop = true
+          cnt += 1
           html = html.gsub(animate_text, "<span class=\"#{class_name}\"><span>#{animate_text[3...-3]}</span></span>")
         }
       }
