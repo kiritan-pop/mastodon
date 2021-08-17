@@ -323,7 +323,7 @@ class Formatter
   def encode_kirianimation(html)
     loop = true
     cnt = 0
-    while loop && cnt < 6 do
+    while loop && cnt < 10 do
       loop = false
       [[/(\(\(\([^\)]+\)\)\))/, 'rubberband'],
        [/(（（（[^）]+）））)/, 'rubberband'],
