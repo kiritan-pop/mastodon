@@ -569,7 +569,7 @@ GEM
       sidekiq
     sidekiq-failures (1.0.0)
       sidekiq (>= 4.0.0)
-    sidekiq-history (0.0.11)
+    sidekiq-history (0.0.12)
       sidekiq (>= 3.0.0)
     sidekiq-scheduler (3.0.1)
       e2mmap
