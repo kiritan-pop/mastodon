@@ -166,6 +166,7 @@ GEM
     crass (1.0.6)
     css_parser (1.7.1)
       addressable
+    date (3.2.2)
     debug_inspector (1.0.0)
     devise (4.8.0)
       bcrypt (~> 3.0)
@@ -289,6 +290,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
     idn-ruby (0.1.0)
+    io-wait (0.2.1)
     ipaddress (0.8.3)
     iso-639 (0.3.5)
     jmespath (1.4.0)
@@ -365,6 +367,8 @@ GEM
       time
     net-ldap (0.17.0)
     net-protocol (0.1.0)
+      io-wait
+      timeout
     net-scp (3.0.0)
       net-ssh (>= 2.6.5, < 7.0.0)
     net-ssh (6.1.0)
@@ -622,6 +626,8 @@ GEM
       e2mmap
     tilt (2.0.10)
     time (0.1.0)
+      date
+    timeout (0.2.0)
     tpm-key_attestation (0.9.0)
       bindata (~> 2.4)
       openssl-signature_algorithm (~> 0.4.0)
@@ -778,6 +784,7 @@ DEPENDENCIES
   redis (~> 4.2)
   redis-namespace (~> 1.8)
   resolv (~> 0.1.0)
+  rexml (~> 3.2, >= 3.2.4)
   rqrcode (~> 2.0)
   rspec-rails (~> 5.0)
   rspec-sidekiq (~> 3.1)
@@ -816,4 +823,4 @@ RUBY VERSION
    ruby 2.7.2p137
 
 BUNDLED WITH
-   2.1.4
+   2.2.28
