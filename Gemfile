@@ -89,7 +89,7 @@ gem 'sidekiq-history'
 gem 'sidekiq-statistic'
 gem 'simple-navigation', '~> 4.3'
 gem 'simple_form', '~> 5.1'
-gem 'sprockets-rails', '~> 3.2', require: 'sprockets/railtie'
+gem 'sprockets-rails', '~> 3.4', require: 'sprockets/railtie'
 gem 'stoplight', '~> 2.2.1'
 gem 'strong_migrations', '~> 0.7'
 gem 'tty-prompt', '~> 0.23', require: false
