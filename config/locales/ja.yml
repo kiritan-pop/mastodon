@@ -1352,8 +1352,8 @@ ja:
   themes:
     contrast: Mastodon (ハイコントラスト)
     default: きりたん丼
-    origin: Mastodon (ダーク)
     mastodon-light: Mastodon (ライト)
+    origin: Mastodon (ダーク)
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
