@@ -58,7 +58,7 @@ const messages = defineMessages({
   publish: { id: 'compose_form.publish', defaultMessage: 'Toot' },
 });
 
-const shouldHideFAB = path => path.match(/^\/statuses\/|^\/search|^\/getting-started|^\/start|^\/accounts/);
+const shouldHideFAB = path => path.match(/^\/statuses\/|^\/@[^/]+\/\d+|^\/publish|^\/explore|^\/getting-started|^\/start|^\/search|^\/accounts/);
 
 export default @(component => injectIntl(component, { withRef: true }))
 class ColumnsArea extends ImmutablePureComponent {
@@ -258,7 +258,7 @@ class ColumnsArea extends ImmutablePureComponent {
     const disabledButton = disabled || length(text) > 500 || (text.length !== 0 && text.trim().length === 0);
 
     if (singleColumn) {
-      const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <Link key='floating-action-button' to='/statuses/new' className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}><Icon id='edit' /></Link>;
+      const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <Link key='floating-action-button' to='/publish' className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}><Icon id='edit' /></Link>;
       const iconButtonKiri =
         <IconButton
           className='button icon-button-kiri'

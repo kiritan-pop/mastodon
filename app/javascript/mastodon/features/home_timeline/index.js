@@ -115,6 +115,7 @@ class HomeTimeline extends React.PureComponent {
     // const { intl, shouldUpdateScroll, hasUnread, columnId, multiColumn } = this.props;
     // const { intl, hasUnread, columnId, multiColumn, hasAnnouncements, unreadAnnouncements, showAnnouncements } = this.props;
     const { intl, hasUnread, columnId, multiColumn } = this.props;
+    // const { intl, hasUnread, columnId, multiColumn, hasAnnouncements, unreadAnnouncements, showAnnouncements } = this.props;
     const pinned = !!columnId;
 
     // let announcementsButton = null;

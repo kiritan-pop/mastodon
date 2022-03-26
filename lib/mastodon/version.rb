@@ -9,15 +9,15 @@ module Mastodon
     end
 
     def minor
-      4
+      5
     end
 
     def patch
-      6
+      0
     end
 
     def flags
-      ''
+      'rc3'
     end
 
     def suffix
