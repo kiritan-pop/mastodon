@@ -12,7 +12,7 @@
             %span.poll__number><
               = "#{percent.round}%"
             %span.poll__option__text
-              = prerender_custom_emojis(h(option.title), status.emojis)
+              = prerender_custom_emojis(h(option.title), status.all_emojis)
             - if own_votes.include?(index)
               %span.poll__voted
                 %i.poll__voted__mark.fa.fa-check
@@ -23,7 +23,7 @@
           %label.poll__option><
             %span.poll__input{ class: poll.multiple? ? 'checkbox' : nil}><
             %span.poll__option__text
-              = prerender_custom_emojis(h(option.title), status.emojis)
+              = prerender_custom_emojis(h(option.title), status.all_emojis)
   .poll__footer
     - unless show_results
       %button.button.button-secondary{ disabled: true }
