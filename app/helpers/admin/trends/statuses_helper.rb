@@ -12,6 +12,6 @@ module Admin::Trends::StatusesHelper
 
     return '' if text.blank?
 
-    prerender_custom_emojis(h(text), status.emojis)
+    prerender_custom_emojis(h(text), status.all_emojis)
   end
 end
