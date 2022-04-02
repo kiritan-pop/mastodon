@@ -5,6 +5,10 @@
   content: "\f1b0" ;
 }
 
+.compose-form__publish-button-wrapper.button--block{
+    margin: 0;
+}
+
 .icon-button-kiri {
     color: $primary-text-color;
     background: $ui-highlight-color;
