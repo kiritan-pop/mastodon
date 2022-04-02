@@ -58,7 +58,7 @@ const messages = defineMessages({
   publish: { id: 'compose_form.publish', defaultMessage: 'Toot' },
 });
 
-const shouldHideFAB = path => path.match(/^\/statuses\/|^\/@[^/]+\/\d+|^\/publish|^\/explore|^\/getting-started|^\/start|^\/search|^\/accounts/);
+const shouldHideFAB = path => path.match(/^\/statuses\/|^\/@[^/]+\/\d+|^\/publish|^\/explore|^\/getting-started|^\/start|^\/@[^/]+$/);
 
 export default @(component => injectIntl(component, { withRef: true }))
 class ColumnsArea extends ImmutablePureComponent {
@@ -268,7 +268,7 @@ class ColumnsArea extends ImmutablePureComponent {
           expanded={true}
           active={false}
           onClick={this.handleSubmit}
-          style={{ height: null, lineHeight: '30px' }}
+          style={{ height: null, width: null, lineHeight: null }}
           disabled={disabledButton}
           block
         />

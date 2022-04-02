@@ -354,7 +354,7 @@ class ComposeForm extends ImmutablePureComponent {
               expanded={true}
               active={false}
               onClick={this.handleSubmitUnlisted}
-              style={{ height: null, lineHeight: '30px' }}
+              style={{ height: null, width: null, lineHeight: null}}
               disabled={!this.canSubmit()}
               block
             />
@@ -368,7 +368,7 @@ class ComposeForm extends ImmutablePureComponent {
               expanded={true}
               active={false}
               onClick={this.handleSubmitPrivate}
-              style={{ height: null, lineHeight: '30px' }}
+              style={{ height: null, width: null, lineHeight: null}}
               disabled={!this.canSubmit()}
               block
             />
