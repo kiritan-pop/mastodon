@@ -48,7 +48,8 @@ body::before{
 }
 
 // その他色合わせ
-.emoji-picker-dropdown__menu {
+.emoji-picker-dropdown__menu,
+.language-dropdown__dropdown {
   background: $ui-base-color;
   .emoji-mart-search input,
   .emoji-mart,
@@ -57,10 +58,12 @@ body::before{
     color: $ui-secondary-color;
     background: $ui-base-color;
   }
-  .emoji-mart-anchor{
+  .emoji-mart-anchor,
+  .language-dropdown__dropdown__results__item {
     color: $ui-secondary-color;
     &:hover {
       color: darken($ui-secondary-color, 4%);
+      background: lighten($ui-base-color, 20%);
     }
   }
   .emoji-mart-anchor-selected{
