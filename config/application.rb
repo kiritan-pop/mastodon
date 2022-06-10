@@ -175,5 +175,7 @@ module Mastodon
       Devise::FailureApp.send :include, AbstractController::Callbacks
       Devise::FailureApp.send :include, Localized
     end
+
+    config.middleware.delete ActionDispatch::HostAuthorization
   end
 end
