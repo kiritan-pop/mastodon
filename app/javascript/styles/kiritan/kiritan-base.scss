@@ -11,16 +11,14 @@
 
 .icon-button-kiri {
     color: $primary-text-color;
-    background: $ui-highlight-color;
-    height: 36px;
-    width: 36px;
+    background-color: darken($ui-highlight-color, 2%);
     margin: 0 2px 0 0;
 
   &:active,
   &:focus,
   &:hover {
     color: $primary-text-color;
-    background-color: lighten($ui-highlight-color, 10%);
+    background-color: $ui-highlight-color;
     transition: all 200ms ease-out;
   }
 }
@@ -64,7 +62,7 @@
 
 .status {
   padding: 4px 4px;
-  padding-left: 68px;
+  padding-left: 8px;
 }
 
 .status__action-bar{
@@ -100,9 +98,9 @@
   border-radius: 10px ; 
 }
 
-.compose-form__publish-button-wrapper > .button {
-  border-radius: 10px ;
-}
+// .compose-form__publish-button-wrapper > .button {
+//   border-radius: 10px ;
+// }
 
 /* textarea */
 .spoiler-input__input {
@@ -160,7 +158,7 @@
 }
 
 /*連合の表示*/
-a:not([href*="kiritan.work"])[class="status__display-name"]  {
+a:not([href*="kiritan.work"])a:not([href*="localhost"])[class="status__display-name"]  {
   background: rgba(0,0,255,0.4);
   .display-name:before  {
     content: '🌏';

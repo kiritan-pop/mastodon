@@ -4,14 +4,13 @@ import NavigationContainer from './containers/navigation_container';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
-import { mountCompose, unmountCompose } from '../../actions/compose';
+import { changeComposing, mountCompose, unmountCompose } from '../../actions/compose';
 import { Link } from 'react-router-dom';
 import { injectIntl, defineMessages } from 'react-intl';
 import SearchContainer from './containers/search_container';
 import Motion from '../ui/util/optional_motion';
 import spring from 'react-motion/lib/spring';
 import SearchResultsContainer from './containers/search_results_container';
-import { changeComposing } from '../../actions/compose';
 import { openModal } from 'mastodon/actions/modal';
 import elephantUIPlane from '../../../images/elephant_ui_plane.svg';
 import { mascot } from '../../initial_state';
@@ -21,6 +20,8 @@ import classNames from 'classnames';
 import IconWithBadge from 'mastodon/components/icon_with_badge';
 import { fetchAnnouncements, toggleShowAnnouncements } from 'mastodon/actions/announcements';
 import AnnouncementsContainer from 'mastodon/features/getting_started/containers/announcements_container';
+import Column from 'mastodon/components/column';
+import { Helmet } from 'react-helmet';
 
 const messages = defineMessages({
   start: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
@@ -39,7 +40,7 @@ const messages = defineMessages({
 
 const mapStateToProps = (state, ownProps) => ({
   columns: state.getIn(['settings', 'columns']),
-  showSearch: ownProps.multiColumn ? state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']) : ownProps.isSearchPage,
+  showSearch: ownProps.multiColumn ? state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']) : false,
   hasUnread: state.getIn(['timelines', 'home', 'unread']) > 0,
   isPartial: state.getIn(['timelines', 'home', 'isPartial']),
   hasAnnouncements: !state.getIn(['announcements', 'items']).isEmpty(),
@@ -56,7 +57,6 @@ class Compose extends React.PureComponent {
     columns: ImmutablePropTypes.list.isRequired,
     multiColumn: PropTypes.bool,
     showSearch: PropTypes.bool,
-    isSearchPage: PropTypes.bool,
     intl: PropTypes.object.isRequired,
     hasAnnouncements: PropTypes.bool,
     unreadAnnouncements: PropTypes.number,
@@ -64,20 +64,14 @@ class Compose extends React.PureComponent {
   };
 
   componentDidMount () {
-    const { isSearchPage } = this.props;
-
-    if (!isSearchPage) {
-      this.props.dispatch(mountCompose());
-    }
+    const { dispatch } = this.props;
+    dispatch(mountCompose());
     setTimeout(() => this.props.dispatch(fetchAnnouncements()), 700);
   }
 
   componentWillUnmount () {
-    const { isSearchPage } = this.props;
-
-    if (!isSearchPage) {
-      this.props.dispatch(unmountCompose());
-    }
+    const { dispatch } = this.props;
+    dispatch(unmountCompose());
   }
 
   handleLogoutClick = e => {
@@ -110,7 +104,7 @@ class Compose extends React.PureComponent {
   }
 
   render () {
-    const { multiColumn, showSearch, isSearchPage, intl, hasAnnouncements, unreadAnnouncements, showAnnouncements } = this.props;
+    const { multiColumn, showSearch, intl, hasAnnouncements, unreadAnnouncements, showAnnouncements } = this.props;
 
     let header = '';
     const announcementsButton = (
@@ -125,60 +119,72 @@ class Compose extends React.PureComponent {
       </button>
     );
 
+    const announcements = (
+      hasAnnouncements && <div className='announcements__kiriwrapper'>
+        {announcementsButton}
+        {hasAnnouncements && showAnnouncements && <AnnouncementsContainer />}
+      </div>
+    );
+
     if (multiColumn) {
       const { columns } = this.props;
-      header = (
-        <nav className='drawer__header'>
-          <Link to='/getting-started' className='drawer__tab' title={intl.formatMessage(messages.start)} aria-label={intl.formatMessage(messages.start)}><Icon id='bars' fixedWidth /></Link>
-          {!columns.some(column => column.get('id') === 'HOME') && (
-            <Link to='/home' className='drawer__tab' title={intl.formatMessage(messages.home_timeline)} aria-label={intl.formatMessage(messages.home_timeline)}><Icon id='home' fixedWidth /></Link>
-          )}
-          {!columns.some(column => column.get('id') === 'NOTIFICATIONS') && (
-            <Link to='/notifications' className='drawer__tab' title={intl.formatMessage(messages.notifications)} aria-label={intl.formatMessage(messages.notifications)}><Icon id='bell' fixedWidth /></Link>
-          )}
-          {!columns.some(column => column.get('id') === 'COMMUNITY') && (
-            <Link to='/public/local' className='drawer__tab' title={intl.formatMessage(messages.community)} aria-label={intl.formatMessage(messages.community)}><Icon id='users' fixedWidth /></Link>
-          )}
-          {!columns.some(column => column.get('id') === 'PUBLIC') && (
-            <Link to='/public' className='drawer__tab' title={intl.formatMessage(messages.public)} aria-label={intl.formatMessage(messages.public)}><Icon id='globe' fixedWidth /></Link>
-          )}
-          <a href='/settings/preferences' className='drawer__tab' title={intl.formatMessage(messages.preferences)} aria-label={intl.formatMessage(messages.preferences)}><Icon id='cog' fixedWidth /></a>
-          <a href='/auth/sign_out' className='drawer__tab' title={intl.formatMessage(messages.logout)} aria-label={intl.formatMessage(messages.logout)} onClick={this.handleLogoutClick}><Icon id='sign-out' fixedWidth /></a>
-        </nav>
+
+      return (
+        <div className='drawer' role='region' aria-label={intl.formatMessage(messages.compose)}>
+          <nav className='drawer__header'>
+            <Link to='/getting-started' className='drawer__tab' title={intl.formatMessage(messages.start)} aria-label={intl.formatMessage(messages.start)}><Icon id='bars' fixedWidth /></Link>
+            {!columns.some(column => column.get('id') === 'HOME') && (
+              <Link to='/home' className='drawer__tab' title={intl.formatMessage(messages.home_timeline)} aria-label={intl.formatMessage(messages.home_timeline)}><Icon id='home' fixedWidth /></Link>
+            )}
+            {!columns.some(column => column.get('id') === 'NOTIFICATIONS') && (
+              <Link to='/notifications' className='drawer__tab' title={intl.formatMessage(messages.notifications)} aria-label={intl.formatMessage(messages.notifications)}><Icon id='bell' fixedWidth /></Link>
+            )}
+            {!columns.some(column => column.get('id') === 'COMMUNITY') && (
+              <Link to='/public/local' className='drawer__tab' title={intl.formatMessage(messages.community)} aria-label={intl.formatMessage(messages.community)}><Icon id='users' fixedWidth /></Link>
+            )}
+            {!columns.some(column => column.get('id') === 'PUBLIC') && (
+              <Link to='/public' className='drawer__tab' title={intl.formatMessage(messages.public)} aria-label={intl.formatMessage(messages.public)}><Icon id='globe' fixedWidth /></Link>
+            )}
+            <a href='/settings/preferences' className='drawer__tab' title={intl.formatMessage(messages.preferences)} aria-label={intl.formatMessage(messages.preferences)}><Icon id='cog' fixedWidth /></a>
+            <a href='/auth/sign_out' className='drawer__tab' title={intl.formatMessage(messages.logout)} aria-label={intl.formatMessage(messages.logout)} onClick={this.handleLogoutClick}><Icon id='sign-out' fixedWidth /></a>
+          </nav>
+
+          {multiColumn && <SearchContainer /> }
+
+          <div className='drawer__pager'>
+            <div className='drawer__inner' onFocus={this.onFocus}>
+              <NavigationContainer onClose={this.onBlur} />
+
+              <ComposeFormContainer />
+              {announcements}
+
+              <div className='drawer__inner__mastodon'>
+                <img alt='' draggable='false' src={mascot || elephantUIPlane} />
+              </div>
+            </div>
+
+            <Motion defaultStyle={{ x: -100 }} style={{ x: spring(showSearch ? 0 : -100, { stiffness: 210, damping: 20 }) }}>
+              {({ x }) => (
+                <div className='drawer__inner darker' style={{ transform: `translateX(${x}%)`, visibility: x === -100 ? 'hidden' : 'visible' }}>
+                  <SearchResultsContainer />
+                </div>
+              )}
+            </Motion>
+          </div>
+        </div>
       );
     }
 
     return (
-      <div className='drawer' role='region' aria-label={intl.formatMessage(messages.compose)}>
-        {header}
+      <Column onFocus={this.onFocus}>
+        <NavigationContainer onClose={this.onBlur} />
+        <ComposeFormContainer />
+        {announcements}
 
-        {(multiColumn || isSearchPage) && <SearchContainer /> }
-
-        <div className='drawer__pager'>
-          {!isSearchPage && <div className='drawer__inner' onFocus={this.onFocus}>
-            <NavigationContainer onClose={this.onBlur} />
-
-            <ComposeFormContainer />
-
-            {hasAnnouncements && <div className='announcements__kiriwrapper'>
-              {announcementsButton}
-              {hasAnnouncements && showAnnouncements && <AnnouncementsContainer />}
-            </div>}
-
-            <div className='drawer__inner__mastodon'>
-              <img alt='' draggable='false' src={mascot || elephantUIPlane} />
-            </div>
-          </div>}
-
-          <Motion defaultStyle={{ x: isSearchPage ? 0 : -100 }} style={{ x: spring(showSearch || isSearchPage ? 0 : -100, { stiffness: 210, damping: 20 }) }}>
-            {({ x }) => (
-              <div className='drawer__inner darker' style={{ transform: `translateX(${x}%)`, visibility: x === -100 ? 'hidden' : 'visible' }}>
-                <SearchResultsContainer />
-              </div>
-            )}
-          </Motion>
-        </div>
-      </div>
+        <Helmet>
+          <meta name='robots' content='noindex' />
+        </Helmet>
+      </Column>
     );
   }
 

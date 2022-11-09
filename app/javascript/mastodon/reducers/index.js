@@ -17,7 +17,7 @@ import status_lists from './status_lists';
 import mutes from './mutes';
 import blocks from './blocks';
 import boosts from './boosts';
-import rules from './rules';
+import server from './server';
 import contexts from './contexts';
 import compose from './compose';
 import compose_kiri from './compose_kiri';
@@ -40,6 +40,7 @@ import markers from './markers';
 import picture_in_picture from './picture_in_picture';
 import accounts_map from './accounts_map';
 import history from './history';
+import tags from './tags';
 
 const reducers = {
   announcements,
@@ -62,7 +63,7 @@ const reducers = {
   mutes,
   blocks,
   boosts,
-  rules,
+  server,
   contexts,
   compose,
   compose_kiri,
@@ -83,6 +84,7 @@ const reducers = {
   markers,
   picture_in_picture,
   history,
+  tags,
 };
 
 export default combineReducers(reducers);
