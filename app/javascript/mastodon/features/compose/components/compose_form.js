@@ -162,6 +162,25 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onSubmitUnlisted(this.context.router ? this.context.router.history : null);
   }
 
+  // ＠ボタン用
+  handleSubmitDirect = () => {
+    if (this.props.text !== this.autosuggestTextarea.textarea.value) {
+      // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
+      // Update the state to match the current text
+      this.props.onChange(this.autosuggestTextarea.textarea.value);
+    }
+
+    // Submit disabled:
+    const { isSubmitting, isChangingUpload, isUploading, anyMedia } = this.props;
+    const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('');
+
+    if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > 500 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
+      return;
+    }
+
+    this.props.onSubmitDirect(this.context.router ? this.context.router.history : null);
+  }
+
   onSuggestionsClearRequested = () => {
     this.props.onClearSuggestions();
   }
@@ -376,6 +395,18 @@ class ComposeForm extends ImmutablePureComponent {
             expanded={true}
             active={false}
             onClick={this.handleSubmitPrivate}
+            style={{ height: null, width: null, lineHeight: null }}
+            disabled={!this.canSubmit()}
+            block
+          />
+          <IconButton
+            className='button button--block icon-button-kiri'
+            icon='at'
+            title='direct'
+            size={20}
+            expanded={true}
+            active={false}
+            onClick={this.handleSubmitDirect}
             style={{ height: null, width: null, lineHeight: null }}
             disabled={!this.canSubmit()}
             block

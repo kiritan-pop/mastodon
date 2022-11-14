@@ -10,6 +10,7 @@ $base-overlay-background:  rgba($base-shadow-color, .2);
 $base-border-color: $kiri-base-lighter-color;
 
 // Tell UI to use selected colors
+$ui-highlight-color: #2b90d9;
 $ui-base-color:  rgba($kiri-base-color, 0.8); 
 $ui-base-lighter-color: lighten(desaturate($ui-base-color, 30%), 30%); 
 $ui-primary-color:  $kiri-base-lighter-color;
