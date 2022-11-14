@@ -9,10 +9,13 @@
     margin: 0;
 }
 
+.compose-form__publish .button--block{
+    margin: 1px;
+}
+
 .icon-button-kiri {
     color: $primary-text-color;
     background-color: darken($ui-highlight-color, 2%);
-    margin: 0 2px 0 0;
 
   &:active,
   &:focus,
