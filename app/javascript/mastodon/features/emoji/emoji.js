@@ -75,7 +75,7 @@ const emojifyTextNode = (node, customEmojis) => {
 
     fragment.append(document.createTextNode(str.slice(0, i)));
     if (replacement) {
-      fragment.append(domParser.parseFromString(replacement, 'text/html').documentElement.getElementsByTagName('img')[0]);
+      fragment.append(domParser.parseFromString(replacement, 'text/html').body.firstChild);
     }
     node.textContent = str.slice(0, i);
     str = str.slice(rend);

@@ -95,9 +95,8 @@ class StatusContent extends React.PureComponent {
 
       if (link.classList.contains('profile-emoji')) {
         const accountName = link.getAttribute('data-account-name') || '';
-        const profileEmoji = this.props.status.get('profile_emojis').find(item => accountName === item.get('shortcode'));
-        if (profileEmoji) {
-          link.addEventListener('click', this.onProfileEmojiClick.bind(this, profileEmoji), false);
+        if (accountName){
+          link.addEventListener('click', this.onProfileEmojiClick.bind(this, accountName), false);
         }
       } else if (mention) {
         link.addEventListener('click', this.onMentionClick.bind(this, mention), false);
@@ -175,10 +174,10 @@ class StatusContent extends React.PureComponent {
     }
   }
   
-  onProfileEmojiClick = (profileEmoji, e) => {
+  onProfileEmojiClick = (shortcode, e) => {
     if (this.context.router && e.button === 0) {
       e.preventDefault();
-      this.context.router.history.push(`/accounts/${profileEmoji.get('account_id')}`);
+      this.context.router.history.push(`/${shortcode}`);
     }
   }
 
