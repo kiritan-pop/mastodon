@@ -66,6 +66,7 @@
 .status {
   padding: 4px 4px;
   padding-left: 12px;
+  border-bottom: 2px solid lighten($ui-base-color, 16%);
 }
 
 .status__action-bar{
