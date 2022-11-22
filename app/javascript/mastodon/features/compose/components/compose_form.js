@@ -66,6 +66,7 @@ class ComposeForm extends ImmutablePureComponent {
     onSubmit: PropTypes.func.isRequired,
     onSubmitPrivate: PropTypes.func.isRequired,
     onSubmitUnlisted: PropTypes.func.isRequired,
+    onSubmitDirect: PropTypes.func.isRequired,
     onClearSuggestions: PropTypes.func.isRequired,
     onFetchSuggestions: PropTypes.func.isRequired,
     onSuggestionSelected: PropTypes.func.isRequired,
@@ -125,7 +126,7 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
 // 鍵トゥートボタン用
-  handleSubmitPrivate = () => {
+  handleSubmitPrivate = (e) => {
     if (this.props.text !== this.autosuggestTextarea.textarea.value) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
       // Update the state to match the current text
@@ -141,10 +142,14 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     this.props.onSubmitPrivate(this.context.router ? this.context.router.history : null);
+
+    if (e) {
+      e.preventDefault();
+    }
   }
 
   // 未収載トゥートボタン用
-  handleSubmitUnlisted = () => {
+  handleSubmitUnlisted = (e) => {
     if (this.props.text !== this.autosuggestTextarea.textarea.value) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
       // Update the state to match the current text
@@ -160,10 +165,14 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     this.props.onSubmitUnlisted(this.context.router ? this.context.router.history : null);
+
+    if (e) {
+      e.preventDefault();
+    }
   }
 
   // ＠ボタン用
-  handleSubmitDirect = () => {
+  handleSubmitDirect = (e) => {
     if (this.props.text !== this.autosuggestTextarea.textarea.value) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
       // Update the state to match the current text
@@ -179,6 +188,10 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     this.props.onSubmitDirect(this.context.router ? this.context.router.history : null);
+
+    if (e) {
+      e.preventDefault();
+    }
   }
 
   onSuggestionsClearRequested = () => {
@@ -335,7 +348,8 @@ class ComposeForm extends ImmutablePureComponent {
             className='spoiler-input__input'
           />
         </div>
-
+        {/* {console.log("*** debug ***")}
+        {console.log(this.props.text)} */}
         <AutosuggestTextarea
           ref={this.setAutosuggestTextarea}
           placeholder={intl.formatMessage(messages.placeholder)}
