@@ -348,8 +348,6 @@ class ComposeForm extends ImmutablePureComponent {
             className='spoiler-input__input'
           />
         </div>
-        {console.log("**** debug ****")}
-        {console.log(this.props.text)}
         <AutosuggestTextarea
           ref={this.setAutosuggestTextarea}
           placeholder={intl.formatMessage(messages.placeholder)}
