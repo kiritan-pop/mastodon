@@ -24,6 +24,13 @@
     background-color: $ui-highlight-color;
     transition: all 200ms ease-out;
   }
+
+  &:disabled,
+  &.disabled {
+    background-color: $ui-primary-color;
+    color: $darker-text-color;
+    cursor: default;
+  }
 }
 
 .floating-action-button {

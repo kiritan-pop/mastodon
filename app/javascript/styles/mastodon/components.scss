@@ -86,6 +86,7 @@
   &:disabled,
   &.disabled {
     background-color: $ui-primary-color;
+    color: $darker-text-color;
     cursor: default;
   }
 
