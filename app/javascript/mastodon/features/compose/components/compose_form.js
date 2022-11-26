@@ -284,6 +284,7 @@ class ComposeForm extends ImmutablePureComponent {
   render () {
     const { intl, onPaste, showSearch } = this.props;
     const disabled = this.props.isSubmitting;
+    const isCansubmit = this.canSubmit();
 
     let publishText = '';
 
@@ -384,7 +385,7 @@ class ComposeForm extends ImmutablePureComponent {
             active={false}
             onClick={this.handleSubmitUnlisted}
             style={{ height: null, width: null, lineHeight: null }}
-            disabled={!this.canSubmit()}
+            disabled={!isCansubmit}
             block
           />
           <IconButton
@@ -396,7 +397,7 @@ class ComposeForm extends ImmutablePureComponent {
             active={false}
             onClick={this.handleSubmitPrivate}
             style={{ height: null, width: null, lineHeight: null }}
-            disabled={!this.canSubmit()}
+            disabled={!isCansubmit}
             block
           />
           <IconButton
@@ -408,13 +409,13 @@ class ComposeForm extends ImmutablePureComponent {
             active={false}
             onClick={this.handleSubmitDirect}
             style={{ height: null, width: null, lineHeight: null }}
-            disabled={!this.canSubmit()}
+            disabled={!isCansubmit}
             block
           />
           <Button
             type='submit'
             text={publishText}
-            disabled={!this.canSubmit()}
+            disabled={!isCansubmit}
             block
           />
         </div>
