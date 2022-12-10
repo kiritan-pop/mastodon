@@ -209,6 +209,8 @@ class ComposeForm extends ImmutablePureComponent {
         this.composeForm.scrollIntoView();
       }
     }
+    // 投稿内容入力時、二重になるやつが解消するかテスト用のデバッグコード
+    this.render();
   }
 
   componentDidMount () {
