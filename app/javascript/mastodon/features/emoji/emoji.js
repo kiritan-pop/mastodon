@@ -19,8 +19,6 @@ const emojiFilename = (filename) => {
   return borderedEmoji.includes(filename) ? (filename + '_border') : filename;
 };
 
-const domParser = new DOMParser();
-
 const emojifyTextNode = (node, customEmojis) => {
   let str = node.textContent;
 
@@ -39,7 +37,7 @@ const emojifyTextNode = (node, customEmojis) => {
       }
     }
 
-    let rend, replacement = '';
+    let rend, replacement = null;
     if (i === str.length) {
       break;
     } else if (str[i] === ':') {
@@ -51,13 +49,22 @@ const emojifyTextNode = (node, customEmojis) => {
         // if you want additional emoji handler, add statements below which set replacement and return true.
         if (shortname in customEmojis) {
           const filename = autoPlayGif ? customEmojis[shortname].url : customEmojis[shortname].static_url;
+          replacement = document.createElement('img');
+          replacement.setAttribute('draggable', false);
+          replacement.setAttribute('class', 'emojione custom-emoji');
+          replacement.setAttribute('alt', shortname);
+          replacement.setAttribute('title', shortname);
+          replacement.setAttribute('src', filename);
+          replacement.setAttribute('data-original', customEmojis[shortname].url);
+          replacement.setAttribute('data-static', customEmojis[shortname].static_url);
           if (shortname.indexOf('@') > -1){
-            replacement = `<a href="" class="profile-emoji" data-account-name="${shortname.slice(1,-1)}">`
-                  +   `<img draggable="false" class="emojione custom-emoji" alt="${shortname}" title="${shortname}" src="${filename}" data-original="${customEmojis[shortname].url}" data-static="${customEmojis[shortname].static_url}" />`
-                  + '</a>';
-          } else {
-            replacement = `<img draggable="false" class="emojione custom-emoji" alt="${shortname}" title="${shortname}" src="${filename}" data-original="${customEmojis[shortname].url}" data-static="${customEmojis[shortname].static_url}" />`;
-        }
+            let parent = document.createElement('a');
+            parent.setAttribute('href', '')
+            parent.setAttribute('class', 'profile-emoji')
+            parent.setAttribute('data-account-name', shortname.slice(1, -1))
+            parent.appendChild(replacement)
+            replacement = parent
+          }
           return true;
         }
         return false;
@@ -65,7 +72,12 @@ const emojifyTextNode = (node, customEmojis) => {
     } else { // matched to unicode emoji
       const { filename, shortCode } = unicodeMapping[match];
       const title = shortCode ? `:${shortCode}:` : '';
-      replacement = `<img draggable="false" class="emojione" alt="${match}" title="${title}" src="${assetHost}/emoji/${emojiFilename(filename)}.svg" />`;
+      replacement = document.createElement('img');
+      replacement.setAttribute('draggable', false);
+      replacement.setAttribute('class', 'emojione');
+      replacement.setAttribute('alt', match);
+      replacement.setAttribute('title', title);
+      replacement.setAttribute('src', `${assetHost}/emoji/${emojiFilename(filename)}.svg`);
       rend = i + match.length;
       // If the matched character was followed by VS15 (for selecting text presentation), skip it.
       if (str.codePointAt(rend) === 65038) {
@@ -75,9 +87,8 @@ const emojifyTextNode = (node, customEmojis) => {
 
     fragment.append(document.createTextNode(str.slice(0, i)));
     if (replacement) {
-      fragment.append(domParser.parseFromString(replacement, 'text/html').body.firstChild);
+      fragment.append(replacement);
     }
-    node.textContent = str.slice(0, i);
     str = str.slice(rend);
   }
 

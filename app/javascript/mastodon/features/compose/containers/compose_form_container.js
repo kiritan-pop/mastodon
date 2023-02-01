@@ -25,10 +25,10 @@ const mapStateToProps = state => ({
   isEditing: state.getIn(['compose', 'id']) !== null,
   isChangingUpload: state.getIn(['compose', 'is_changing_upload']),
   isUploading: state.getIn(['compose', 'is_uploading']),
-  showSearch: state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
   anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
   localOnly: state.getIn(['compose', 'local_only']),
   isInReply: state.getIn(['compose', 'in_reply_to']) !== null,
+  lang: state.getIn(['compose', 'language']),
 });
 
 const mapDispatchToProps = (dispatch) => ({

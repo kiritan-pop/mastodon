@@ -22,6 +22,7 @@ import { fetchAnnouncements, toggleShowAnnouncements } from 'mastodon/actions/an
 import AnnouncementsContainer from 'mastodon/features/getting_started/containers/announcements_container';
 import Column from 'mastodon/components/column';
 import { Helmet } from 'react-helmet';
+import { isMobile } from '../../is_mobile';
 
 const messages = defineMessages({
   start: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
@@ -155,7 +156,7 @@ class Compose extends React.PureComponent {
             <div className='drawer__inner' onFocus={this.onFocus}>
               <NavigationContainer onClose={this.onBlur} />
 
-              <ComposeFormContainer />
+              <ComposeFormContainer autoFocus={!isMobile(window.innerWidth)} />
               {announcements}
 
               <div className='drawer__inner__mastodon'>
