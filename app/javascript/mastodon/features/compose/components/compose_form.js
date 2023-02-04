@@ -87,17 +87,17 @@ class ComposeForm extends ImmutablePureComponent {
 
   handleChange = (e) => {
     this.props.onChange(e.target.value);
-  }
+  };
 
   handleKeyDown = (e) => {
     if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
       this.handleSubmit();
     }
-  }
+  };
 
   getFulltextForCharacterCounting = () => {
     return [this.props.spoiler? this.props.spoilerText: '', countableText(this.props.text)].join('');
-  }
+  };
 
   canSubmit = () => {
     const { isSubmitting, isChangingUpload, isUploading, anyMedia } = this.props;
@@ -105,7 +105,7 @@ class ComposeForm extends ImmutablePureComponent {
     const isOnlyWhitespace = fulltext.length !== 0 && fulltext.trim().length === 0;
 
     return !(isSubmitting || isUploading || isChangingUpload || length(fulltext) > 500 || (isOnlyWhitespace && !anyMedia));
-  }
+  };
 
   handleSubmit = (e) => {
     if (this.props.text !== this.autosuggestTextarea.textarea.value) {
@@ -123,7 +123,64 @@ class ComposeForm extends ImmutablePureComponent {
     if (e) {
       e.preventDefault();
     }
+  };
+
+// 鍵トゥートボタン用
+  handleSubmitPrivate = (e) => {
+    if (this.props.text !== this.autosuggestTextarea.textarea.value) {
+      // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
+      // Update the state to match the current text
+      this.props.onChange(this.autosuggestTextarea.textarea.value);
+    }
+
+    if (!this.canSubmit()) {
+      return;
+    }
+
+    this.props.onSubmitPrivate(this.context.router ? this.context.router.history : null);
+
+    if (e) {
+      e.preventDefault();
+    }
   }
+
+  // 未収載トゥートボタン用
+  handleSubmitUnlisted = (e) => {
+    if (this.props.text !== this.autosuggestTextarea.textarea.value) {
+      // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
+      // Update the state to match the current text
+      this.props.onChange(this.autosuggestTextarea.textarea.value);
+    }
+
+    if (!this.canSubmit()) {
+      return;
+    }
+
+    this.props.onSubmitUnlisted(this.context.router ? this.context.router.history : null);
+
+    if (e) {
+      e.preventDefault();
+    }
+  }
+
+  // ＠ボタン用
+  handleSubmitDirect = (e) => {
+    if (this.props.text !== this.autosuggestTextarea.textarea.value) {
+      // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
+      // Update the state to match the current text
+      this.props.onChange(this.autosuggestTextarea.textarea.value);
+    }
+
+    if (!this.canSubmit()) {
+      return;
+    }
+
+    this.props.onSubmitDirect(this.context.router ? this.context.router.history : null);
+
+    if (e) {
+      e.preventDefault();
+    }
+  };
 
 // 鍵トゥートボタン用
   handleSubmitPrivate = (e) => {
@@ -184,23 +241,23 @@ class ComposeForm extends ImmutablePureComponent {
 
   onSuggestionsClearRequested = () => {
     this.props.onClearSuggestions();
-  }
+  };
 
   onSuggestionsFetchRequested = (token) => {
     this.props.onFetchSuggestions(token);
-  }
+  };
 
   onSuggestionSelected = (tokenStart, token, value) => {
     this.props.onSuggestionSelected(tokenStart, token, value, ['text']);
-  }
+  };
 
   onSpoilerSuggestionSelected = (tokenStart, token, value) => {
     this.props.onSuggestionSelected(tokenStart, token, value, ['spoiler_text']);
-  }
+  };
 
   handleChangeSpoilerText = (e) => {
     this.props.onChangeSpoilerText(e.target.value);
-  }
+  };
 
   handleFocus = () => {
     if (this.composeForm && !this.props.singleColumn) {
@@ -209,9 +266,7 @@ class ComposeForm extends ImmutablePureComponent {
         this.composeForm.scrollIntoView();
       }
     }
-    // 投稿内容入力時、二重になるやつが解消するかテスト用のデバッグコード
-    this.render();
-  }
+  };
 
   componentDidMount () {
     this._updateFocusAndSelection({ });
@@ -257,15 +312,15 @@ class ComposeForm extends ImmutablePureComponent {
         this.autosuggestTextarea.textarea.focus();
       }
     }
-  }
+  };
 
   setAutosuggestTextarea = (c) => {
     this.autosuggestTextarea = c;
-  }
+  };
 
   setSpoilerText = (c) => {
     this.spoilerText = c;
-  }
+  };
 
   setRef = c => {
     this.composeForm = c;

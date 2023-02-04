@@ -68,7 +68,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
 
   state = {
     renderComposePanel: !(this.mediaQuery && this.mediaQuery.matches),
-  }
+  };
 
   componentDidMount() {
     if (!this.props.singleColumn) {
@@ -122,7 +122,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
 
   handleLayoutChange = (e) => {
     this.setState({ renderComposePanel: !e.matches });
-  }
+  };
 
   handleWheel = () => {
     if (typeof this._interruptScrollAnimation !== 'function') {
@@ -130,19 +130,19 @@ export default class ColumnsArea extends ImmutablePureComponent {
     }
 
     this._interruptScrollAnimation();
-  }
+  };
 
   setRef = (node) => {
     this.node = node;
-  }
+  };
 
   renderLoading = columnId => () => {
     return columnId === 'COMPOSE' ? <DrawerLoading /> : <ColumnLoading multiColumn />;
-  }
+  };
 
   renderError = (props) => {
     return <BundleColumnError multiColumn errorType='network' {...props} />;
-  }
+  };
 
   // トゥートボタン用
   handleChange = (e) => {
