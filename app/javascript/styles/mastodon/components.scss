@@ -72,6 +72,7 @@
   &:focus,
   &:hover {
     background-color: $ui-button-focus-background-color;
+    transition: all 300ms ease-out;
   }
 
   &:focus-visible {
