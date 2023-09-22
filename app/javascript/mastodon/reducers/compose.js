@@ -1,3 +1,5 @@
+import { Map as ImmutableMap, List as ImmutableList, OrderedSet as ImmutableOrderedSet, fromJS } from 'immutable';
+
 import {
   COMPOSE_MOUNT,
   COMPOSE_UNMOUNT,
@@ -47,19 +49,19 @@ import {
   COMPOSE_CHANGE_MEDIA_DESCRIPTION,
   COMPOSE_CHANGE_MEDIA_FOCUS,
   COMPOSE_SET_STATUS,
+  COMPOSE_FOCUS,
 } from '../actions/compose';
 import {
   COMPOSE_SYNC_KIRI,
   COMPOSE_SUBMIT_SUCCESS_KIRI,
 } from '../actions/compose_kiri';
-
-import { TIMELINE_DELETE } from '../actions/timelines';
-import { STORE_HYDRATE } from '../actions/store';
 import { REDRAFT } from '../actions/statuses';
-import { Map as ImmutableMap, List as ImmutableList, OrderedSet as ImmutableOrderedSet, fromJS } from 'immutable';
-import uuid from '../uuid';
+import { STORE_HYDRATE } from '../actions/store';
+import { TIMELINE_DELETE } from '../actions/timelines';
 import { me } from '../initial_state';
 import { unescapeHTML } from '../utils/html';
+import { uuid } from '../uuid';
+
 
 const initialState = ImmutableMap({
   mounted: 0,
@@ -546,6 +548,8 @@ export default function compose(state = initialState, action) {
       .set('local_only', !state.get('local_only'))
   case COMPOSE_LANGUAGE_CHANGE:
     return state.set('language', action.language);
+  case COMPOSE_FOCUS:
+    return state.set('focusDate', new Date()).update('text', text => text.length > 0 ? text : action.defaultText);
   default:
     return state;
   }

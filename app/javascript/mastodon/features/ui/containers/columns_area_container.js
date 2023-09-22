@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import ColumnsArea from '../components/columns_area';
+
 import {
   changeCompose,
   submitCompose,
   syncCompose,
 } from '../../../actions/compose_kiri';
+import ColumnsArea from '../components/columns_area';
 
 const mapStateToProps = state => ({
   columns: state.getIn(['settings', 'columns']),

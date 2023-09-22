@@ -1,21 +1,22 @@
 // きりたん丼共通
+
 /* ファボを肉球に */
-.fa-star:before {
-  font-size:large ;
-  content: "\f1b0" ;
+.fa-star::before {
+  font-size: large;
+  content: '\f1b0';
 }
 
-.compose-form__publish-button-wrapper>.button--block{
-    margin: 0;
+.compose-form__publish-button-wrapper > .button--block {
+  margin: 0;
 }
 
-.compose-form__publish .button--block{
-    margin: 1px;
+.compose-form__publish .button--block {
+  margin: 1px;
 }
 
 .icon-button-kiri {
-    color: $primary-text-color;
-    background-color: darken($ui-highlight-color, 2%);
+  color: $primary-text-color;
+  background-color: $ui-button-background-color;
 
   &:active,
   &:focus,
@@ -65,48 +66,48 @@
     flex: none;
     width: 2.625rem;
     height: 2.625rem;
-
     border-radius: 25%;
   }
 }
 
 .status {
-  padding: 4px 4px;
+  padding: 4px;
   padding-left: 12px;
   border-bottom: 2px solid lighten($ui-base-color, 16%);
 }
 
-.status__action-bar{
+.status__action-bar {
   margin-top: 4px;
 }
 
 /* box header */
-.column, .drawer {
+.column,
+.drawer {
   flex: 1 1 auto;
   min-width: 320px;
   max-width: 600px;
 }
 
 .drawer__header {
-  border-top-left-radius: 10px 10px ;
-  }
+  border-top-left-radius: 10px 10px;
+}
 
 .column-header {
-  border-top-left-radius: 10px 10px ;
+  border-top-left-radius: 10px 10px;
 }
 
 .drawer__inner {
-  border-bottom-right-radius: 20px 20px ; 
+  border-bottom-right-radius: 20px 20px;
 }
 
 /* box scroll */
 .column > .scrollable {
-  border-bottom-right-radius: 20px 20px ;
+  border-bottom-right-radius: 20px 20px;
 }
 
 /* toot option icon */
 .compose-form__buttons {
-  border-radius: 10px ; 
+  border-radius: 10px;
 }
 
 // .compose-form__publish-button-wrapper > .button {
@@ -115,55 +116,62 @@
 
 /* textarea */
 .spoiler-input__input {
-  border-radius: 20px ;
+  border-radius: 20px;
 }
 
 .autosuggest-textarea__textarea {
-  border-radius: 20px ; }
+  border-radius: 20px;
+}
 
 /* reply */
 .reply-indicator {
-  border-radius: 4px ;
-  margin-bottom: 15px ; }
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
 
-
-.getting-started, .getting-started__trends {
-  border-bottom-right-radius: 20px 20px ;
+.getting-started,
+.getting-started__trends {
+  border-bottom-right-radius: 20px 20px;
 }
 
 .getting-started__trends {
   margin-top: 24px;
 }
 
-.table td, .table th {
+.table td,
+.table th {
   white-space: pre-wrap;
 }
 
-.announcements__kiriwrapper{
+.announcements__kiriwrapper {
   margin: 3px;
   border-radius: 10px;
   border: solid 2px $ui-base-lighter-color;
+
   .column-header__button {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
+
   .announcements {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
-  .column-header__button.active{
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+
+  .column-header__button.active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
+
   .fa-fw.fa-bullhorn {
     font-size: x-large;
   }
 }
 
-.announcements__item__range{
-    font-weight: bold;
+.announcements__item__range {
+  font-weight: bold;
 }
 
 .column-header__button {
@@ -173,56 +181,62 @@
 }
 
 @keyframes blink {
-  0% {opacity: 1;}
-  50% {opacity:0;}
-  100% {opacity: 1;}
- }
- 
- .status__action-bar-button.icon-button.active .fa.fa-fw.fa-star{
-     animation: blink 0.9s ease infinite;       
- }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
-/*非公開色分け*/
+.status__action-bar-button.icon-button.active .fa.fa-fw.fa-star {
+  animation: blink 0.9s ease infinite;
+}
+
+/* 非公開色分け */
 .status-private {
-    background: rgba(180,55,132,0.2) ;
+  background: rgba(180, 55, 132, 20%);
 }
 
-/*未収載色分け*/
+/* 未収載色分け */
 .status-unlisted {
-    background: rgba(36,190,56,0.2);
+  background: rgba(36, 190, 56, 20%);
 }
 
-/*ダイレクト*/
+/* ダイレクト */
 .status.status-direct {
-    background: rgba(20,60,255,0.2);
+  background: rgba(20, 60, 255, 20%);
 }
 
 .status.status-direct:not(.read) {
-  background: rgba(20,60,255,0.4);
+  background: rgba(20, 60, 255, 40%);
 }
 
 // 非公開・DMマーク点滅
 .status__visibility-icon {
-    .fa-lock{
-      color: #d0d662;
-      animation: blink 1.3s ease infinite;
-    }
-    .fa-envelope{
-      color: $white;    
-      animation: blink 1.3s ease infinite;
-    }
+  .fa-lock {
+    color: #d0d662;
+    animation: blink 1.3s ease infinite;
+  }
+
+  .fa-envelope {
+    color: $white;
+    animation: blink 1.3s ease infinite;
+  }
 }
 
-/*ローカル限定*/
+/* ローカル限定 */
 .status.status-local-only::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
-  pointer-events: 0;
   width: 100%;
   height: 100%;
-  border-left: solid 4px rgba($success-green, .7);
+  border-left: solid 4px rgba($success-green, 0.7);
   pointer-events: none;
 }
 
@@ -248,34 +262,33 @@
 .display-name,
 .status__wrapper,
 .permalink,
-.autosuggest-emoji
-{
-  .emojione{
-    width: auto  !important; 
-    max-width: 4em  !important;  
-    height: 1.8em  !important;
-    margin: 0 0 0 !important;
+.autosuggest-emoji {
+  .emojione {
+    width: auto !important;
+    max-width: 4em !important;
+    height: 1.8em !important;
+    margin: 0 !important;
   }
 }
 
 .compose-form .autosuggest-account-icon {
-    margin-right: 4px;
-    width: 26px;
-    height: 26px;
+  margin-right: 4px;
+  width: 26px;
+  height: 26px;
 }
 
-.drawer__inner__mastodon>img {
+.drawer__inner__mastodon > img {
   object-position: center bottom;
   width: 100%;
 }
 
-.compose-form__local-only{
+.compose-form__local-only {
   margin-left: 4px;
   margin-top: 2px;
 }
 
-@-webkit-keyframes rubberBand {
-  from {
+@keyframes rubber-band {
+  0% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
@@ -305,14 +318,14 @@
     transform: scale3d(1.05, 0.95, 1);
   }
 
-  to {
+  100% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
 }
 
-@keyframes rubberBand {
-  from {
+@keyframes rubber-band {
+  0% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
@@ -342,68 +355,74 @@
     transform: scale3d(1.05, 0.95, 1);
   }
 
-  to {
+  100% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
 }
 
-.rubberband{
+.rubberband {
   display: inline-block;
-  -webkit-animation: rubberBand 1.1s ease infinite;
-  animation: rubberBand 1.1s ease infinite;
+  -webkit-animation: rubber-band 1.1s ease infinite;
+  animation: rubber-band 1.1s ease infinite;
 }
 
 @keyframes spin {
-0% {
- -webkit-transform: rotate3d(0,0,1,0deg);
- transform: rotate3d(0,0,1,0deg);
-}
-33% {
- -webkit-transform: rotate3d(0,0,1,120deg);
- transform: rotate3d(0,0,1,120deg);
+  0% {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
-66% {
- -webkit-transform: rotate3d(0,0,1,240deg);
- transform: rotate3d(0,0,1,240deg);
+
+  33% {
+    -webkit-transform: rotate3d(0, 0, 1, 120deg);
+    transform: rotate3d(0, 0, 1, 120deg);
   }
-   100% {
- -webkit-transform: rotate3d(0,0,1,360deg);
- transform: rotate3d(0,0,1,360deg);
+
+  66% {
+    -webkit-transform: rotate3d(0, 0, 1, 240deg);
+    transform: rotate3d(0, 0, 1, 240deg);
+  }
+
+  100% {
+    -webkit-transform: rotate3d(0, 0, 1, 360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
   }
 }
 
-@-webkit-keyframes spin {
-0% {
- -webkit-transform: rotate3d(0,0,1,0deg);
-   transform: rotate3d(0,0,1,0deg);
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
-33% {
- -webkit-transform: rotate3d(0,0,1,120deg);
- transform: rotate3d(0,0,1,120deg);
+
+  33% {
+    -webkit-transform: rotate3d(0, 0, 1, 120deg);
+    transform: rotate3d(0, 0, 1, 120deg);
   }
-66% {
- -webkit-transform: rotate3d(0,0,1,240deg);
- transform: rotate3d(0,0,1,240deg);
+
+  66% {
+    -webkit-transform: rotate3d(0, 0, 1, 240deg);
+    transform: rotate3d(0, 0, 1, 240deg);
   }
-100% {
- -webkit-transform: rotate3d(0,0,1,360deg);
-   transform: rotate3d(0,0,1,360deg);
+
+  100% {
+    -webkit-transform: rotate3d(0, 0, 1, 360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
   }
 }
 
-.spin{
+.spin {
   display: inline-block;
   -webkit-animation: spin 3s linear infinite;
   animation: spin 6s linear infinite;
 }
 
-@-webkit-keyframes bounce {
-  from,
+@keyframes bounce {
+  0%,
   20%,
   53%,
   80%,
-  to {
+  100% {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
   }
@@ -426,11 +445,11 @@
 }
 
 @keyframes bounce {
-  from,
+  0%,
   20%,
   53%,
   80%,
-  to {
+  100% {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
   }
@@ -452,34 +471,33 @@
   }
 }
 
-
-.jump{
-display: inline-block;
--webkit-animation: bounce 1.1s ease infinite;
-animation: bounce 1.1s ease infinite;
-}
-
-.flip{
+.jump {
   display: inline-block;
-  -ms-filter: "FlipH";  
-  -moz-transform: scaleX(-1);  
-  -o-transform: scaleX(-1);  
-  -webkit-transform: scaleX(-1);  
-  transform: scaleX(-1);  
-  filter: FlipH;  
+  -webkit-animation: bounce 1.1s ease infinite;
+  animation: bounce 1.1s ease infinite;
 }
 
-.flip-v{
+.flip {
   display: inline-block;
-  -ms-filter: "FlipV";  
-  -moz-transform: scaleY(-1);  
-  -o-transform: scaleY(-1);  
-  -webkit-transform: scaleY(-1);  
-  transform: scaleY(-1);  
-  filter: FlipV;  
+  -ms-filter: 'FlipH';
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
 }
 
-.rotate90{
+.flip-v {
+  display: inline-block;
+  -ms-filter: 'FlipV';
+  -moz-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+  filter: FlipV;
+}
+
+.rotate90 {
   display: inline-block;
   transform: rotate(90deg);
 }

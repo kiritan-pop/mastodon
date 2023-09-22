@@ -1,17 +1,17 @@
+import { Map as ImmutableMap } from 'immutable';
+
+import {
+  COMPOSE_SUBMIT_REQUEST,
+  COMPOSE_SUBMIT_SUCCESS,
+  COMPOSE_SUBMIT_FAIL,
+} from '../actions/compose';
 import {
   COMPOSE_CHANGE_KIRI,
   COMPOSE_SUBMIT_REQUEST_KIRI,
   COMPOSE_SUBMIT_SUCCESS_KIRI,
   COMPOSE_SUBMIT_FAIL_KIRI,
 } from '../actions/compose_kiri';
-import {
-  COMPOSE_SUBMIT_REQUEST,
-  COMPOSE_SUBMIT_SUCCESS,
-  COMPOSE_SUBMIT_FAIL,
-} from '../actions/compose';
-
-import { Map as ImmutableMap } from 'immutable';
-import uuid from '../uuid';
+import { uuid } from '../uuid';
 
 const initialState = ImmutableMap({
   text: '',
