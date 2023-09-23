@@ -497,7 +497,7 @@ class Status < ApplicationRecord
   end
 
   def set_locality
-    return if account.domain | will_save_change_to_attribute?(:local_only)
+    return if account.domain || will_save_change_to_attribute?(:local_only)
 
     self.local_only = marked_local_only?
   end
