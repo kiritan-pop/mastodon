@@ -870,6 +870,8 @@ en:
         message_html: "<strong>Your object storage is misconfigured. The privacy of your users is at risk.</strong>"
     tags:
       review: Review status
+      trending_right_now: Trending right now
+      unique_uses_today: Unique uses today
       updated_msg: Hashtag settings updated successfully
     title: Administration
     trends:
