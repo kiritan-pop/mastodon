@@ -1732,8 +1732,9 @@ en:
     does_not_match_previous_name: does not match the previous name
   themes:
     contrast: Mastodon (High contrast)
-    default: Mastodon (Dark)
+    default: kiritan
     mastodon-light: Mastodon (Light)
+    origin: Mastodon (Dark)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
