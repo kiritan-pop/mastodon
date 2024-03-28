@@ -72,7 +72,7 @@
     "dotenv": "^16.0.3",
     "emoji-mart": "npm:emoji-mart-lazyload@latest",
     "escape-html": "^1.0.3",
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "file-loader": "^6.2.0",
     "font-awesome": "^4.7.0",
     "fuzzysort": "^2.0.4",
