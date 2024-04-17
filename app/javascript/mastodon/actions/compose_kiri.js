@@ -1,4 +1,5 @@
 import api from '../api';
+
 import { updateTimeline } from './timelines';
 
 export const COMPOSE_CHANGE_KIRI = 'COMPOSE_CHANGE_KIRI';
@@ -26,7 +27,7 @@ export function submitCompose(routerHistory, vis = null) {
 
     api(getState).post('/api/v1/statuses', {
       status,
-      visibility: vis,
+      visibility: vis ? vis : getState().getIn(['compose', 'privacy']),
     }, {
       headers: {
         'Idempotency-Key': getState().getIn(['compose_kiri', 'idempotencyKey']),

@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
   isModalOpen: !!state.get('modal').modalType,
   text: state.getIn(['compose_kiri', 'text']),
   isSubmitting: state.getIn(['compose_kiri', 'is_submitting']),
+  privacy: state.getIn(['compose', 'privacy']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -19,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changeCompose(text));
   },
   onSubmit(router) {
-    dispatch(submitCompose(router, "public"));
+    dispatch(submitCompose(router));
   },
   onSync(text) {
     dispatch(syncCompose(text));
