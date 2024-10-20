@@ -7,6 +7,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import Textarea from 'react-textarea-autosize';
 import { length } from 'stringz';
 
+import MailIcon from '@/material-icons/400-24px/mail.svg?react';
 import { browserHistory } from 'mastodon/components/router';
 
 import { IconButton } from '../../../components/icon_button';
@@ -170,6 +171,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
         (<IconButton
           className='button icon-button-kiri'
           icon='pencil'
+          iconComponent={MailIcon}
           title='toot'
           size={20}
           expanded

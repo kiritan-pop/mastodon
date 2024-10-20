@@ -43,6 +43,7 @@ const messages = defineMessages({
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
   publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
   saveChanges: { id: 'compose_form.save_changes', defaultMessage: 'Save changes' },
+  reply: { id: 'compose_form.reply', defaultMessage: 'Reply' },
   local_only: { id: 'compose_form.local_only', defaultMessage: 'local only' },
 });
 
