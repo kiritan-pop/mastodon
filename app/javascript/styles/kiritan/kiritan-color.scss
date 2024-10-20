@@ -1,15 +1,17 @@
 /* きりたん丼カラー */
+
 /* 背景を画像に */
-body::before{
-  content:"";
-  display:block;
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
-  height:100vh;
+body::before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  height: 100vh;
   width: 100%;
-  background: url('./images/bg_kiritan.webp') 98% bottom no-repeat $ui-base-color;
+  background: url('./images/bg_kiritan.webp') 98% bottom no-repeat
+    $ui-base-color;
   background-size: auto 40%;
 }
 
@@ -20,10 +22,10 @@ body::before{
 
 // フローティングトゥートエリア
 .floating-toot-area > .toot__input {
-  background: rgba($ui-base-color, .5);
+  background: rgba($ui-base-color, 0.5);
   backdrop-filter: blur(2px);
-  color :$primary-text-color;
-  border: 2px solid rgba($primary-text-color, .5);
+  color: $primary-text-color;
+  border: 2px solid rgba($primary-text-color, 0.5);
 }
 
 // 入力フォーム系
@@ -32,18 +34,16 @@ body::before{
   .spoiler-input__input,
   .autosuggest-textarea__suggestions,
   .compose-form__buttons-wrapper,
-  .compose-form__modifiers
-  {
+  .compose-form__modifiers {
     color: $ui-secondary-color;
     background: $ui-base-color;
   }
 }
 
-.compose-form .autosuggest-textarea__suggestions__item:hover, 
-.compose-form .autosuggest-textarea__suggestions__item:focus, 
-.compose-form .autosuggest-textarea__suggestions__item:active, 
-.compose-form .autosuggest-textarea__suggestions__item.selected
-{
+.compose-form .autosuggest-textarea__suggestions__item:hover,
+.compose-form .autosuggest-textarea__suggestions__item:focus,
+.compose-form .autosuggest-textarea__suggestions__item:active,
+.compose-form .autosuggest-textarea__suggestions__item.selected {
   background: lighten($ui-base-color, 30%);
 }
 
@@ -51,43 +51,47 @@ body::before{
 .emoji-picker-dropdown__menu,
 .language-dropdown__dropdown {
   background: $ui-base-color;
+
   .emoji-mart-search input,
   .emoji-mart,
-  .emoji-mart-bar
-  {
+  .emoji-mart-bar {
     color: $ui-secondary-color;
     background: $ui-base-color;
   }
+
   .emoji-mart-anchor,
   .language-dropdown__dropdown__results__item {
     color: $ui-secondary-color;
+
     &:hover {
       color: darken($ui-secondary-color, 4%);
       background: lighten($ui-base-color, 20%);
     }
   }
-  .emoji-mart-anchor-selected{
+
+  .emoji-mart-anchor-selected {
     color: $highlight-text-color;
+
     &:hover {
       color: darken($highlight-text-color, 4%);
     }
   }
+
   .emoji-mart-search,
   .emoji-mart-scroll,
-  .emoji-mart-category-label span
-  {
+  .emoji-mart-category-label span {
     background: $ui-base-color;
   }
 }
 
 .react-toggle-track {
-  border: solid 1.5px rgba($base-border-color, .5);
+  border: solid 1.5px rgba($base-border-color, 0.5);
   box-sizing: border-box;
 }
 
-.react-toggle-thumb {
-    background: rgba($base-border-color, .5);
-}
+// .react-toggle-thumb {
+//     background: rgba($base-border-color, .5);
+// }
 
 .getting-started__trends {
   background: $ui-base-color;

@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
-import { Children, cloneElement } from 'react';
+import { Children, cloneElement, useCallback } from 'react';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
-import { supportsPassiveEvents } from 'detect-passive-events';
 import Textarea from 'react-textarea-autosize';
 import { length } from 'stringz';
+
+import { browserHistory } from 'mastodon/components/router';
 
 import { IconButton } from '../../../components/icon_button';
 import { scrollRight } from '../../../scroll';
@@ -14,7 +15,7 @@ import { countableText } from '../../compose/util/counter';
 import BundleContainer from '../containers/bundle_container';
 import {
   Compose,
-  Notifications,
+  NotificationsWrapper,
   HomeTimeline,
   CommunityTimeline,
   PublicTimeline,
@@ -25,9 +26,10 @@ import {
   ListTimeline,
   Directory,
 } from '../util/async-components';
+import { useColumnsContext } from '../util/columns_context';
 
 import BundleColumnError from './bundle_column_error';
-import ColumnLoading from './column_loading';
+import { ColumnLoading } from './column_loading';
 import ComposePanel from './compose_panel';
 import DrawerLoading from './drawer_loading';
 import NavigationPanel from './navigation_panel';
@@ -37,7 +39,7 @@ import NavigationPanel from './navigation_panel';
 const componentMap = {
   'COMPOSE': Compose,
   'HOME': HomeTimeline,
-  'NOTIFICATIONS': Notifications,
+  'NOTIFICATIONS': NotificationsWrapper,
   'PUBLIC': PublicTimeline,
   'REMOTE': PublicTimeline,
   'COMMUNITY': CommunityTimeline,
@@ -50,12 +52,18 @@ const componentMap = {
 };
 
 const shouldHideFAB = path => path.match(/^\/statuses\/|^\/@[^/]+\/\d+|^\/publish|^\/explore|^\/getting-started|^\/start|^\/@[^/]+$/);
+const TabsBarPortal = () => {
+  const {setTabsBarElement} = useColumnsContext();
+
+  const setRef = useCallback((element) => {
+    if(element)
+      setTabsBarElement(element);
+  }, [setTabsBarElement]);
+
+  return <div id='tabs-bar__portal' ref={setRef} />;
+};
+
 export default class ColumnsArea extends ImmutablePureComponent {
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  };
-
   static propTypes = {
     columns: ImmutablePropTypes.list.isRequired,
     isModalOpen: PropTypes.bool.isRequired,
@@ -68,7 +76,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
     onSync: PropTypes.func.isRequired,
   };
 
-  // Corresponds to (max-width: $no-gap-breakpoint + 285px - 1px) in SCSS
+  // Corresponds to (max-width: $no-gap-breakpoint - 1px) in SCSS
   mediaQuery = 'matchMedia' in window && window.matchMedia('(max-width: 1174px)');
 
   state = {
@@ -76,10 +84,6 @@ export default class ColumnsArea extends ImmutablePureComponent {
   };
 
   componentDidMount() {
-    if (!this.props.singleColumn) {
-      this.node.addEventListener('wheel', this.handleWheel, supportsPassiveEvents ? { passive: true } : false);
-    }
-
     if (this.mediaQuery) {
       if (this.mediaQuery.addEventListener) {
         this.mediaQuery.addEventListener('change', this.handleLayoutChange);
@@ -92,23 +96,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
     this.isRtlLayout = document.getElementsByTagName('body')[0].classList.contains('rtl');
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.singleColumn !== nextProps.singleColumn && nextProps.singleColumn) {
-      this.node.removeEventListener('wheel', this.handleWheel);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.singleColumn !== prevProps.singleColumn && !this.props.singleColumn) {
-      this.node.addEventListener('wheel', this.handleWheel, supportsPassiveEvents ? { passive: true } : false);
-    }
-  }
-
   componentWillUnmount () {
-    if (!this.props.singleColumn) {
-      this.node.removeEventListener('wheel', this.handleWheel);
-    }
-
     if (this.mediaQuery) {
       if (this.mediaQuery.removeEventListener) {
         this.mediaQuery.removeEventListener('change', this.handleLayoutChange);
@@ -121,20 +109,12 @@ export default class ColumnsArea extends ImmutablePureComponent {
   handleChildrenContentChange() {
     if (!this.props.singleColumn) {
       const modifier = this.isRtlLayout ? -1 : 1;
-      this._interruptScrollAnimation = scrollRight(this.node, (this.node.scrollWidth - window.innerWidth) * modifier);
+      scrollRight(this.node, (this.node.scrollWidth - window.innerWidth) * modifier);
     }
   }
 
   handleLayoutChange = (e) => {
     this.setState({ renderComposePanel: !e.matches });
-  };
-
-  handleWheel = () => {
-    if (typeof this._interruptScrollAnimation !== 'function') {
-      return;
-    }
-
-    this._interruptScrollAnimation();
   };
 
   setRef = (node) => {
@@ -152,7 +132,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
   // トゥートボタン用
   handleChange = (e) => {
     this.props.onChange(e.target.value);
-  }
+  };
 
   handleSubmit = () => {
     // Submit disabled:
@@ -163,19 +143,19 @@ export default class ColumnsArea extends ImmutablePureComponent {
       return;
     }
 
-    this.props.onSubmit(this.context.router ? this.context.router.history : null);
-  }
+    this.props.onSubmit();
+  };
 
   setTextarea = (c) => {
     this.textarea = c;
-  }
+  };
 
   onBlur = () => {
     this.props.onSync(this.props.text);
     setTimeout(() => {
       window.scrollTo({ top: 0 });
     }, 300);
-  }
+  };
 
   render () {
     const { columns, children, singleColumn, isModalOpen } = this.props;
@@ -198,8 +178,8 @@ export default class ColumnsArea extends ImmutablePureComponent {
           style={{ height: null, width: null, lineHeight: null }}
           disabled={disabledButton}
           block
-        />)
-      const floatingTootArea = shouldHideFAB(this.context.router.history.location.pathname) ? null
+        />);
+      const floatingTootArea = shouldHideFAB(browserHistory.location.pathname) ? null
         :
         (<div className='floating-toot-area'>
           {iconButtonKiri}
@@ -223,7 +203,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
           </div>
 
           <div className='columns-area__panels__main'>
-            <div className='tabs-bar__wrapper'><div id='tabs-bar__portal' /></div>
+            <div className='tabs-bar__wrapper'><TabsBarPortal /></div>
             <div className='columns-area columns-area--mobile'>{children}</div>
           </div>
 

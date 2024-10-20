@@ -30,6 +30,7 @@ const mapStateToProps = state => ({
   localOnly: state.getIn(['compose', 'local_only']),
   isInReply: state.getIn(['compose', 'in_reply_to']) !== null,
   lang: state.getIn(['compose', 'language']),
+  maxChars: state.getIn(['server', 'server', 'configuration', 'statuses', 'max_characters'], 500),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -38,20 +39,20 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changeCompose(text));
   },
 
-  onSubmit (router) {
-    dispatch(submitCompose(router));
+  onSubmit () {
+    dispatch(submitCompose());
   },
 
-  onSubmitPrivate(router) {
-    dispatch(submitCompose(router, "private"));
+  onSubmitPrivate() {
+    dispatch(submitCompose("private"));
   },
 
-  onSubmitUnlisted(router) {
-    dispatch(submitCompose(router, "unlisted"));
+  onSubmitUnlisted() {
+    dispatch(submitCompose("unlisted"));
   },
 
-  onSubmitDirect(router) {
-    dispatch(submitCompose(router, "direct"));
+  onSubmitDirect() {
+    dispatch(submitCompose("direct"));
   },
 
   onClearSuggestions () {

@@ -19,8 +19,8 @@ const mapDispatchToProps = (dispatch) => ({
   onChange(text) {
     dispatch(changeCompose(text));
   },
-  onSubmit(router) {
-    dispatch(submitCompose(router));
+  onSubmit() {
+    dispatch(submitCompose());
   },
   onSync(text) {
     dispatch(syncCompose(text));

@@ -1,3 +1,5 @@
+import { browserHistory } from 'mastodon/components/router';
+
 import api from '../api';
 
 import { updateTimeline } from './timelines';
@@ -13,9 +15,9 @@ export function changeCompose(text) {
     type: COMPOSE_CHANGE_KIRI,
     text: text,
   };
-};
+}
 
-export function submitCompose(routerHistory, vis = null) {
+export function submitCompose(vis = null) {
   return function (dispatch, getState) {
     const status = getState().getIn(['compose_kiri', 'text'], '');
 
@@ -33,8 +35,8 @@ export function submitCompose(routerHistory, vis = null) {
         'Idempotency-Key': getState().getIn(['compose_kiri', 'idempotencyKey']),
       },
     }).then(function (response) {
-      if (routerHistory && routerHistory.location.pathname === '/statuses/new' && window.history.state) {
-        routerHistory.goBack();
+      if ((browserHistory.location.pathname === '/statuses/new') && window.history.state) {
+        browserHistory.goBack();
       }
 
       dispatch(submitComposeSuccess({ ...response.data }));
@@ -59,31 +61,31 @@ export function submitCompose(routerHistory, vis = null) {
       dispatch(submitComposeFail(error));
     });
   };
-};
+}
 
 export function submitComposeRequest() {
   return {
     type: COMPOSE_SUBMIT_REQUEST_KIRI,
   };
-};
+}
 
 export function submitComposeSuccess(status) {
   return {
     type: COMPOSE_SUBMIT_SUCCESS_KIRI,
     status: status,
   };
-};
+}
 
 export function submitComposeFail(error) {
   return {
     type: COMPOSE_SUBMIT_FAIL_KIRI,
     error: error,
   };
-};
+}
 
 export function syncCompose(text) {
   return {
     type: COMPOSE_SYNC_KIRI,
     text: text,
   };
-};
+}

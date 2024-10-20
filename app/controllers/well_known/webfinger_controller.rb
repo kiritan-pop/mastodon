@@ -41,7 +41,7 @@ module WellKnown
     end
 
     def check_account_suspension
-      gone if @account.suspended_permanently?
+      gone if @account.permanently_unavailable?
     end
 
     def gone

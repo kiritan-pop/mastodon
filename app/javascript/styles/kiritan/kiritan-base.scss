@@ -15,22 +15,34 @@
 }
 
 .icon-button-kiri {
-  color: $primary-text-color;
-  background-color: $ui-button-background-color;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  color: $highlight-text-color;
+  border-radius: 6px;
+  border: 1px solid $highlight-text-color;
+  padding: 4px 8px;
+  font-size: 13px;
+  line-height: normal;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &[disabled] {
+    cursor: default;
+    color: $highlight-text-color;
+    border-color: $highlight-text-color;
+    opacity: 0.5;
+  }
 
   &:active,
   &:focus,
   &:hover {
-    color: $primary-text-color;
-    background-color: $ui-button-focus-background-color;
+    color: $highlight-text-color;
+    background-color: darken($ui-button-background-color, 20%);
     transition: all 300ms ease-out;
-  }
-
-  &:disabled,
-  &.disabled {
-    background-color: $ui-primary-color;
-    color: $darker-text-color;
-    cursor: default;
   }
 }
 
@@ -160,6 +172,11 @@
     border-bottom-right-radius: 10px;
   }
 
+  .announcements__pagination > span {
+    font-size: 16px;
+    vertical-align: super;
+  }
+
   .column-header__button.active {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -284,10 +301,10 @@
   width: 100%;
 }
 
-.compose-form__local-only {
-  margin-left: 4px;
-  margin-top: 2px;
-}
+// .compose-form__local-only {
+//   margin-left: 4px;
+//   margin-top: 2px;
+// }
 
 @keyframes rubber-band {
   0% {
