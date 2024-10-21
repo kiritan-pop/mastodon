@@ -235,11 +235,6 @@ export function submitCompose(vis = null) {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
       },
     }).then(function (response) {
-      // if (routerHistory && (routerHistory.location.pathname === '/publish' || routerHistory.location.pathname === '/statuses/new') && window.history.state) {
-      //   routerHistory.goBack();
-      //   setTimeout(() => {
-      //     window.scrollTo({ top: 0, behavior: 'instant' });
-      //   }, 900);
       if ((browserHistory.location.pathname === '/publish' || browserHistory.location.pathname === '/statuses/new') && window.history.state) {
         browserHistory.goBack();
       }

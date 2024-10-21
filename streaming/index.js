@@ -289,12 +289,6 @@ const startServer = async () => {
    */
 
   /**
-   * @callback SubscriptionListener
-   * @param {ReturnType<parseJSON>} json of the message
-   * @returns void
-   */
-
-  /**
    * @param {string} channel
    * @param {SubscriptionListener} callback
    */
@@ -831,7 +825,6 @@ const startServer = async () => {
             transmit(event, payload);
           }
         }).catch(err => {
-          releasePgConnection();
           log.error(err);
           releasePgConnection();
         });
