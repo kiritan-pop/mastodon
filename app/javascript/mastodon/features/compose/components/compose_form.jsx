@@ -17,7 +17,7 @@ import QuietTimeIcon from '@/material-icons/400-24px/quiet_time.svg?react';
 
 import AutosuggestInput from '../../../components/autosuggest_input';
 import AutosuggestTextarea from '../../../components/autosuggest_textarea';
-import {Button} from '../../../components/button';
+import { Button } from '../../../components/button';
 import { IconButton } from '../../../components/icon_button';
 import EmojiPickerDropdown from '../containers/emoji_picker_dropdown_container';
 import LanguageDropdown from '../containers/language_dropdown_container';
@@ -40,10 +40,9 @@ const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u20
 
 const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: 'What is on your mind?' },
-  spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
-  publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
-  saveChanges: { id: 'compose_form.save_changes', defaultMessage: 'Save changes' },
-  reply: { id: 'compose_form.reply', defaultMessage: 'Reply' },
+  spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Content warning (optional)' },
+  publish: { id: 'compose_form.publish', defaultMessage: 'Post' },
+  saveChanges: { id: 'compose_form.save_changes', defaultMessage: 'Update' },
   local_only: { id: 'compose_form.local_only', defaultMessage: 'local only' },
 });
 
@@ -108,7 +107,7 @@ class ComposeForm extends ImmutablePureComponent {
   };
 
   getFulltextForCharacterCounting = () => {
-    return [this.props.spoiler ? this.props.spoilerText : '', countableText(this.props.text)].join('');
+    return [this.props.spoiler? this.props.spoilerText : '', countableText(this.props.text)].join('');
   };
 
   canSubmit = () => {
@@ -223,15 +222,15 @@ class ComposeForm extends ImmutablePureComponent {
     }
   };
 
-  componentDidMount() {
-    this._updateFocusAndSelection({});
+  componentDidMount () {
+    this._updateFocusAndSelection({ });
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     if (this.timeout) clearTimeout(this.timeout);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     this._updateFocusAndSelection(prevProps);
   }
 
@@ -245,13 +244,13 @@ class ComposeForm extends ImmutablePureComponent {
       let selectionEnd, selectionStart;
 
       if (this.props.preselectDate !== prevProps.preselectDate && this.props.isInReply) {
-        selectionEnd = this.props.text.length;
+        selectionEnd   = this.props.text.length;
         selectionStart = this.props.text.search(/\s/) + 1;
       } else if (typeof this.props.caretPosition === 'number') {
         selectionStart = this.props.caretPosition;
-        selectionEnd = this.props.caretPosition;
+        selectionEnd   = this.props.caretPosition;
       } else {
-        selectionEnd = this.props.text.length;
+        selectionEnd   = this.props.text.length;
         selectionStart = selectionEnd;
       }
 
