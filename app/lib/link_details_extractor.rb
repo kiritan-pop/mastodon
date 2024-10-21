@@ -290,16 +290,16 @@ class LinkDetailsExtractor
     Nokogiri::HTML5(html, nil, encoding)
   end
 
+  def detect_encoding
+    guess = detector.detect(@html, @html_charset)
+    guess&.fetch(:confidence, 0).to_i > 60 ? guess&.fetch(:encoding, nil) : nil
+  end
+
   def header_encoding
     Encoding.find(@html_charset).name if @html_charset
   rescue ArgumentError
     # Encoding from HTTP header is not recognized by ruby
     nil
-  end
-
-  def detect_encoding
-    guess = detector.detect(@html, @html_charset)
-    guess&.fetch(:confidence, 0).to_i > 60 ? guess&.fetch(:encoding, nil) : nil
   end
 
   def detector
