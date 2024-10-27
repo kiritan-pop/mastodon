@@ -44,6 +44,9 @@ const messages = defineMessages({
   publish: { id: 'compose_form.publish', defaultMessage: 'Post' },
   saveChanges: { id: 'compose_form.save_changes', defaultMessage: 'Update' },
   local_only: { id: 'compose_form.local_only', defaultMessage: 'local only' },
+  unlisted: { id: 'privacy.unlisted.short', defaultMessage: 'Quiet public' },
+  private: { id: 'privacy.private.short', defaultMessage: 'Followers' },
+  direct: { id: 'privacy.direct.short', defaultMessage: 'Specific people' },
 });
 
 class ComposeForm extends ImmutablePureComponent {
@@ -395,7 +398,7 @@ class ComposeForm extends ImmutablePureComponent {
                   className='button button--block icon-button-kiri'
                   icon='unlock'
                   iconComponent={QuietTimeIcon}
-                  title='unlisted'
+                  title={intl.formatMessage(messages.unlisted)}
                   size={20}
                   expanded
                   active={false}
@@ -408,7 +411,7 @@ class ComposeForm extends ImmutablePureComponent {
                   className='button button--block icon-button-kiri'
                   icon='lock'
                   iconComponent={LockIcon}
-                  title='private'
+                  title={intl.formatMessage(messages.private)}
                   size={20}
                   expanded
                   active={false}
@@ -421,7 +424,7 @@ class ComposeForm extends ImmutablePureComponent {
                   className='button button--block icon-button-kiri'
                   icon='at'
                   iconComponent={AlternateEmailIcon}
-                  title='direct'
+                  title={intl.formatMessage(messages.direct)}
                   size={20}
                   expanded
                   active={false}
