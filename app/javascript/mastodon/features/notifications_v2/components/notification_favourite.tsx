@@ -2,7 +2,8 @@ import { FormattedMessage } from 'react-intl';
 
 import { Link } from 'react-router-dom';
 
-import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
+// import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
+import StarIcon from '@/material-icons/400-24px/kiri-paw-fill.svg?react';
 import type { NotificationGroupFavourite } from 'mastodon/models/notification_group';
 import { useAppSelector } from 'mastodon/store';
 
