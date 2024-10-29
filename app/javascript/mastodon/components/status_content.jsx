@@ -111,6 +111,7 @@ class StatusContent extends PureComponent {
         const accountName = link.getAttribute('data-account-name') || '';
         if (accountName){
           link.addEventListener('click', this.onProfileEmojiClick.bind(this, accountName), false);
+          link.setAttribute('href', `/${accountName}`);
         }
       } else if (mention) {
         link.addEventListener('click', this.onMentionClick.bind(this, mention), false);
@@ -190,9 +191,9 @@ class StatusContent extends PureComponent {
   };
   
   onProfileEmojiClick = (shortcode, e) => {
-    if (this.context.router && e.button === 0) {
+    if (this.props.history && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
-      this.context.router.history.push(`/${shortcode}`);
+      this.props.history.push(`/${shortcode}`);
     }
   };
 
