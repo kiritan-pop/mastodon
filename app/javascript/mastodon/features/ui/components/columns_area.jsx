@@ -7,7 +7,10 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import Textarea from 'react-textarea-autosize';
 import { length } from 'stringz';
 
-import MailIcon from '@/material-icons/400-24px/mail.svg?react';
+import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?react';
+import LockIcon from '@/material-icons/400-24px/lock.svg?react';
+import PublicIcon from '@/material-icons/400-24px/public.svg?react';
+import QuietTimeIcon from '@/material-icons/400-24px/quiet_time.svg?react';
 import { browserHistory } from 'mastodon/components/router';
 
 import { IconButton } from '../../../components/icon_button';
@@ -166,12 +169,15 @@ export default class ColumnsArea extends ImmutablePureComponent {
     const text = countableText(this.props.text);
     const disabledButton = disabled || length(text) > 500 || (text.length !== 0 && text.trim().length === 0);
 
+    const privacy = this.props.privacy;
+    const sendicon = privacy === "direct" ? AlternateEmailIcon : privacy === "private" ? LockIcon : privacy === "unlisted" ? QuietTimeIcon : PublicIcon;
+
     if (singleColumn) {
       const iconButtonKiri =
         (<IconButton
           className='button icon-button-kiri'
           icon='pencil'
-          iconComponent={MailIcon}
+          iconComponent={sendicon}
           title='toot'
           size={20}
           expanded

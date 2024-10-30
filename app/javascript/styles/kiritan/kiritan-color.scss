@@ -21,11 +21,19 @@ body::before {
 }
 
 // フローティングトゥートエリア
-.floating-toot-area > .toot__input {
-  background: rgba($ui-base-color, 0.5);
+.floating-toot-area {
   backdrop-filter: blur(2px);
-  color: $primary-text-color;
-  border: 2px solid rgba($primary-text-color, 0.5);
+
+  .toot__input {
+    background: rgba($ui-base-color, 0.5);
+    color: $primary-text-color;
+    border: 2px solid $ui-button-background-color;
+  }
+
+  .icon-button-kiri {
+    background: rgba($ui-base-color, 0.5);
+    border: 2px solid $ui-button-background-color;
+  }
 }
 
 // 入力フォーム系
