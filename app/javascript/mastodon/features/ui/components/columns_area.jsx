@@ -194,7 +194,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
           <Textarea
             inputRef={this.setTextarea}
             className='toot__input'
-            placeholder='トゥートしてね〜'
+            placeholder='今なにしてる？'
             value={this.props.text}
             onChange={this.handleChange}
             onBlur={this.onBlur}
