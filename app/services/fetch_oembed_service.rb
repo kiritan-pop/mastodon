@@ -66,7 +66,7 @@ class FetchOEmbedService
   end
 
   def cache_endpoint!
-    return unless URL_REGEX.match?(@endpoint_url)
+    return if @endpoint_url.blank? || !URL_REGEX.match?(@endpoint_url)
 
     url_domain = Addressable::URI.parse(@url).normalized_host
 
