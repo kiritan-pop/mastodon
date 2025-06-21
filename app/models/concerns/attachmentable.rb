@@ -50,7 +50,7 @@ module Attachmentable
   end
 
   def check_image_dimension(attachment)
-    return if attachment.blank? || attachment.content_type.blank? || !/image.*/.match?(attachment.content_type) || attachment.queued_for_write[:original].blank?
+    return if attachment.blank? || !/image.*/.match?(attachment.content_type) || attachment.queued_for_write[:original].blank?
 
     width, height = FastImage.size(attachment.queued_for_write[:original].path)
     return unless width.present? && height.present?
