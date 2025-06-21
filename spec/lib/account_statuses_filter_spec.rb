@@ -202,12 +202,10 @@ RSpec.describe AccountStatusesFilter do
         let(:reblogging_status) { Fabricate(:status, account: other_account, visibility: 'public') }
         let!(:reblog) { Fabricate(:status, account: account, visibility: 'public', reblog: reblogging_status) }
 
-        before do
-          current_account.block_domain!('example.com')
-        end
+        before { Fabricate(:domain_block, domain: 'unrelated.example.com', on_behalf_of: current_account) }
 
         it 'returns the reblog from the non-blocked domain' do
-          expect(subject.results.pluck(:id)).to include(reblog.id)
+          expect(subject.pluck(:id)).to include(reblog.id)
         end
       end
 

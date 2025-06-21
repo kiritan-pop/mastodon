@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Friends
-  module ProfileEmoji ; end
+  module ProfileEmoji; end
 end

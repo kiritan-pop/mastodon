@@ -1065,7 +1065,7 @@ ja:
   applications:
     created: アプリが作成されました
     destroyed: アプリが削除されました
-    invalid_regexp: "指定された正規表現が無効: %{message}"
+    invalid_regexp: '指定された正規表現が無効: %{message}'
     logout: ログアウト
     regenerate_token: アクセストークンの再生成
     token_regenerated: アクセストークンが再生成されました
