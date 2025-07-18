@@ -73,7 +73,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
     isModalOpen: PropTypes.bool.isRequired,
     singleColumn: PropTypes.bool,
     children: PropTypes.node,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
     isSubmitting: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
@@ -195,7 +195,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
             inputRef={this.setTextarea}
             className='toot__input'
             placeholder='今なにしてる？'
-            value={this.props.text}
+            value={this.props.text || ''}
             onChange={this.handleChange}
             onBlur={this.onBlur}
           />
