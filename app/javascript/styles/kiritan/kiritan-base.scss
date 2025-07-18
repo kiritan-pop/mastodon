@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use '../mastodon/variables' as *;
+
 // きりたん丼共通
 
 /* ファボを肉球に */
@@ -17,10 +20,12 @@
 .compose-form__submit {
   .button {
     border: 1px solid $highlight-text-color;
+    height: 32px;
+    box-sizing: border-box;
   }
 
-  .icon-button-kiri {
-    max-width: 28px;
+  .button--compact {
+    min-width: 100px;
   }
 }
 
@@ -65,7 +70,7 @@
 .status {
   padding: 4px;
   padding-left: 12px;
-  border-bottom: 2px solid lighten($ui-base-color, 16%);
+  border-bottom: 2px solid color.adjust($ui-base-color, $lightness: 16%); // lighten($ui-base-color, 16%);
 }
 
 .status__action-bar {

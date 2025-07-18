@@ -8,9 +8,13 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 
 import HomeIcon from '@/material-icons/400-24px/home-fill.svg?react';
+import { SymbolLogo } from 'mastodon/components/logo';
+import { fetchAnnouncements, toggleShowAnnouncements } from 'mastodon/actions/announcements';
+import { IconWithBadge } from 'mastodon/components/icon_with_badge';
 import { NotSignedInIndicator } from 'mastodon/components/not_signed_in_indicator';
 import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
 import { criticalUpdatesPending } from 'mastodon/initial_state';
+import { withBreakpoint } from 'mastodon/features/ui/hooks/useBreakpoint';
 
 import { addColumn, removeColumn, moveColumn } from '../../actions/columns';
 import { expandHomeTimeline } from '../../actions/timelines';
@@ -39,6 +43,10 @@ class HomeTimeline extends PureComponent {
     isPartial: PropTypes.bool,
     columnId: PropTypes.string,
     multiColumn: PropTypes.bool,
+    hasAnnouncements: PropTypes.bool,
+    unreadAnnouncements: PropTypes.number,
+    showAnnouncements: PropTypes.bool,
+    matchesBreakpoint: PropTypes.bool,
   };
 
   handlePin = () => {
@@ -108,7 +116,7 @@ class HomeTimeline extends PureComponent {
   // };
 
   render () {
-    const { intl, hasUnread, columnId, multiColumn } = this.props;
+    const { intl, hasUnread, columnId, multiColumn, hasAnnouncements, unreadAnnouncements, showAnnouncements, matchesBreakpoint } = this.props;
     const pinned = !!columnId;
     const { signedIn } = this.props.identity;
     const banners = [];
@@ -122,7 +130,7 @@ class HomeTimeline extends PureComponent {
       <Column bindToDocument={!multiColumn} ref={this.setRef} label={intl.formatMessage(messages.title)}>
         <ColumnHeader
           icon='home'
-          iconComponent={HomeIcon}
+          iconComponent={matchesBreakpoint ? SymbolLogo : HomeIcon}
           active={hasUnread}
           title={intl.formatMessage(messages.title)}
           onPin={this.handlePin}
@@ -157,4 +165,4 @@ class HomeTimeline extends PureComponent {
 
 }
 
-export default connect(mapStateToProps)(withIdentity(injectIntl(HomeTimeline)));
+export default connect(mapStateToProps)(withBreakpoint(withIdentity(injectIntl(HomeTimeline))));

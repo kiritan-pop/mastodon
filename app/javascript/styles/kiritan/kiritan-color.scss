@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use '../mastodon/variables' as *;
+
 /* きりたん丼カラー */
 
 /* 背景を画像に */
@@ -52,7 +55,7 @@ body::before {
 .compose-form .autosuggest-textarea__suggestions__item:focus,
 .compose-form .autosuggest-textarea__suggestions__item:active,
 .compose-form .autosuggest-textarea__suggestions__item.selected {
-  background: lighten($ui-base-color, 30%);
+  background: color.adjust($ui-base-color, $lightness: 30%);
 }
 
 // その他色合わせ
@@ -72,8 +75,8 @@ body::before {
     color: $ui-secondary-color;
 
     &:hover {
-      color: darken($ui-secondary-color, 4%);
-      background: lighten($ui-base-color, 20%);
+      color: color.adjust($ui-secondary-color, $lightness: -4%);
+      background: color.adjust($ui-base-color, $lightness: 20%);
     }
   }
 
@@ -81,7 +84,7 @@ body::before {
     color: $highlight-text-color;
 
     &:hover {
-      color: darken($highlight-text-color, 4%);
+      color: color.adjust($highlight-text-color, $lightness: -4%);
     }
   }
 

@@ -1,3 +1,4 @@
-@import 'kiritan/kiritan-variables';
-@import 'application';
-@import 'kiritan/kiritan-color';
+@use 'kiritan/kiritan-variables' as *;
+@use 'application';
+@use 'kiritan/kiritan-base';
+@use 'kiritan/kiritan-color';

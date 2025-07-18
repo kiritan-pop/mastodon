@@ -1,24 +1,30 @@
-$gold-star: #ed4d1c;
+@use 'sass:color';
 
+/* きりたん丼カラー */
 // kiritan base color
 $kiri-base-color: rgb(30, 15, 20);
 $kiri-base-lighter-color: #e4d0da;
 
-// Variables for defaults in UI
-$base-shadow-color: $kiri-base-color;
-$base-overlay-background: rgba($base-shadow-color, 0.2);
-$base-border-color: $kiri-base-lighter-color;
+@use '../mastodon/variables' with (
+  $gold-star: #ed4d1c,
 
-// Tell UI to use selected colors
-$ui-highlight-color: #2b90d9;
-$ui-base-color: rgba($kiri-base-color, 0.8);
-$ui-base-lighter-color: lighten(desaturate($ui-base-color, 20%), 45%);
-$ui-primary-color: $kiri-base-lighter-color;
-$ui-secondary-color: lighten($kiri-base-lighter-color, 50%);
+  // Variables for defaults in UI
+  $base-shadow-color: $kiri-base-color,
+  $base-overlay-background: rgba($kiri-base-color, 0.2),
+  $base-border-color: $kiri-base-lighter-color,
 
-$ui-button-background-color: darken($ui-highlight-color, 5%);
-$ui-button-focus-background-color: darken($ui-highlight-color, 25%);
-
-// Variables for texts
-$primary-text-color: $base-border-color;
-$darker-text-color: darken($kiri-base-lighter-color, 20%);
+  // Tell UI to use selected colors
+  $ui-highlight-color: #2b90d9,
+  $ui-base-color: rgba($kiri-base-color, 0.8),
+  $ui-base-lighter-color: color.adjust(
+      color.adjust(rgba($kiri-base-color, 0.8), $saturation: -20%),
+      $lightness: 45%
+    ),
+  $ui-primary-color: $kiri-base-lighter-color,
+  $ui-secondary-color: color.adjust($kiri-base-lighter-color, $lightness: 50%),
+  $ui-button-background-color: color.adjust(#2b90d9, $lightness: -5%),
+  $ui-button-focus-background-color: color.adjust(#2b90d9, $lightness: -25%),
+  // Variables for texts
+  $primary-text-color: $kiri-base-lighter-color,
+  $darker-text-color: color.adjust($kiri-base-lighter-color, $lightness: -20%)
+);

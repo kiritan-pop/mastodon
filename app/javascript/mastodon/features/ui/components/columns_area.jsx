@@ -19,7 +19,7 @@ import { countableText } from '../../compose/util/counter';
 import BundleContainer from '../containers/bundle_container';
 import {
   Compose,
-  NotificationsWrapper,
+  Notifications,
   HomeTimeline,
   CommunityTimeline,
   PublicTimeline,
@@ -34,16 +34,16 @@ import { useColumnsContext } from '../util/columns_context';
 
 import BundleColumnError from './bundle_column_error';
 import { ColumnLoading } from './column_loading';
-import ComposePanel from './compose_panel';
+import { ComposePanel, RedirectToMobileComposeIfNeeded } from './compose_panel';
 import DrawerLoading from './drawer_loading';
-import NavigationPanel from './navigation_panel';
+import { CollapsibleNavigationPanel } from 'mastodon/features/navigation_panel';
 
 
 
 const componentMap = {
   'COMPOSE': Compose,
   'HOME': HomeTimeline,
-  'NOTIFICATIONS': NotificationsWrapper,
+  'NOTIFICATIONS': Notifications,
   'PUBLIC': PublicTimeline,
   'REMOTE': PublicTimeline,
   'COMMUNITY': CommunityTimeline,
@@ -166,7 +166,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
     const { renderComposePanel } = this.state;
 
     const disabled = this.props.isSubmitting;
-    const text = countableText(this.props.text);
+    const text = countableText(this.props.text || '');
     const disabledButton = disabled || length(text) > 500 || (text.length !== 0 && text.trim().length === 0);
 
     const privacy = this.props.privacy;
@@ -207,6 +207,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
           <div className='columns-area__panels__pane columns-area__panels__pane--compositional'>
             <div className='columns-area__panels__pane__inner'>
               {renderComposePanel && <ComposePanel />}
+              <RedirectToMobileComposeIfNeeded />
             </div>
           </div>
 
@@ -215,11 +216,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
             <div className='columns-area columns-area--mobile'>{children}</div>
           </div>
 
-          <div className='columns-area__panels__pane columns-area__panels__pane--start columns-area__panels__pane--navigational'>
-            <div className='columns-area__panels__pane__inner'>
-              <NavigationPanel />
-            </div>
-          </div>
+          <CollapsibleNavigationPanel />
           {floatingTootArea}
         </div>
       );
