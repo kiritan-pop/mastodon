@@ -5,9 +5,14 @@ import { useIntl, defineMessages } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import type { Map as ImmutableMap, List as ImmutableList } from 'immutable';
+import type {
+  Map as ImmutableMap,
+  List as ImmutableList,
+  Collection,
+} from 'immutable';
 
 import elephantUIPlane from '@/images/elephant_ui_plane.svg';
+import CampaignIcon from '@/material-icons/400-24px/campaign.svg?react';
 import EditIcon from '@/material-icons/400-24px/edit_square.svg?react';
 import PeopleIcon from '@/material-icons/400-24px/group.svg?react';
 import HomeIcon from '@/material-icons/400-24px/home-fill.svg?react';
@@ -16,11 +21,17 @@ import MenuIcon from '@/material-icons/400-24px/menu.svg?react';
 import NotificationsIcon from '@/material-icons/400-24px/notifications-fill.svg?react';
 import PublicIcon from '@/material-icons/400-24px/public.svg?react';
 import SettingsIcon from '@/material-icons/400-24px/settings.svg?react';
+import {
+  fetchAnnouncements,
+  toggleShowAnnouncements,
+} from 'mastodon/actions/announcements';
 import { mountCompose, unmountCompose } from 'mastodon/actions/compose';
 import { openModal } from 'mastodon/actions/modal';
 import { Column } from 'mastodon/components/column';
 import { ColumnHeader } from 'mastodon/components/column_header';
 import { Icon } from 'mastodon/components/icon';
+import { IconWithBadge } from 'mastodon/components/icon_with_badge';
+import AnnouncementsContainer from 'mastodon/features/getting_started/containers/announcements_container';
 import { mascot, reduceMotion } from 'mastodon/initial_state';
 import { useAppDispatch, useAppSelector } from 'mastodon/store';
 
@@ -28,6 +39,7 @@ import { messages as navbarMessages } from '../ui/components/navigation_bar';
 
 import { Search } from './components/search';
 import ComposeFormContainer from './containers/compose_form_container';
+
 
 const messages = defineMessages({
   live_feed_public: {
@@ -43,6 +55,14 @@ const messages = defineMessages({
     defaultMessage: 'Preferences',
   },
   logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
+  show_announcements: {
+    id: 'home.show_announcements',
+    defaultMessage: 'Show announcements',
+  },
+  hide_announcements: {
+    id: 'home.hide_announcements',
+    defaultMessage: 'Hide announcements',
+  },
 });
 
 type ColumnMap = ImmutableMap<'id' | 'uuid' | 'params', string>;
@@ -57,8 +77,40 @@ const Compose: React.FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
       ) as ImmutableList<ColumnMap>,
   );
 
+  const hasAnnouncements = useAppSelector((state) => {
+    const announcements = state.announcements as
+      | ImmutableMap<string, unknown>
+      | undefined;
+    const items = announcements?.get('items') as
+      | Collection<unknown, unknown>
+      | undefined;
+    return !(items?.isEmpty() ?? true);
+  });
+  const unreadAnnouncements = useAppSelector((state) => {
+    const announcements = state.announcements as
+      | ImmutableMap<string, unknown>
+      | undefined;
+    const items = announcements?.get('items') as
+      | Collection<unknown, unknown>
+      | undefined;
+    return (
+      items?.count((item: unknown) => {
+        const itemMap = item as ImmutableMap<string, unknown>;
+        return !itemMap.get('read');
+      }) ?? 0
+    );
+  });
+  const showAnnouncements = useAppSelector((state) => {
+    const announcements = state.announcements as
+      | ImmutableMap<string, unknown>
+      | undefined;
+    const show = announcements?.get('show') as boolean | undefined;
+    return show ?? false;
+  });
+
   useEffect(() => {
     dispatch(mountCompose());
+    dispatch(fetchAnnouncements());
 
     return () => {
       dispatch(unmountCompose());
@@ -83,6 +135,46 @@ const Compose: React.FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
       behavior: reduceMotion ? 'auto' : 'smooth',
     });
   }, []);
+
+  const handleToggleAnnouncementsClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      dispatch(toggleShowAnnouncements());
+    },
+    [dispatch],
+  );
+
+  const announcementsButton = (
+    <button
+      className={`column-header__button ${showAnnouncements ? 'active' : ''}`}
+      title={intl.formatMessage(
+        showAnnouncements
+          ? messages.hide_announcements
+          : messages.show_announcements,
+      )}
+      aria-label={intl.formatMessage(
+        showAnnouncements
+          ? messages.hide_announcements
+          : messages.show_announcements,
+      )}
+      aria-pressed={showAnnouncements ? 'true' : 'false'}
+      onClick={handleToggleAnnouncementsClick}
+    >
+      <IconWithBadge
+        id='bullhorn'
+        icon={CampaignIcon}
+        count={unreadAnnouncements}
+        className='column-header__icon'
+      />
+    </button>
+  );
+
+  const announcements = hasAnnouncements ? (
+    <div className='announcements__kiriwrapper'>
+      {announcementsButton}
+      {showAnnouncements && <AnnouncementsContainer />}
+    </div>
+  ) : null;
 
   if (multiColumn) {
     return (
@@ -165,6 +257,7 @@ const Compose: React.FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
         <div className='drawer__pager'>
           <div className='drawer__inner'>
             <ComposeFormContainer />
+            {announcements}
 
             <div className='drawer__inner__mastodon'>
               <img alt='' draggable='false' src={mascot ?? elephantUIPlane} />
@@ -190,6 +283,7 @@ const Compose: React.FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
 
       <div className='scrollable'>
         <ComposeFormContainer />
+        {announcements}
       </div>
 
       <Helmet>
