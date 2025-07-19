@@ -32,7 +32,7 @@ la:
     accounts:
       are_you_sure: Esne certus?
     statuses:
-      title: Ratiōnis publicātiōnēs
+      title: Ratiōnis publicātiōnēs - @%{name}
   auth:
     setup:
       email_settings_hint_html: Premī nexum quem tibi mīsimus ut %{email} comprobēs. Hīc manēbimus.
