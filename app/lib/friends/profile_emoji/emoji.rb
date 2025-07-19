@@ -36,7 +36,7 @@ module Friends
         false
       end
 
-      def has_attribute?(_attr) # rubocop:disable Naming/PredicateName
+      def has_attribute?(_attr) # rubocop:disable Naming/PredicatePrefix
         true
       end
 
