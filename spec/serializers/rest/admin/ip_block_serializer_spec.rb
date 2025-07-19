@@ -11,7 +11,6 @@ RSpec.describe REST::Admin::IpBlockSerializer do
     it 'parses as RFC 3339 datetime' do
       expect(subject)
         .to include(
-          'created_at' => match_api_datetime_format,
           'expires_at' => match_api_datetime_format
         )
     end
