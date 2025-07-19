@@ -33,6 +33,7 @@ const mapStateToProps = state => ({
   isInReply: state.getIn(['compose', 'in_reply_to']) !== null,
   lang: state.getIn(['compose', 'language']),
   maxChars: state.getIn(['server', 'server', 'configuration', 'statuses', 'max_characters'], 500),
+  localOnly: state.getIn(['compose', 'local_only'], false),
 });
 
 const mapDispatchToProps = (dispatch) => ({

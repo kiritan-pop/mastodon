@@ -311,6 +311,53 @@
 //   margin-top: 2px;
 // }
 
+.compose-form__local-only-toggle {
+  display: inline-block;
+  position: relative;
+  width: 32px;
+  height: 20px;
+  background-color: $ui-base-lighter-color;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.25s ease;
+  outline: none;
+
+  &:hover {
+    background-color: $base-border-color;
+  }
+
+  &.toggled-on {
+    background-color: $ui-button-background-color;
+
+    &:hover {
+      background-color: $ui-button-focus-background-color;
+    }
+
+    .toggle-thumb {
+      left: 14px;
+    }
+  }
+
+  .toggle-track {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: $ui-primary-color;
+    transition: left 0.25s ease;
+  }
+}
+
 @keyframes rubber-band {
   0% {
     -webkit-transform: scale3d(1, 1, 1);

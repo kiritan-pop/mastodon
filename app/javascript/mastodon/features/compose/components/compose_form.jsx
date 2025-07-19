@@ -307,22 +307,23 @@ class ComposeForm extends ImmutablePureComponent {
     const { highlighted } = this.state;
     const isCansubmit = this.canSubmit();
 
-    const LocalOnlyToggle =
-      (<div
-        className={classNames('compose-form__local-only', {
+    const LocalOnlyToggle = (
+      <button
+        type="button"
+        className={classNames('compose-form__local-only-toggle', {
           'toggled-off': !this.props.localOnly,
           'toggled-on': this.props.localOnly,
         })}
         onClick={this.onChangeLocalOnly}
-        onKeyDown={this.onChangeLocalOnly}
-        tabIndex='0'
-        key='local_only'
-        data-index='local_only'
         title={intl.formatMessage(messages.local_only)}
         aria-label={intl.formatMessage(messages.local_only)}
+        aria-pressed={this.props.localOnly}
       >
-        <Toggle checked={this.props.localOnly} onChange={this.onChangeLocalOnly} />
-      </div>);
+        <div className="toggle-track">
+          <div className="toggle-thumb"></div>
+        </div>
+      </button>
+    );
 
     return (
       <form className='compose-form' onSubmit={this.handleSubmit}>

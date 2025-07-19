@@ -189,6 +189,8 @@ export function submitCompose(vis = null) {
     const status   = getState().getIn(['compose', 'text'], '');
     const media    = getState().getIn(['compose', 'media_attachments']);
     const statusId = getState().getIn(['compose', 'id'], null);
+    const localOnly = getState().getIn(['compose', 'local_only'], false);
+
 
     if ((!status || !status.length) && media.size === 0) {
       return;
@@ -216,21 +218,24 @@ export function submitCompose(vis = null) {
       });
     }
 
+    const requestData = {
+      status,
+      in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
+      media_ids: media.map(item => item.get('id')),
+      media_attributes,
+      sensitive: getState().getIn(['compose', 'sensitive']),
+      spoiler_text: getState().getIn(['compose', 'spoiler']) ? getState().getIn(['compose', 'spoiler_text'], '') : '',
+      visibility: vis ? vis : getState().getIn(['compose', 'privacy']),
+      poll: getState().getIn(['compose', 'poll'], null),
+      local_only: localOnly,
+      language: getState().getIn(['compose', 'language']),
+    };
+
+
     api().request({
       url: statusId === null ? '/api/v1/statuses' : `/api/v1/statuses/${statusId}`,
       method: statusId === null ? 'post' : 'put',
-      data: {
-        status,
-        in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
-        media_ids: media.map(item => item.get('id')),
-        media_attributes,
-        sensitive: getState().getIn(['compose', 'sensitive']),
-        spoiler_text: getState().getIn(['compose', 'spoiler']) ? getState().getIn(['compose', 'spoiler_text'], '') : '',
-        visibility: vis ? vis : getState().getIn(['compose', 'privacy']),
-        poll: getState().getIn(['compose', 'poll'], null),
-        local_only: getState().getIn(['compose', 'local_only'], false),
-        language: getState().getIn(['compose', 'language']),
-      },
+      data: requestData,
       headers: {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
       },
