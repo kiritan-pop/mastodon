@@ -18,15 +18,22 @@
 }
 
 .compose-form__submit {
-  .button {
-    border: 1px solid $highlight-text-color;
-    height: 32px;
-    min-width: 30px;
+  display: flex;
+  gap: 4px;
+
+  .icon-button-kiri {
+    display: flex;
+    background-color: $ui-button-background-color;
+    color: $ui-button-color;
+    height: 31px;
+    min-width: 32px;
+    max-width: 56px;
     box-sizing: border-box;
   }
 
   .button--compact {
-    min-width: 80px;
+    min-width: 64px;
+    box-sizing: border-box;
   }
 }
 
