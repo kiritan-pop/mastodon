@@ -34,7 +34,6 @@ la:
     statuses:
       title: Ratiōnis publicātiōnēs
   auth:
-    privacy_policy_agreement_html: Lēgī et cōnsēnsī ad <a href="%{privacy_policy_path}" target="_blank">pōlīticam prīvātī tūtelam</a>
     setup:
       email_settings_hint_html: Premī nexum quem tibi mīsimus ut %{email} comprobēs. Hīc manēbimus.
     sign_up:

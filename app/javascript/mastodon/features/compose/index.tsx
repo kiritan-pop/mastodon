@@ -40,7 +40,6 @@ import { messages as navbarMessages } from '../ui/components/navigation_bar';
 import { Search } from './components/search';
 import ComposeFormContainer from './containers/compose_form_container';
 
-
 const messages = defineMessages({
   live_feed_public: {
     id: 'navigation_bar.live_feed_public',

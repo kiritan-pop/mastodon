@@ -468,7 +468,6 @@ ro:
     migrate_account: Transfer către un alt cont
     migrate_account_html: Dacă dorești să redirecționezi acest cont către un altul, poți <a href="%{path}">configura asta aici</a>.
     or_log_in_with: Sau conectează-te cu
-    privacy_policy_agreement_html: Am citit și sunt de acord cu <a href="%{privacy_policy_path}" target="_blank">Politica de confidențialitate</a>
     register: Înregistrare
     registration_closed: "%{instance} nu acceptă membri noi"
     reset_password: Resetare parolă
