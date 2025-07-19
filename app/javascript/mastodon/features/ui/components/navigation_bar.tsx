@@ -11,6 +11,8 @@ import HomeIcon from '@/material-icons/400-24px/home.svg?react';
 import MenuIcon from '@/material-icons/400-24px/menu.svg?react';
 import NotificationsActiveIcon from '@/material-icons/400-24px/notifications-fill.svg?react';
 import NotificationsIcon from '@/material-icons/400-24px/notifications.svg?react';
+import PublicActiveIcon from '@/material-icons/400-24px/public-fill.svg?react';
+import PublicIcon from '@/material-icons/400-24px/public.svg?react';
 import SearchIcon from '@/material-icons/400-24px/search.svg?react';
 import { openModal } from 'mastodon/actions/modal';
 import { toggleNavigation } from 'mastodon/actions/navigation';
@@ -31,6 +33,7 @@ export const messages = defineMessages({
     defaultMessage: 'Notifications',
   },
   menu: { id: 'tabs_bar.menu', defaultMessage: 'Menu' },
+  firehose: { id: 'column.firehose', defaultMessage: 'Live feeds' },
 });
 
 const IconLabelButton: React.FC<{
@@ -171,6 +174,12 @@ export const NavigationBar: React.FC = () => {
       >
         {signedIn && (
           <>
+            <IconLabelButton
+              title={intl.formatMessage(messages.firehose)}
+              to='/public/local'
+              icon={<Icon id='' icon={PublicIcon} />}
+              activeIcon={<Icon id='' icon={PublicActiveIcon} />}
+            />
             <IconLabelButton
               title={intl.formatMessage(messages.home)}
               to='/home'
