@@ -9,6 +9,7 @@ import { accountsMapReducer } from './accounts_map';
 import { alertsReducer } from './alerts';
 import announcements from './announcements';
 import { composeReducer } from './compose';
+import composeKiri from './compose_kiri';
 import { contextsReducer } from './contexts';
 import conversations from './conversations';
 import custom_emojis from './custom_emojis';
@@ -61,6 +62,7 @@ const reducers = {
   server,
   contexts: contextsReducer,
   compose: composeReducer,
+  compose_kiri: composeKiri,
   search: searchReducer,
   media_attachments,
   notifications,

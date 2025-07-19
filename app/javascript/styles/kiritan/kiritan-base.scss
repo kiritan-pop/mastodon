@@ -21,11 +21,12 @@
   .button {
     border: 1px solid $highlight-text-color;
     height: 32px;
+    min-width: 30px;
     box-sizing: border-box;
   }
 
   .button--compact {
-    min-width: 100px;
+    min-width: 80px;
   }
 }
 

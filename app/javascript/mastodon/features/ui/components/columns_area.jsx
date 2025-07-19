@@ -192,7 +192,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
         (<div className='floating-toot-area'>
           {iconButtonKiri}
           <Textarea
-            inputRef={this.setTextarea}
+            ref={this.setTextarea}
             className='toot__input'
             placeholder='今なにしてる？'
             value={this.props.text || ''}
