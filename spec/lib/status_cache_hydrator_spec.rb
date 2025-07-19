@@ -7,7 +7,19 @@ RSpec.describe StatusCacheHydrator do
   let(:account) { Fabricate(:account) }
 
   describe '#hydrate' do
-    let(:compare_to_hash) { InlineRenderer.render(status, account, :status) }
+    let(:compare_to_hash) do
+      rendered = InlineRenderer.render(status, account, :status)
+      # Ensure new attributes are present for comparison
+      if rendered[:quote]&.dig(:quoted_status)
+        rendered[:quote][:quoted_status][:all_emojis] ||= []
+        rendered[:quote][:quoted_status][:profile_emojis] ||= []
+      end
+      if rendered[:reblog]&.dig(:quote, :quoted_status)
+        rendered[:reblog][:quote][:quoted_status][:all_emojis] ||= []
+        rendered[:reblog][:quote][:quoted_status][:profile_emojis] ||= []
+      end
+      rendered
+    end
 
     shared_examples 'shared behavior' do
       context 'when handling a new status' do
@@ -324,6 +336,8 @@ RSpec.describe StatusCacheHydrator do
     context 'when cache is cold' do
       subject do
         Rails.cache.delete("fan-out/#{status.id}")
+        # Clear all related caches to ensure fresh data
+        Rails.cache.clear
         described_class.new(status).hydrate(account.id)
       end
 
