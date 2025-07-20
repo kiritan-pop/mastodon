@@ -7,8 +7,8 @@ import classNames from 'classnames';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import { Map as ImmutableMap } from 'immutable';
 
-import Toggle from 'react-toggle';
 import { length } from 'stringz';
 
 import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?react';
@@ -37,6 +37,7 @@ import { PollForm } from "./poll_form";
 import { ReplyIndicator } from './reply_indicator';
 import { UploadForm } from './upload_form';
 import { Warning } from './warning';
+import SettingToggle from '../../notifications/components/setting_toggle';
 
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
@@ -298,7 +299,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onPickEmoji(position, data, needsSpace);
   };
 
-  onChangeLocalOnly = () => {
+  onChangeLocalOnly = (settingPath, checked) => {
     this.props.onChangeLocalOnly();
   };
 
@@ -307,22 +308,18 @@ class ComposeForm extends ImmutablePureComponent {
     const { highlighted } = this.state;
     const isCansubmit = this.canSubmit();
 
+    // localOnlyの設定を管理するための仮想的な設定オブジェクト
+    const localOnlySettings = ImmutableMap({ localOnly: this.props.localOnly });
+
     const LocalOnlyToggle = (
-      <button
-        type="button"
-        className={classNames('compose-form__local-only-toggle', {
-          'toggled-off': !this.props.localOnly,
-          'toggled-on': this.props.localOnly,
-        })}
-        onClick={this.onChangeLocalOnly}
-        title={intl.formatMessage(messages.local_only)}
-        aria-label={intl.formatMessage(messages.local_only)}
-        aria-pressed={this.props.localOnly}
-      >
-        <div className="toggle-track">
-          <div className="toggle-thumb"></div>
-        </div>
-      </button>
+      <SettingToggle
+        prefix="compose"
+        settings={localOnlySettings}
+        settingPath={['localOnly']}
+        onChange={this.onChangeLocalOnly}
+        label={intl.formatMessage(messages.local_only)}
+        disabled={isSubmitting}
+      />
     );
 
     return (
