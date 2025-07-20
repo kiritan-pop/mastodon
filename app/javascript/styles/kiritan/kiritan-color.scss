@@ -103,3 +103,11 @@ body::before {
 .column {
   background: $ui-base-color;
 }
+
+// プレースホルダーの色を設定
+.search__input::placeholder,
+.compose-form input::placeholder,
+.autosuggest-textarea__textarea::placeholder {
+  color: $darker-text-color;
+  opacity: 0.7;
+}
