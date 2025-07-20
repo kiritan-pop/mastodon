@@ -320,14 +320,17 @@
   .setting-toggle {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
     margin-left: 2px;
 
     .setting-toggle__label {
-      display: flex;
+      display: block;
       line-height: 16px;
       max-width: 80px;
       font-size: 11px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
       @media (width <= 630px) {
         max-width: 100px;
