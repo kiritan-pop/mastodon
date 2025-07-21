@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use '../mastodon/variables' as *;
 
-// きりたん丼共通
+// きりたん丼共通：テーマに関係なく適用されるもの
 
 /* ファボを肉球に */
 .fa-star::before {
@@ -45,6 +45,7 @@
 }
 
 .floating-toot-area {
+  backdrop-filter: blur(2px);
   position: fixed;
   display: flex;
   width: calc(99% - env(safe-area-inset-left) - env(safe-area-inset-right));
@@ -53,9 +54,12 @@
     var(--mobile-bottom-nav-height) + 20px + env(safe-area-inset-bottom)
   );
   align-items: center;
+  gap: 1px;
 
   .toot__input {
     flex: auto;
+    background: rgba($ui-base-color, 0.5);
+    color: $primary-text-color;
     min-height: 2.625rem;
     font-size: 1.1rem;
     white-space: pre-wrap;
@@ -73,16 +77,15 @@
     width: 2.625rem;
     height: 2.625rem;
     border-radius: 25%;
-    color: $highlight-text-color;
-    border: 1px solid $highlight-text-color;
+    color: $ui-button-color;
+    background-color: $ui-button-background-color;
   }
 
   .floating-toot-area__local-only-indicator {
     position: absolute;
     top: -8px;
     right: 3rem;
-    background: $ui-base-color;
-    border: 1px solid $highlight-text-color;
+    border: 3px solid $ui-button-background-color;
     border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;

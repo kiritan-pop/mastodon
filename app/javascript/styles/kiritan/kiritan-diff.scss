@@ -1,8 +1,6 @@
 @use 'sass:color';
 @use '../mastodon/variables' as *;
 
-/* きりたん丼カラー */
-
 /* 背景を画像に */
 body::before {
   content: '';
@@ -21,22 +19,6 @@ body::before {
 // 設定画面
 .admin-wrapper {
   background: $ui-base-color;
-}
-
-// フローティングトゥートエリア
-.floating-toot-area {
-  backdrop-filter: blur(2px);
-
-  .toot__input {
-    background: rgba($ui-base-color, 0.5);
-    color: $primary-text-color;
-    border: 2px solid $ui-button-background-color;
-  }
-
-  .icon-button-kiri {
-    background: rgba($ui-base-color, 0.5);
-    border: 2px solid $ui-button-background-color;
-  }
 }
 
 // 入力フォーム系
@@ -107,7 +89,8 @@ body::before {
 // プレースホルダーの色を設定
 .search__input::placeholder,
 .compose-form input::placeholder,
-.autosuggest-textarea__textarea::placeholder {
+.autosuggest-textarea__textarea::placeholder,
+.floating-toot-area .toot__input::placeholder {
   color: $darker-text-color;
   opacity: 0.7;
 }
