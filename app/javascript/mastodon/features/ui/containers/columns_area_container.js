@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
   text: state.getIn(['compose_kiri', 'text']),
   isSubmitting: state.getIn(['compose_kiri', 'is_submitting']),
   privacy: state.getIn(['compose', 'privacy']),
+  localOnly: state.getIn(['compose', 'local_only'], false),
 });
 
 const mapDispatchToProps = (dispatch) => ({

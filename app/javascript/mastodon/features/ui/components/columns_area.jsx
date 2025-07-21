@@ -11,6 +11,7 @@ import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?re
 import LockIcon from '@/material-icons/400-24px/lock.svg?react';
 import PublicIcon from '@/material-icons/400-24px/public.svg?react';
 import QuietTimeIcon from '@/material-icons/400-24px/quiet_time.svg?react';
+import VisibilityIcon from '@/material-icons/400-24px/visibility-fill.svg?react';
 import { browserHistory } from 'mastodon/components/router';
 
 import { IconButton } from '../../../components/icon_button';
@@ -78,6 +79,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onSync: PropTypes.func.isRequired,
+    localOnly: PropTypes.bool,
   };
 
   // Corresponds to (max-width: $no-gap-breakpoint - 1px) in SCSS
@@ -162,7 +164,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
   };
 
   render () {
-    const { columns, children, singleColumn, isModalOpen } = this.props;
+    const { columns, children, singleColumn, isModalOpen, localOnly } = this.props;
     const { renderComposePanel } = this.state;
 
     const disabled = this.props.isSubmitting;
@@ -199,6 +201,11 @@ export default class ColumnsArea extends ImmutablePureComponent {
             onChange={this.handleChange}
             onBlur={this.onBlur}
           />
+          {localOnly && (
+            <div className='floating-toot-area__local-only-indicator' title='ローカルのみ'>
+              <VisibilityIcon />
+            </div>
+          )}
           {iconButtonKiri}
         </div>);
 

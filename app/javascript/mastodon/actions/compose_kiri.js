@@ -20,6 +20,7 @@ export function changeCompose(text) {
 export function submitCompose(vis = null) {
   return function (dispatch, getState) {
     const status = getState().getIn(['compose_kiri', 'text'], '');
+    const localOnly = getState().getIn(['compose', 'local_only'], false);
 
     if ((!status || !status.length)) {
       return;
@@ -30,6 +31,7 @@ export function submitCompose(vis = null) {
     api(getState).post('/api/v1/statuses', {
       status,
       visibility: vis ? vis : getState().getIn(['compose', 'privacy']),
+      local_only: localOnly,
     }, {
       headers: {
         'Idempotency-Key': getState().getIn(['compose_kiri', 'idempotencyKey']),
@@ -84,8 +86,13 @@ export function submitComposeFail(error) {
 }
 
 export function syncCompose(text) {
-  return {
-    type: COMPOSE_SYNC_KIRI,
-    text: text,
+  return function (dispatch, getState) {
+    const localOnly = getState().getIn(['compose', 'local_only'], false);
+    
+    dispatch({
+      type: COMPOSE_SYNC_KIRI,
+      text: text,
+      local_only: localOnly,
+    });
   };
 }

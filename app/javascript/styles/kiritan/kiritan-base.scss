@@ -76,6 +76,27 @@
     color: $highlight-text-color;
     border: 1px solid $highlight-text-color;
   }
+
+  .floating-toot-area__local-only-indicator {
+    position: absolute;
+    top: -8px;
+    right: 3rem;
+    background: $ui-base-color;
+    border: 1px solid $highlight-text-color;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+      fill: $highlight-text-color;
+    }
+  }
 }
 
 .status {
