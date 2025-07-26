@@ -22,6 +22,7 @@ services:
     restart: always
     image: redis:7-alpine
     networks:
+      - external_network
       - internal_network
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
