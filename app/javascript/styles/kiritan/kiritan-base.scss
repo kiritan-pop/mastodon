@@ -29,6 +29,18 @@
     min-width: 32px;
     max-width: 56px;
     box-sizing: border-box;
+
+    &:active,
+    &:focus,
+    &:hover {
+      color: $ui-button-color;
+      background-color: $ui-button-focus-background-color;
+      transition: all 300ms ease-out;
+    }
+
+    &:focus-visible {
+      outline: $ui-button-icon-focus-outline;
+    }
   }
 
   .button--compact {
@@ -79,6 +91,18 @@
     border-radius: 25%;
     color: $ui-button-color;
     background-color: $ui-button-background-color;
+
+    &:active,
+    &:focus,
+    &:hover {
+      color: $ui-button-color;
+      background-color: $ui-button-focus-background-color;
+      transition: all 300ms ease-out;
+    }
+
+    &:focus-visible {
+      outline: $ui-button-icon-focus-outline;
+    }
   }
 
   .floating-toot-area__local-only-indicator {
