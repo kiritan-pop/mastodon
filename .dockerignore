@@ -17,6 +17,7 @@ vendor/bundle
 *~
 postgres
 postgres14
+postgres17
 redis
 elasticsearch
 chart
