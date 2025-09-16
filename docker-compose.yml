@@ -87,8 +87,8 @@ services:
     volumes:
       - ./public/system:/mastodon/public/system
     environment:
-      - WEB_CONCURRENCY=8
-      - MAX_THREADS=5
+      - WEB_CONCURRENCY=6
+      - MAX_THREADS=6
       - DB_POOL=6
 
   streaming:
