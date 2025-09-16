@@ -86,6 +86,10 @@ services:
       - es
     volumes:
       - ./public/system:/mastodon/public/system
+    environment:
+      - WEB_CONCURRENCY=8
+      - MAX_THREADS=5
+      - DB_POOL=6
 
   streaming:
     # You can uncomment the following lines if you want to not use the prebuilt image, for example if you have local code changes
@@ -113,7 +117,7 @@ services:
     build: .
     restart: always
     env_file: .env.production
-    command: bundle exec sidekiq -c 10 
+    command: bundle exec sidekiq -c 20 
     depends_on:
       - db
       - redis
@@ -124,13 +128,15 @@ services:
       - ./public/system:/mastodon/public/system
     healthcheck:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 7' || false"]
+    environment:
+      - DB_POOL=21
 
   sidekiq-default:
     # You can uncomment the following line if you want to not use the prebuilt image, for example if you have local code changes
     build: .
     restart: always
     env_file: .env.production
-    command: bundle exec sidekiq -c 10 -q default
+    command: bundle exec sidekiq -c 20 -q default
     depends_on:
       - db
       - redis
@@ -141,13 +147,15 @@ services:
       - ./public/system:/mastodon/public/system
     healthcheck:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 7' || false"]
+    environment:
+      - DB_POOL=21
 
   sidekiq-push:
     # You can uncomment the following line if you want to not use the prebuilt image, for example if you have local code changes
     build: .
     restart: always
     env_file: .env.production
-    command: bundle exec sidekiq -c 10 -q push
+    command: bundle exec sidekiq -c 20 -q push
     depends_on:
       - db
       - redis
@@ -158,6 +166,8 @@ services:
       - ./public/system:/mastodon/public/system
     healthcheck:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 7' || false"]
+    environment:
+      - DB_POOL=21
 
   ## Uncomment to enable federation with tor instances along with adding the following ENV variables
   ## http_hidden_proxy=http://privoxy:8118
