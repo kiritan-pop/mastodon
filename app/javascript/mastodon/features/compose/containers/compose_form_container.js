@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
   localOnly: state.getIn(['compose', 'local_only'], false),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, props) => ({
 
   onChange (text) {
     dispatch(changeCompose(text));
@@ -49,7 +49,11 @@ const mapDispatchToProps = (dispatch) => ({
         modalProps: {},
       }));
     } else {
-      dispatch(submitCompose());
+      dispatch(submitCompose(null, (status) => {
+        if (props.redirectOnSuccess) {
+          window.location.assign(status.url);
+        }
+      }));
     }
   },
 
