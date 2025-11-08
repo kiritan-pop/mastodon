@@ -23,6 +23,7 @@ export interface BaseApiAccountJSON {
   indexable: boolean;
   display_name: string;
   emojis: ApiCustomEmojiJSON[];
+  all_emojis: ApiCustomEmojiJSON[];
   fields: ApiAccountFieldJSON[];
   followers_count: number;
   following_count: number;

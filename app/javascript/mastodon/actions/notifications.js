@@ -30,10 +30,10 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
     const playSound    = getState().getIn(['settings', 'notifications', 'sounds', notification.type], true);
     let filtered = false;
 
-    var today = new Date();
-    var aprilfool = (today.getMonth() === 3 && today.getDate() === 1) ? true : false;
+    const today = new Date();
+    const aprilfool = today.getMonth() === 3 && today.getDate() === 1;
 
-    if (['mention', 'status'].includes(notification.type) && notification.status.filtered) {
+    if (['mention', 'quote', 'status'].includes(notification.type) && notification.status.filtered) {
       const filters = notification.status.filtered.filter(result => result.filter.context.includes('notifications'));
 
       if (filters.some(result => result.filter.filter_action === 'hide')) {
@@ -51,7 +51,7 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
 
     // `notificationsUpdate` is still used in `user_lists` and `relationships` reducers
     dispatch(importFetchedAccount(notification.account));
-    dispatch(notificationsUpdate({ notification, playSound: playSound && !filtered}));
+    dispatch(notificationsUpdate({ notification, playSound: playSound && !filtered, aprilfool }));
 
     // Desktop notifications
     if (typeof window.Notification !== 'undefined' && showAlert && !filtered) {

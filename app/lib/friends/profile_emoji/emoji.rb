@@ -9,7 +9,7 @@ module Friends
     end
 
     class Emoji < ActiveModelSerializers::Model
-      SHORTCODE_RE_FRAGMENT = /@(#{Account::USERNAME_RE})(?:@([a-z0-9\.\-]+[a-z0-9]+))?/i
+      SHORTCODE_RE_FRAGMENT = /@(#{Account::USERNAME_RE})(?:@([a-z0-9.-]+[a-z0-9]+))?/i
 
       # SCAN_RE = /(:#{SHORTCODE_RE_FRAGMENT}:)/x
       SCAN_RE = /(?<=[^[:digit:]]|\n|^)

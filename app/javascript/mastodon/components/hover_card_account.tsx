@@ -14,7 +14,7 @@ import {
   FollowersCounter,
   FollowersYouKnowCounter,
 } from 'mastodon/components/counters';
-import { DisplayName } from 'mastodon/components/display_name';
+import { DisplayName } from 'mastodon/components/display_name/index';
 import { FollowButton } from 'mastodon/components/follow_button';
 import { LoadingIndicator } from 'mastodon/components/loading_indicator';
 import { ShortNumber } from 'mastodon/components/short_number';
@@ -102,10 +102,17 @@ export const HoverCardAccount = forwardRef<
             <>
               <div className='hover-card__text-row'>
                 <AccountBio
-                  note={account.note_emojified}
+                  accountId={account.id}
                   className='hover-card__bio'
                 />
-                <AccountFields fields={account.fields} limit={2} />
+
+                <div className='account-fields'>
+                  <AccountFields
+                    fields={account.fields.take(2)}
+                    emojis={account.all_emojis}
+                  />
+                </div>
+
                 {note && note.length > 0 && (
                   <dl className='hover-card__note'>
                     <dt className='hover-card__note-label'>

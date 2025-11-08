@@ -24,6 +24,7 @@ import StatusListContainer from '../ui/containers/status_list_container';
 
 import { ColumnSettings } from './components/column_settings';
 import { CriticalUpdateBanner } from './components/critical_update_banner';
+import { Announcements } from './components/announcements';
 
 const messages = defineMessages({
   title: { id: 'column.home', defaultMessage: 'Home' },

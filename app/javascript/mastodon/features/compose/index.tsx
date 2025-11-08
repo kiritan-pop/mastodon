@@ -31,7 +31,7 @@ import { Column } from 'mastodon/components/column';
 import { ColumnHeader } from 'mastodon/components/column_header';
 import { Icon } from 'mastodon/components/icon';
 import { IconWithBadge } from 'mastodon/components/icon_with_badge';
-import AnnouncementsContainer from 'mastodon/features/getting_started/containers/announcements_container';
+import { Announcements } from 'mastodon/features/home_timeline/components/announcements';
 import { mascot, reduceMotion } from 'mastodon/initial_state';
 import { useAppDispatch, useAppSelector } from 'mastodon/store';
 
@@ -171,7 +171,7 @@ const Compose: React.FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
   const announcements = hasAnnouncements ? (
     <div className='announcements__kiriwrapper'>
       {announcementsButton}
-      {showAnnouncements && <AnnouncementsContainer />}
+      {showAnnouncements && <Announcements />}
     </div>
   ) : null;
 

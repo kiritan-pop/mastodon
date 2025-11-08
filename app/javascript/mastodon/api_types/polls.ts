@@ -17,6 +17,7 @@ export interface ApiPollJSON {
 
   options: ApiPollOptionJSON[];
   emojis: ApiCustomEmojiJSON[];
+  all_emojis: ApiCustomEmojiJSON[];
 
   voted?: boolean;
   own_votes?: number[];
