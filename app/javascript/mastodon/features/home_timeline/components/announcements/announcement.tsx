@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FormattedDate, FormattedMessage } from 'react-intl';
 
@@ -25,7 +25,6 @@ export const Announcement: FC<AnnouncementProps> = ({
   selected,
 }) => {
   const { read, id } = announcement;
-  const contentRef = useRef<HTMLDivElement | null>(null);
 
   // Dismiss announcement when it becomes active.
   const dispatch = useAppDispatch();
@@ -43,30 +42,6 @@ export const Announcement: FC<AnnouncementProps> = ({
     }
   }, [selected, unread, read]);
 
-  useEffect(() => {
-    const node = contentRef.current;
-    if (!node) return;
-
-    const anchors = node.querySelectorAll<HTMLAnchorElement>('a.profile-emoji');
-
-    const handleClick = (event: MouseEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-    };
-
-    anchors.forEach((anchor) => {
-      anchor.addEventListener('click', handleClick);
-      anchor.setAttribute('tabindex', '-1');
-      anchor.setAttribute('role', 'presentation');
-    });
-
-    return () => {
-      anchors.forEach((anchor) => {
-        anchor.removeEventListener('click', handleClick);
-      });
-    };
-  }, [announcement.contentHtml]);
-
   return (
     <AnimateEmojiProvider className='announcements__item'>
       <strong className='announcements__item__range'>
@@ -80,13 +55,11 @@ export const Announcement: FC<AnnouncementProps> = ({
         </span>
       </strong>
 
-      <div ref={contentRef}>
-        <EmojiHTML
-          className='announcements__item__content translate'
-          htmlString={announcement.contentHtml}
-          extraEmojis={announcement.all_emojis}
-        />
-      </div>
+      <EmojiHTML
+        className='announcements__item__content translate'
+        htmlString={announcement.contentHtml}
+        extraEmojis={announcement.all_emojis}
+      />
 
       <ReactionsBar reactions={announcement.reactions} id={announcement.id} />
 
