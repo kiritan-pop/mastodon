@@ -94,3 +94,10 @@ body::before {
   color: $darker-text-color;
   opacity: 0.7;
 }
+
+.status__quote {
+  background-color: color.adjust($ui-base-color, $lightness: 10%);
+  border-width: 1px 1px 0;
+  border-style: dashed;
+  border-color: color.adjust($base-border-color, $lightness: -30%);
+}
