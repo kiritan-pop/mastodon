@@ -414,6 +414,7 @@ class ComposeForm extends ImmutablePureComponent {
                 <PollButtonContainer />
                 <SpoilerButtonContainer />
                 <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
+                {LocalOnlyToggle}
                 <CharacterCounter
                   max={maxChars}
                   text={this.getFulltextForCharacterCounting()}
@@ -421,7 +422,6 @@ class ComposeForm extends ImmutablePureComponent {
               </div>
 
               <div className='compose-form__submit'>
-                {LocalOnlyToggle}
                 <IconButton
                   className='button button--block icon-button-kiri'
                   icon='unlock'
