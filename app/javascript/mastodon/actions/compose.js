@@ -689,8 +689,8 @@ export function selectComposeSuggestion(position, token, suggestion, path) {
 
       dispatch(useEmoji(suggestion));
     } else if (suggestion.type === 'hashtag') {
-      completion    = suggestion.name.slice(token.length - 1);
-      startPosition = position + token.length;
+      completion    = token + suggestion.name.slice(token.length - 1);
+      startPosition = position - 1;
     } else if (suggestion.type === 'account') {
       const acct = getState().getIn(['accounts', suggestion.id, 'acct']);
       if (token[0] === ':') {

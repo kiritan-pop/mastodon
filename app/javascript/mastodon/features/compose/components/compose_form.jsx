@@ -122,7 +122,8 @@ class ComposeForm extends ImmutablePureComponent {
 
   handleKeyDownPost = (e) => {
     if (e.key.toLowerCase() === 'enter' && (e.ctrlKey || e.metaKey)) {
-      this.handleSubmit();
+        this.handleSubmit();
+        e.preventDefault();
     }
     this.blurOnEscape(e);
   };
