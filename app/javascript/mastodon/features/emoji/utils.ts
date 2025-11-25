@@ -31,6 +31,10 @@ export function stringHasUnicodeFlags(input: string): boolean {
 // Constant as this is supported by all browsers.
 // eslint-disable-next-line no-useless-escape
 const CUSTOM_EMOJI_REGEX = /:([a-z0-9_@.\-]+):/i;
+// Custom emoji regex that excludes matches where colons are adjacent to digits
+// This prevents time strings like "22:11:47" from being matched as emojis
+// eslint-disable-next-line no-useless-escape
+const CUSTOM_EMOJI_REGEX_IN_CONTEXT = /(?<!\d):([a-z0-9_@.\-]+):(?!\d)/i;
 // Use the polyfill regex or the Unicode property escapes if supported.
 const EMOJI_REGEX = emojiRegexPolyfill?.source ?? '\\p{RGI_Emoji}';
 
@@ -40,7 +44,7 @@ export function isCustomEmoji(input: string): boolean {
 
 export function anyEmojiRegex() {
   return new RegExp(
-    `${EMOJI_REGEX}|${CUSTOM_EMOJI_REGEX.source}`,
+    `${EMOJI_REGEX}|${CUSTOM_EMOJI_REGEX_IN_CONTEXT.source}`,
     supportedFlags('gi'),
   );
 }
