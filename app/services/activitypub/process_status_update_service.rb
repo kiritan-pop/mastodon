@@ -124,8 +124,12 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
     @next_media_attachments.each do |media_attachment|
       next if media_attachment.skip_download
 
-      media_attachment.download_file! if media_attachment.remote_url_previously_changed?
-      media_attachment.download_thumbnail! if media_attachment.thumbnail_remote_url_previously_changed?
+      # Download file if remote_url changed or file is missing (new attachment)
+      media_attachment.download_file! if media_attachment.remote_url_previously_changed? || media_attachment.needs_redownload?
+
+      # Download thumbnail if thumbnail_remote_url changed or thumbnail is missing
+      media_attachment.download_thumbnail! if media_attachment.thumbnail_remote_url_previously_changed? || (media_attachment.thumbnail_remote_url.present? && media_attachment.thumbnail.blank?)
+
       media_attachment.save
     rescue Mastodon::UnexpectedResponseError, *Mastodon::HTTP_CONNECTION_ERRORS
       RedownloadMediaWorker.perform_in(rand(30..600).seconds, media_attachment.id)
