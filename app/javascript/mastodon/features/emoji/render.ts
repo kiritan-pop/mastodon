@@ -118,7 +118,15 @@ export async function loadEmojiDataToState(
   try {
     // This is duplicative, but that's because TS can't distinguish the state type easily.
     if (state.type === EMOJI_TYPE_UNICODE) {
-      const data = await loadEmojiByHexcode(state.code, locale);
+      let data = await loadEmojiByHexcode(state.code, locale);
+
+      // If not found and hexcode contains variation selector (FE0F), try without it
+      // This handles cases like ✌️ (270C-FE0F) where the database stores 270C
+      if (!data && state.code.includes('-FE0F')) {
+        const hexcodeWithoutVS = state.code.replace(/-FE0F$/, '');
+        data = await loadEmojiByHexcode(hexcodeWithoutVS, locale);
+      }
+
       if (data) {
         return {
           ...state,

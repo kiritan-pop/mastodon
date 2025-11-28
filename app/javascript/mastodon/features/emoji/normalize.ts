@@ -43,14 +43,17 @@ export function unicodeToTwemojiHex(unicodeHex: string): string {
     }
     // Some emoji have their variation selector removed
     if (code === VARIATION_SELECTOR_CODE) {
-      // Key emoji
+      // Key emoji - keep variation selector for keycap emojis
       if (i === 1 && codes.at(-1) === KEYCAP_CODE) {
         continue;
       }
-      // Eye in speech bubble
+      // Eye in speech bubble - keep variation selector for this specific emoji
       if (codes.at(0) === EYE_CODE && codes.at(-2) === SPEECH_BUBBLE_CODE) {
         continue;
       }
+      // For all other cases, remove variation selector (FE0F) as Twemoji files
+      // are stored without variation selectors
+      continue;
     }
     // This removes zero padding to correctly match the SVG filenames
     normalizedCodes.push(code);

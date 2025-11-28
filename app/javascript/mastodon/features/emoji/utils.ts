@@ -44,7 +44,7 @@ export function isCustomEmoji(input: string): boolean {
 
 export function anyEmojiRegex() {
   return new RegExp(
-    `${EMOJI_REGEX}|${CUSTOM_EMOJI_REGEX_IN_CONTEXT.source}`,
+    `(?:${EMOJI_REGEX})|(?:${CUSTOM_EMOJI_REGEX_IN_CONTEXT.source})`,
     supportedFlags('gi'),
   );
 }
