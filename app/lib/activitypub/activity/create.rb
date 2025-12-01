@@ -22,9 +22,6 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
   end
 
   def create_status
-    Rails.logger.info '=== Create Activity: create_status ==='
-    Rails.logger.info "Object URI: #{object_uri}, Account: #{@account.acct}"
-
     return reject_payload! if unsupported_object_type? || non_matching_uri_hosts?(@account.uri, object_uri) || tombstone_exists? || !related_to_local_activity? || reject_pattern?
 
     with_redis_lock("create:#{object_uri}") do
@@ -34,20 +31,13 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
         @status = find_existing_status
       end
 
-      Rails.logger.info "Existing status found: #{@status.present?}, status_id=#{@status&.id}"
-
       if @status.nil?
-        Rails.logger.info 'Processing new status'
         process_status
       elsif @options[:delivered_to_account_id].present?
-        Rails.logger.info 'Postprocessing audience and deliver'
         postprocess_audience_and_deliver
-      else
-        Rails.logger.info 'Status already exists, skipping processing'
       end
     end
 
-    Rails.logger.info "=== Create Activity: create_status completed, status_id=#{@status&.id} ==="
     @status
   end
 
@@ -287,18 +277,12 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
   end
 
   def process_attachments
-    Rails.logger.info '=== Create Activity: process_attachments ==='
-    Rails.logger.info "Object URI: #{object_uri}"
-    Rails.logger.info "Object attachment: #{@object['attachment'].inspect}"
-
     return [] if @object['attachment'].nil?
 
     media_attachments = []
 
     as_array(@object['attachment']).each do |attachment|
       media_attachment_parser = ActivityPub::Parser::MediaAttachmentParser.new(attachment)
-
-      Rails.logger.info "Processing attachment: remote_url=#{media_attachment_parser.remote_url}, content_type=#{media_attachment_parser.file_content_type}"
 
       next if media_attachment_parser.remote_url.blank? || media_attachments.size >= Status::MEDIA_ATTACHMENTS_LIMIT
 
@@ -314,25 +298,19 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
 
         media_attachments << media_attachment
 
-        Rails.logger.info "Created MediaAttachment: id=#{media_attachment.id}, remote_url=#{media_attachment.remote_url}, file_present=#{media_attachment.file.present?}, needs_redownload=#{media_attachment.needs_redownload?}, skip_download=#{skip_download?}"
-
         next if unsupported_media_type?(media_attachment_parser.file_content_type) || skip_download?
 
-        Rails.logger.info "Downloading media: id=#{media_attachment.id}, remote_url=#{media_attachment.remote_url}"
         media_attachment.download_file!
         media_attachment.download_thumbnail!
         media_attachment.save
-        Rails.logger.info "Downloaded media: id=#{media_attachment.id}, file_present=#{media_attachment.file.present?}, type=#{media_attachment.type}"
-      rescue Mastodon::UnexpectedResponseError, *Mastodon::HTTP_CONNECTION_ERRORS => e
-        Rails.logger.warn "Download failed, scheduling retry: id=#{media_attachment.id}, error=#{e.class}, message=#{e.message}"
+      rescue Mastodon::UnexpectedResponseError, *Mastodon::HTTP_CONNECTION_ERRORS
         RedownloadMediaWorker.perform_in(rand(30..600).seconds, media_attachment.id)
       rescue Seahorse::Client::NetworkingError => e
-        Rails.logger.warn "Error storing media attachment: id=#{media_attachment.id}, error=#{e.class}, message=#{e.message}"
+        Rails.logger.warn "Error storing media attachment: #{e}"
         RedownloadMediaWorker.perform_async(media_attachment.id)
       end
     end
 
-    Rails.logger.info "=== Create Activity: process_attachments completed, count=#{media_attachments.size} ==="
     media_attachments
   rescue Addressable::URI::InvalidURIError => e
     Rails.logger.debug { "Invalid URL in attachment: #{e}" }

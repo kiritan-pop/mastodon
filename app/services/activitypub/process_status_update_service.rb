@@ -82,29 +82,18 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
   end
 
   def update_media_attachments!
-    Rails.logger.info '=== Update Activity: update_media_attachments ==='
-    Rails.logger.info "Status ID: #{@status.id}, Status URI: #{@status.uri}"
-    Rails.logger.info "JSON attachment: #{@json['attachment'].inspect}"
-
     previous_media_attachments     = @status.media_attachments.to_a
     previous_media_attachments_ids = @status.ordered_media_attachment_ids || previous_media_attachments.map(&:id)
     @next_media_attachments        = []
 
-    Rails.logger.info "Previous media attachments count: #{previous_media_attachments.size}, IDs: #{previous_media_attachments_ids.inspect}"
-
     as_array(@json['attachment']).each do |attachment|
       media_attachment_parser = ActivityPub::Parser::MediaAttachmentParser.new(attachment)
-
-      Rails.logger.info "Processing attachment: remote_url=#{media_attachment_parser.remote_url}, content_type=#{media_attachment_parser.file_content_type}"
 
       next if media_attachment_parser.remote_url.blank? || @next_media_attachments.size > Status::MEDIA_ATTACHMENTS_LIMIT
 
       begin
         media_attachment   = previous_media_attachments.find { |previous_media_attachment| previous_media_attachment.remote_url == media_attachment_parser.remote_url }
         media_attachment ||= MediaAttachment.new(account: @account, remote_url: media_attachment_parser.remote_url)
-
-        is_new = media_attachment.new_record?
-        Rails.logger.info "MediaAttachment: id=#{media_attachment.id || 'new'}, new_record=#{is_new}, remote_url=#{media_attachment.remote_url}, file_present=#{media_attachment.file.present?}"
 
         # If a previously existing media attachment was significantly updated, mark
         # media attachments as changed even if none were added or removed
@@ -118,12 +107,6 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
         media_attachment.skip_download        = unsupported_media_type?(media_attachment_parser.file_content_type) || skip_download?
         media_attachment.save!
 
-        Rails.logger.info "Saved MediaAttachment: id=#{media_attachment.id}, " \
-                          "remote_url_previously_changed=#{media_attachment.remote_url_previously_changed?}, " \
-                          "needs_redownload=#{media_attachment.needs_redownload?}, " \
-                          "file_present=#{media_attachment.file.present?}, " \
-                          "skip_download=#{media_attachment.skip_download}"
-
         @next_media_attachments << media_attachment
       rescue Addressable::URI::InvalidURIError => e
         Rails.logger.debug { "Invalid URL in attachment: #{e}" }
@@ -135,41 +118,23 @@ class ActivityPub::ProcessStatusUpdateService < BaseService
     @media_attachments_changed = true if @status.ordered_media_attachment_ids != previous_media_attachments_ids
 
     @status.media_attachments.reload if @media_attachments_changed
-
-    Rails.logger.info "=== Update Activity: update_media_attachments completed, count=#{@next_media_attachments.size}, changed=#{@media_attachments_changed} ==="
   end
 
   def download_media_files!
-    Rails.logger.info '=== Update Activity: download_media_files ==='
-
     @next_media_attachments.each do |media_attachment|
       next if media_attachment.skip_download
 
-      Rails.logger.info "Checking download: id=#{media_attachment.id}, remote_url=#{media_attachment.remote_url}, remote_url_previously_changed=#{media_attachment.remote_url_previously_changed?}, needs_redownload=#{media_attachment.needs_redownload?}, file_present=#{media_attachment.file.present?}"
-
-      # 修正前のコード: remote_url_previously_changed?のみをチェック
-      if media_attachment.remote_url_previously_changed?
-        Rails.logger.info "Downloading file: id=#{media_attachment.id} (remote_url changed)"
-        media_attachment.download_file!
-      else
-        Rails.logger.info "Skipping download: id=#{media_attachment.id} (remote_url not changed, needs_redownload=#{media_attachment.needs_redownload?})"
-      end
-
-      if media_attachment.thumbnail_remote_url_previously_changed?
-        Rails.logger.info "Downloading thumbnail: id=#{media_attachment.id} (thumbnail_remote_url changed)"
-        media_attachment.download_thumbnail!
-      end
+      media_attachment.download_file! if media_attachment.remote_url_previously_changed?
+      media_attachment.download_thumbnail! if media_attachment.thumbnail_remote_url_previously_changed?
 
       media_attachment.save
     rescue Mastodon::UnexpectedResponseError, *Mastodon::HTTP_CONNECTION_ERRORS
-      Rails.logger.warn "Download failed, scheduling retry: id=#{media_attachment.id}"
       RedownloadMediaWorker.perform_in(rand(30..600).seconds, media_attachment.id)
     rescue Seahorse::Client::NetworkingError => e
       Rails.logger.warn "Error storing media attachment: #{e}"
     end
 
     @status.media_attachments.reload
-    Rails.logger.info '=== Update Activity: download_media_files completed ==='
   end
 
   def update_poll!(allow_significant_changes: true)
