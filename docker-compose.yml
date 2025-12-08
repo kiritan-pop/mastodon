@@ -7,7 +7,6 @@ services:
     image: postgres:17-alpine
     shm_size: 256mb
     networks:
-      - external_network
       - internal_network
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'postgres']
@@ -15,21 +14,16 @@ services:
       - ./postgres17:/var/lib/postgresql/data
     environment:
       - 'POSTGRES_HOST_AUTH_METHOD=trust'
-    ports:
-      - '127.0.0.1:5432:5432'
 
   redis:
     restart: always
     image: redis:7-alpine
     networks:
-      - external_network
       - internal_network
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
     volumes:
       - ./redis:/data
-    ports:
-      - '127.0.0.1:6379:6379'
 
   es:
     restart: always
@@ -94,7 +88,7 @@ services:
     # build:
     #   dockerfile: ./streaming/Dockerfile
     #   context: .
-    image: ghcr.io/mastodon/mastodon-streaming:v4.5.2
+    image: ghcr.io/mastodon/mastodon-streaming:v4.5.3
     restart: always
     env_file: .env.production
     command: node ./streaming/index.js
