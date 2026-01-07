@@ -88,7 +88,7 @@ services:
     # build:
     #   dockerfile: ./streaming/Dockerfile
     #   context: .
-    image: ghcr.io/mastodon/mastodon-streaming:v4.5.3
+    image: ghcr.io/mastodon/mastodon-streaming:v4.5.4
     restart: always
     env_file: .env.production
     command: node ./streaming/index.js
