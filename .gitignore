@@ -83,3 +83,4 @@ docker-compose.override.yml
 storybook-static
 
 debug/*
+docs/ai_reports/
