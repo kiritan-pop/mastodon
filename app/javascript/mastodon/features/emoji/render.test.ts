@@ -68,10 +68,26 @@ describe('tokenizeText', () => {
     ]);
   });
 
-  test('does not capture custom emoji with invalid characters', () => {
-    expect(tokenizeText('Hello :smile-123:!!')).toEqual([
-      'Hello :smile-123:!!',
+  test('does not capture custom emoji with unsupported characters', () => {
+    expect(tokenizeText('Hello :smile*123:!!')).toEqual([
+      'Hello :smile*123:!!',
     ]);
+  });
+
+  test('does not capture middle section of hh:mm:ss-like strings', () => {
+    const codes = tokenizeText('12:11:08 22:11:08').flatMap((token) =>
+      typeof token === 'string' ? [] : [token.code],
+    );
+
+    expect(codes).toEqual([]);
+  });
+
+  test('captures custom emoji in non-time numeric adjacency cases', () => {
+    const codes = tokenizeText('v2:11:08 v2:11: 2:11: v:11: 2:11:08').flatMap(
+      (token) => (typeof token === 'string' ? [] : [token.code]),
+    );
+
+    expect(codes).toEqual([':11:', ':11:', ':11:', ':11:', ':11:']);
   });
 });
 

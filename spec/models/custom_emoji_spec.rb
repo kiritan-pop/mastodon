@@ -60,6 +60,7 @@ RSpec.describe CustomEmoji, :attachment_processing do
     subject { described_class.from_text(text, nil) }
 
     let!(:emojo) { Fabricate(:custom_emoji, shortcode: 'coolcat') }
+    let!(:numeric_emoji) { Fabricate(:custom_emoji, shortcode: '11') }
 
     context 'with plain text' do
       let(:text) { 'Hello :coolcat:' }
@@ -74,6 +75,22 @@ RSpec.describe CustomEmoji, :attachment_processing do
 
       it 'returns records used via shortcodes in text' do
         expect(subject).to include(emojo)
+      end
+    end
+
+    context 'with hh:mm:ss formatted time' do
+      let(:text) { 'Times like 12:11:08 and 22:11:08 should not become emojis' }
+
+      it 'does not treat the middle part as a shortcode' do
+        expect(subject).to_not include(numeric_emoji)
+      end
+    end
+
+    context 'with non-time numeric adjacency' do
+      let(:text) { 'v2:11:08 v2:11: 2:11: v:11: 2:11:08' }
+
+      it 'still detects numeric shortcode' do
+        expect(subject).to include(numeric_emoji)
       end
     end
   end
