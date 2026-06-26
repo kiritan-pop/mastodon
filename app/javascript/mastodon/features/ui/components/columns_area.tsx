@@ -37,6 +37,7 @@ import { BundleColumnError } from './bundle_column_error';
 import { ColumnLoading } from './column_loading';
 import { ComposePanel, RedirectToMobileComposeIfNeeded } from './compose_panel';
 import DrawerLoading from './drawer_loading';
+import { FloatingTootArea } from './floating_toot_area';
 
 const componentMap = {
   COMPOSE: Compose,
@@ -138,6 +139,7 @@ export const ColumnsArea = forwardRef<
         </main>
 
         <CollapsibleNavigationPanel />
+        <FloatingTootArea />
       </div>
     );
   }

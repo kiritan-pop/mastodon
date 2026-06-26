@@ -28,7 +28,7 @@ export function submitCompose(vis = null) {
 
     dispatch(submitComposeRequest());
 
-    api(getState).post('/api/v1/statuses', {
+    api().post('/api/v1/statuses', {
       status,
       visibility: vis ? vis : getState().getIn(['compose', 'privacy']),
       local_only: localOnly,
