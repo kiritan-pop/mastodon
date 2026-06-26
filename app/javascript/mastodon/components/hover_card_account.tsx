@@ -18,6 +18,7 @@ import {
 import { DisplayName } from 'mastodon/components/display_name/index';
 import { FollowButton } from 'mastodon/components/follow_button';
 import { LoadingIndicator } from 'mastodon/components/loading_indicator';
+import { RelationshipNoteContent } from 'mastodon/components/relationship_note_content';
 import { ShortNumber } from 'mastodon/components/short_number';
 import { domain } from 'mastodon/initial_state';
 import { getAccountHidden } from 'mastodon/selectors/accounts';
@@ -121,7 +122,12 @@ export const HoverCardAccount = forwardRef<
                         defaultMessage='Personal note'
                       />
                     </dt>
-                    <dd>{note}</dd>
+                    <dd>
+                      <RelationshipNoteContent
+                        noteFormatted={relationship?.note_formatted ?? ''}
+                        extraEmojis={relationship?.note_all_emojis}
+                      />
+                    </dd>
                   </dl>
                 )}
               </div>

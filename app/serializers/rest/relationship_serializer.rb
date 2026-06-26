@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class REST::RelationshipSerializer < ActiveModel::Serializer
+  include FormattingHelper
+
   # Please update `app/javascript/mastodon/api_types/relationships.ts` when making changes to the attributes
 
   attributes :id, :following, :showing_reblogs, :notifying, :languages, :followed_by,
              :blocking, :blocked_by, :muting, :muting_notifications, :muting_expires_at,
-             :requested, :requested_by, :domain_blocking, :endorsed, :note
+             :requested, :requested_by, :domain_blocking, :endorsed, :note, :note_formatted
+
+  has_many :note_all_emojis, serializer: REST::CustomEmojiSerializer
 
   def id
     object.id.to_s
@@ -74,5 +78,20 @@ class REST::RelationshipSerializer < ActiveModel::Serializer
 
   def note
     (instance_options[:relationships].account_note[object.id] || {})[:comment] || ''
+  end
+
+  def note_formatted
+    text = note
+    return '' if text.blank?
+
+    html_aware_format(text, true)
+  end
+
+  def note_all_emojis
+    text = note
+    return [] if text.blank?
+
+    CustomEmoji.from_text(text) +
+      Friends::ProfileEmoji::Emoji.from_text(text, nil)
   end
 end

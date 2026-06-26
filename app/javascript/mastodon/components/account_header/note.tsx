@@ -10,6 +10,7 @@ import EditIcon from '@/material-icons/400-24px/edit_square.svg?react';
 
 import { Callout } from '../callout';
 import { IconButton } from '../icon_button';
+import { RelationshipNoteContent } from '../relationship_note_content';
 
 import classes from './styles.module.scss';
 
@@ -64,7 +65,11 @@ export const AccountNote: FC<{ accountId: string }> = ({ accountId }) => {
         />
       }
     >
-      <div className={classes.noteContent}>{relationship.note}</div>
+      <RelationshipNoteContent
+        noteFormatted={relationship.note_formatted}
+        extraEmojis={relationship.note_all_emojis}
+        className={classes.noteContent}
+      />
     </Callout>
   );
 };

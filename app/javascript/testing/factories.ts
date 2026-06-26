@@ -115,6 +115,8 @@ export const relationshipsFactory: FactoryFunction<ApiRelationshipJSON> = ({
   muting_notifications: false,
   muting_expires_at: null,
   note: '',
+  note_all_emojis: [],
+  note_formatted: '',
   requested_by: false,
   requested: false,
   domain_blocking: false,
