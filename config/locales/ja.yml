@@ -1931,6 +1931,7 @@ ja:
     contrast: Mastodon (ハイコントラスト)
     default: きりたん丼
     mastodon-light: Mastodon (ライト)
+    origin: Mastodon（標準）
     system: 自動 (システムのテーマを使用)
   time:
     formats:

@@ -1,0 +1,70 @@
+@use 'sass:color';
+@use 'tokens' as *;
+
+// きりたん丼: v4.6 CSS 変数トークンをダーク配色に上書き
+[data-color-scheme='dark'],
+html:not([data-color-scheme]) {
+  // 赤みダーク系グレースケール（$kiri-base-color ベース）
+  --color-grey-50: #f0e8ec;
+  --color-grey-100: #{$primary-text-color};
+  --color-grey-200: #d0c0c8;
+  --color-grey-300: #b09aa8;
+  --color-grey-400: #8a7080;
+  --color-grey-500: #6a5060;
+  --color-grey-600: #4a3040;
+  --color-grey-700: #3a2430;
+  --color-grey-800: #2a1820;
+  --color-grey-900: #1e0f14;
+  --color-grey-950: #120910;
+
+  // 青アクセント（$ui-highlight-color ベース）
+  --color-indigo-50: #e8f4fc;
+  --color-indigo-100: #c5e3f7;
+  --color-indigo-200: #9ecff0;
+  --color-indigo-300: #{color.adjust($ui-highlight-color, $lightness: 15%)};
+  --color-indigo-400: #{color.adjust($ui-highlight-color, $lightness: 8%)};
+  --color-indigo-500: #{$ui-highlight-color};
+  --color-indigo-600: #{color.adjust($ui-highlight-color, $lightness: -8%)};
+  --color-indigo-700: #{$ui-button-background-color};
+  --color-indigo-800: #{color.adjust($ui-highlight-color, $lightness: -18%)};
+  --color-indigo-900: #{color.adjust($ui-highlight-color, $lightness: -30%)};
+  --color-indigo-950: #{color.adjust($ui-highlight-color, $lightness: -42%)};
+
+  // 成功色
+  --color-green-400: #{$success-green};
+  --color-green-600: #{color.adjust($success-green, $lightness: -10%)};
+  --color-green-800: #{color.adjust($success-green, $lightness: -25%)};
+  --color-green-900: #{color.adjust($success-green, $lightness: -35%)};
+
+  // セマンティックトークン（プリミティブ参照だけでは足りないもの）
+  --color-text-primary: #{$primary-text-color};
+  --color-text-secondary: #{$ui-secondary-color};
+  --color-text-brand: #{color.adjust($ui-highlight-color, $lightness: 15%)};
+  --color-bg-primary: #{$ui-base-color};
+  --color-bg-secondary: #{color.adjust($kiri-base-color, $lightness: 2%)};
+  --color-bg-brand-base: #{$ui-button-background-color};
+  --color-bg-brand-base-hover: #{$ui-button-focus-background-color};
+  --color-border-primary: #{color.adjust($ui-base-color, $lightness: 4%)};
+}
+
+// きりたん丼: 高コントラスト（upstream の grey-600 ボーダー上書きを打ち消す）
+[data-color-scheme='dark'][data-contrast='high'],
+html:not([data-color-scheme])[data-contrast='high'] {
+  --color-text-primary: #fff;
+  --color-text-secondary: #f0e8ec;
+  --color-text-status-links: #fff;
+  --color-bg-primary: #1e0f14;
+  --color-bg-secondary: #120910;
+  --color-bg-tertiary: #2a1820;
+  --color-border-primary: #{color.adjust($ui-base-color, $lightness: 8%)};
+  --color-border-brand: #{color.adjust($ui-highlight-color, $lightness: 20%)};
+  --color-border-brand-soft: #{color.adjust(
+      $ui-highlight-color,
+      $lightness: 15%
+    )};
+  --color-bg-brand-base: #{$ui-highlight-color};
+  --color-bg-brand-base-hover: #{color.adjust(
+      $ui-highlight-color,
+      $lightness: -8%
+    )};
+}

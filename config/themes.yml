@@ -1,1 +1,2 @@
-default: styles/application.scss
+default: styles/kiritan.scss
+origin: styles/application.scss
