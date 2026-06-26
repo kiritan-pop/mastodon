@@ -9,6 +9,7 @@ import type {
 import Overlay from 'react-overlays/Overlay';
 
 import { HoverCardAccount } from 'mastodon/components/hover_card_account';
+import { findHoverCardAnchor } from 'mastodon/components/hover_card_anchor';
 import { useTimeout } from 'mastodon/hooks/useTimeout';
 
 const offset = [-12, 4] as OffsetValue;
@@ -19,9 +20,6 @@ const leaveDelay = 150;
 // (e.g. when content changed underneath the mouse cursor)
 const activeMovementThreshold = 150;
 const popperConfig = { strategy: 'fixed' } as UsePopperOptions;
-
-const isHoverCardAnchor = (element: HTMLElement) =>
-  element.matches('[data-hover-card-account]');
 
 export const HoverCardController: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -52,6 +50,9 @@ export const HoverCardController: React.FC = () => {
     let isUsingTouch = false;
     let currentAnchor: HTMLElement | null = null;
     let currentTitle: string | null = null;
+
+    const isInsideHoverCard = (element: HTMLElement) =>
+      cardRef.current?.contains(element) ?? false;
 
     const open = (target: HTMLElement) => {
       target.setAttribute('aria-describedby', 'hover-card');
@@ -97,48 +98,69 @@ export const HoverCardController: React.FC = () => {
           return;
         }
 
+        const anchor = findHoverCardAnchor(target);
+
         // We've entered an anchor
-        if (isHoverCardAnchor(target)) {
+        if (anchor) {
           cancelLeaveTimeout();
 
-          currentAnchor?.removeAttribute('aria-describedby');
-          currentAnchor = target;
+          if (currentAnchor !== anchor) {
+            currentAnchor?.removeAttribute('aria-describedby');
+            currentAnchor = anchor;
 
-          currentTitle = target.getAttribute('title');
-          target.removeAttribute('title');
+            currentTitle = anchor.getAttribute('title');
+            anchor.removeAttribute('title');
+          }
 
           setEnterTimeout(() => {
-            open(target);
+            open(anchor);
           }, enterDelay);
         }
 
-        // We've entered the hover card
-        if (target === currentAnchor || target === cardRef.current) {
+        // We've entered the hover card or moved within it
+        if (anchor === currentAnchor || isInsideHoverCard(target)) {
           cancelLeaveTimeout();
         }
       }, 0);
     };
 
     const handleMouseLeave = (e: MouseEvent) => {
-      const { target } = e;
+      const { target, relatedTarget } = e;
 
       if (!currentAnchor) {
         return;
       }
 
-      if (
-        currentTitle &&
-        target instanceof HTMLElement &&
-        target === currentAnchor
-      )
-        target.setAttribute('title', currentTitle);
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
 
-      if (target === currentAnchor || target === cardRef.current) {
-        cancelEnterTimeout();
+      const isMovingToHoverCard =
+        relatedTarget instanceof HTMLElement &&
+        isInsideHoverCard(relatedTarget);
 
-        setLeaveTimeout(() => {
-          close();
-        }, leaveDelay);
+      const isMovingToAnchor =
+        relatedTarget instanceof HTMLElement &&
+        findHoverCardAnchor(relatedTarget) !== null;
+
+      const anchor = findHoverCardAnchor(target);
+
+      if (currentTitle && anchor === currentAnchor) {
+        currentAnchor.setAttribute('title', currentTitle);
+      }
+
+      const leftCurrentAnchor = anchor === currentAnchor;
+      const leftHoverCard =
+        target === cardRef.current || isInsideHoverCard(target);
+
+      if (leftCurrentAnchor || leftHoverCard) {
+        if (!isMovingToHoverCard && !isMovingToAnchor) {
+          cancelEnterTimeout();
+
+          setLeaveTimeout(() => {
+            close();
+          }, leaveDelay);
+        }
       }
     };
 

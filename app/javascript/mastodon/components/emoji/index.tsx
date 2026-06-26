@@ -77,6 +77,7 @@ export const Emoji: FC<EmojiProps> = ({
 
   if (state.type === EMOJI_TYPE_CUSTOM) {
     const shortcode = `:${state.code}:`;
+    const accountId = state.data.account_id;
     return (
       <img
         src={animate ? state.data.url : state.data.static_url}
@@ -84,6 +85,7 @@ export const Emoji: FC<EmojiProps> = ({
         title={shortcode}
         className='emojione custom-emoji'
         loading='lazy'
+        {...(accountId ? { 'data-hover-card-account': accountId } : {})}
       />
     );
   }
