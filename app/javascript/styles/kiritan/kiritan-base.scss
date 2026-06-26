@@ -1,5 +1,13 @@
 // きりたん丼共通：テーマに関係なく適用されるもの
 
+.account__avatar {
+  background: transparent;
+
+  &--loading {
+    background-color: var(--color-bg-primary);
+  }
+}
+
 .compose-form__submit {
   gap: 4px;
 
