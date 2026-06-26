@@ -27,15 +27,18 @@ $success-green: #79bd9a;
     var(--color-grey-500) 75%
   );
   --color-text-favourite-highlight: var(--color-red-400);
+  --color-text-brand: #{color.adjust($ui-highlight-color, $lightness: 5%)};
 
   /* BACKGROUND TOKENS */
 
-  // Neutrals
   --color-bg-primary: #{$ui-base-color};
   --color-bg-secondary: #{ui-secondary-color};
   --color-bg-brand-base: #{$ui-button-background-color};
   --color-bg-brand-base-hover: #{$ui-button-focus-background-color};
+  --color-bg-brand-soft: #{color.adjust($ui-base-color, $lightness: 10%)};
+  --color-bg-brand-softest: #{color.adjust($ui-base-color, $lightness: 5%)};
   --color-border-primary: #{color.adjust($ui-base-color, $lightness: 10%)};
+  --color-border-brand-soft: #{color.adjust($ui-base-color, $lightness: 5%)};
 }
 
 @mixin contrast-overrides {
