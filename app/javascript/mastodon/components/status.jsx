@@ -603,6 +603,7 @@ class Status extends ImmutablePureComponent {
                 'status--first-in-thread': previousId && (!connectUp || connectToRoot), muted: this.props.muted,
                 'status--is-quote': isQuotedPost,
                 'status--has-quote': !!status.get('quote'),
+                'status-local-only': status.get('local_only'),
                 'status--highlighted-entry': this.props.shouldHighlightOnMount,
               })
             }
