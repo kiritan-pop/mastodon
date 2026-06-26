@@ -1,103 +1,17 @@
 @use 'sass:color';
-@use 'tokens' as *;
 
-/* 背景を画像に */
-body::before {
-  content: '';
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  height: 100vh;
-  width: 100%;
-  background: url('./images/bg_kiritan.webp') 98% bottom no-repeat
-    $ui-base-color;
-  background-size: auto 40%;
-}
-
-// 設定画面
-.admin-wrapper {
-  background: $ui-base-color;
-}
-
-// 入力フォーム系
-.compose-form {
-  .autosuggest-textarea__textarea,
-  .spoiler-input__input,
-  .autosuggest-textarea__suggestions,
-  .compose-form__buttons-wrapper,
-  .compose-form__modifiers {
-    color: $ui-secondary-color;
-    background: $ui-base-color;
+[data-color-scheme='kiritan'] {
+  /* 背景を画像に */
+  body::before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100vh;
+    width: 100%;
+    background: url('./images/bg_kiritan.webp') 98% bottom no-repeat;
+    background-size: auto 40%;
   }
-}
-
-.compose-form .autosuggest-textarea__suggestions__item:hover,
-.compose-form .autosuggest-textarea__suggestions__item:focus,
-.compose-form .autosuggest-textarea__suggestions__item:active,
-.compose-form .autosuggest-textarea__suggestions__item.selected {
-  background: color.adjust($ui-base-color, $lightness: 30%);
-}
-
-// その他色合わせ
-.emoji-picker-dropdown__menu,
-.language-dropdown__dropdown {
-  background: $ui-base-color;
-
-  .emoji-mart-search input,
-  .emoji-mart,
-  .emoji-mart-bar {
-    color: $ui-secondary-color;
-    background: $ui-base-color;
-  }
-
-  .emoji-mart-anchor,
-  .language-dropdown__dropdown__results__item {
-    color: $ui-secondary-color;
-
-    &:hover {
-      color: color.adjust($ui-secondary-color, $lightness: -4%);
-      background: color.adjust($ui-base-color, $lightness: 20%);
-    }
-  }
-
-  .emoji-mart-anchor-selected {
-    color: $highlight-text-color;
-
-    &:hover {
-      color: color.adjust($highlight-text-color, $lightness: -4%);
-    }
-  }
-
-  .emoji-mart-search,
-  .emoji-mart-scroll,
-  .emoji-mart-category-label span {
-    background: $ui-base-color;
-  }
-}
-
-.react-toggle-track {
-  border: solid 1.5px rgba($base-border-color, 0.5);
-  box-sizing: border-box;
-}
-
-.column {
-  background: $ui-base-color;
-}
-
-// プレースホルダーの色を設定
-.search__input::placeholder,
-.compose-form input::placeholder,
-.autosuggest-textarea__textarea::placeholder,
-.floating-toot-area .toot__input::placeholder {
-  color: $darker-text-color;
-  opacity: 0.7;
-}
-
-.status__quote {
-  background-color: color.adjust($ui-base-color, $lightness: 10%);
-  border-width: 1px 1px 0;
-  border-style: dashed;
-  border-color: color.adjust($base-border-color, $lightness: -30%);
 }

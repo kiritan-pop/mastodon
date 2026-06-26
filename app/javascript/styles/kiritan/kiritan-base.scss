@@ -1,21 +1,6 @@
 // きりたん丼共通：テーマに関係なく適用されるもの
 
-/* ファボを肉球に */
-.fa-star::before {
-  font-size: large;
-  content: '\f1b0';
-}
-
-.compose-form__publish-button-wrapper > .button--block {
-  margin: 0;
-}
-
-.compose-form__publish .button--block {
-  margin: 1px;
-}
-
 .compose-form__submit {
-  display: flex;
   gap: 4px;
 
   .icon-button-kiri {
@@ -133,72 +118,6 @@
   margin-top: 4px;
 }
 
-/* box header */
-.column,
-.drawer {
-  flex: 1 1 auto;
-  min-width: 320px;
-  max-width: 600px;
-  padding: 0;
-  padding-inline-start: 0;
-  padding-inline-end: 0;
-}
-
-.drawer__header {
-  border-top-left-radius: 10px 10px;
-}
-
-.column-header {
-  border-top-left-radius: 10px 10px;
-}
-
-.drawer__inner {
-  border-bottom-right-radius: 20px 20px;
-}
-
-/* box scroll */
-.column > .scrollable {
-  border-bottom-right-radius: 20px 20px;
-}
-
-/* toot option icon */
-.compose-form__buttons {
-  border-radius: 10px;
-}
-
-// .compose-form__publish-button-wrapper > .button {
-//   border-radius: 10px ;
-// }
-
-/* textarea */
-.spoiler-input__input {
-  border-radius: 20px;
-}
-
-.autosuggest-textarea__textarea {
-  border-radius: 20px;
-}
-
-/* reply */
-.reply-indicator {
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
-
-.getting-started,
-.getting-started__trends {
-  border-bottom-right-radius: 20px 20px;
-}
-
-.getting-started__trends {
-  margin-top: 24px;
-}
-
-.table td,
-.table th {
-  white-space: pre-wrap;
-}
-
 .notification-group {
   padding: 6px;
 
@@ -244,32 +163,10 @@
   }
 }
 
-.announcements__item__range {
-  font-weight: bold;
-}
-
 .column-header__button {
   font-size: x-large;
   width: 100%;
   text-align: left;
-}
-
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.status__action-bar-button.icon-button.active .fa.fa-fw.fa-star {
-  animation: blink 0.9s ease infinite;
 }
 
 /* 非公開色分け */
@@ -289,19 +186,6 @@
 
 .status.status-direct:not(.read) {
   background: rgba(20, 60, 255, 40%);
-}
-
-// 非公開・DMマーク点滅
-.status__visibility-icon {
-  .fa-lock {
-    color: #d0d662;
-    animation: blink 1.3s ease infinite;
-  }
-
-  .fa-envelope {
-    color: var(--color-white);
-    animation: blink 1.3s ease infinite;
-  }
 }
 
 /* ローカル限定 */

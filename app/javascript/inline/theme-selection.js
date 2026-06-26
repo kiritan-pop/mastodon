@@ -5,6 +5,11 @@
   const contrastMediaWatcher = window.matchMedia('(prefers-contrast: more)');
 
   const updateColorScheme = () => {
+    if (colorScheme === 'kiritan') {
+      element.dataset.colorScheme = 'kiritan';
+      return;
+    }
+
     const useDarkMode = colorScheme === 'auto' ? colorSchemeMediaWatcher.matches : colorScheme === 'dark';
 
     element.dataset.colorScheme = useDarkMode ? 'dark' : 'light';

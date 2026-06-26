@@ -9,6 +9,7 @@ class Themes
   THEME_COLORS = {
     dark: '#181820',
     light: '#ffffff',
+    kiritan: '#1e0f14',
   }.freeze
 
   def initialize

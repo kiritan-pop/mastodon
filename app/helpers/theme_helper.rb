@@ -32,6 +32,8 @@ module ThemeHelper
       tag.meta name: 'theme-color', content: Themes::THEME_COLORS[:light]
     when 'dark'
       tag.meta name: 'theme-color', content: Themes::THEME_COLORS[:dark]
+    when 'kiritan'
+      tag.meta name: 'theme-color', content: Themes::THEME_COLORS[:kiritan]
     end
   end
 

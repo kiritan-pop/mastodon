@@ -1448,6 +1448,7 @@ en:
   color_scheme:
     auto: Auto
     dark: Dark
+    kiritan: Kiritan-don
     light: Light
   contrast:
     auto: Auto

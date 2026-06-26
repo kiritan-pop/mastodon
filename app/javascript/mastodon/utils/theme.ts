@@ -5,5 +5,5 @@ export function getIsSystemTheme() {
 
 export function isDarkMode() {
   const { colorScheme } = document.documentElement.dataset;
-  return colorScheme === 'dark';
+  return colorScheme === 'dark' || colorScheme === 'kiritan';
 }

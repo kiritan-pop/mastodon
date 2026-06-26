@@ -38,7 +38,7 @@ class UserSettings
     setting :display_media, default: 'default', in: %w(hide_all default show_all)
     setting :auto_play, default: false
     setting :emoji_style, default: 'auto', in: %w(auto native twemoji)
-    setting :color_scheme, default: 'auto', in: %w(auto light dark)
+    setting :color_scheme, default: 'auto', in: %w(auto light dark kiritan)
     setting :contrast, default: 'auto', in: %w(auto high)
   end
 

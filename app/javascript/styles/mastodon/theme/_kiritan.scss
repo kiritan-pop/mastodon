@@ -1,0 +1,43 @@
+@use 'sass:color';
+@use 'dark';
+
+// きりたん丼カラースキーム用 SCSS 変数（コンパイル時の color.adjust 用）
+$kiri-base-color: rgb(30, 15, 20);
+$kiri-base-lighter-color: #e4d0da;
+$ui-base-color: rgba($kiri-base-color, 0.8);
+$ui-secondary-color: color.adjust($kiri-base-lighter-color, $lightness: 50%);
+$ui-highlight-color: #2b90d9;
+$ui-button-background-color: color.adjust(#2b90d9, $lightness: -5%);
+$ui-button-focus-background-color: color.adjust(#2b90d9, $lightness: -25%);
+$primary-text-color: $kiri-base-lighter-color;
+$success-green: #79bd9a;
+
+@mixin tokens {
+  @include dark.tokens;
+
+  /* TEXT TOKENS */
+  --color-text-primary: color-mix(
+    in oklab,
+    var(--color-red-100),
+    var(--color-grey-100) 50%
+  );
+  --color-text-secondary: color-mix(
+    in oklab,
+    var(--color-red-300),
+    var(--color-grey-500) 75%
+  );
+  --color-text-favourite-highlight: var(--color-red-400);
+
+  /* BACKGROUND TOKENS */
+
+  // Neutrals
+  --color-bg-primary: #{$ui-base-color};
+  --color-bg-secondary: #{ui-secondary-color};
+  --color-bg-brand-base: #{$ui-button-background-color};
+  --color-bg-brand-base-hover: #{$ui-button-focus-background-color};
+  --color-border-primary: #{color.adjust($ui-base-color, $lightness: 10%)};
+}
+
+@mixin contrast-overrides {
+  @include dark.contrast-overrides;
+}

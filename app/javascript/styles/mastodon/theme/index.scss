@@ -1,6 +1,7 @@
 @use 'base';
 @use 'dark';
 @use 'light';
+@use 'kiritan';
 @use 'utils';
 
 html {
@@ -29,5 +30,17 @@ html:not([data-color-scheme]) {
   &[data-contrast='high'],
   [data-contrast='high'] & {
     @include light.contrast-overrides;
+  }
+}
+
+[data-color-scheme='kiritan'] {
+  color-scheme: dark;
+
+  @include kiritan.tokens;
+  @include utils.invert-on-dark;
+
+  &[data-contrast='high'],
+  [data-contrast='high'] & {
+    @include kiritan.contrast-overrides;
   }
 }
