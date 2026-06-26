@@ -9,6 +9,7 @@ import {
 } from 'mastodon/actions/compose';
 import { useAppHistory } from 'mastodon/components/router';
 import ServerBanner from 'mastodon/components/server_banner';
+import { AnnouncementsKiriWrapper } from 'mastodon/features/compose/components/announcements_kiri_wrapper';
 import { Search } from 'mastodon/features/compose/components/search';
 import ComposeFormContainer from 'mastodon/features/compose/containers/compose_form_container';
 import { LinkFooter } from 'mastodon/features/ui/components/link_footer';
@@ -50,6 +51,8 @@ export const ComposePanel: React.FC = () => {
 
       {signedIn && !hideComposer && <ComposeFormContainer singleColumn />}
       {signedIn && hideComposer && <div className='compose-form' />}
+
+      {signedIn && <AnnouncementsKiriWrapper />}
 
       <LinkFooter context={singleColumn ? 'default' : 'multi-column'} />
     </div>
