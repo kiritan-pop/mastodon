@@ -63,7 +63,7 @@ export const Announcement: FC<AnnouncementProps> = ({
       <EmojiHTML
         className='announcements__content translate'
         htmlString={announcement.contentHtml}
-        extraEmojis={announcement.emojis}
+        extraEmojis={announcement.all_emojis ?? announcement.emojis}
       />
 
       <ReactionsBar reactions={announcement.reactions} id={announcement.id} />

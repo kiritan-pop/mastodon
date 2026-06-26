@@ -16,7 +16,7 @@ export interface ApiAnnouncementJSON {
   statuses: ApiStatusJSON[];
   tags: ApiTagJSON[];
   emojis: ApiCustomEmojiJSON[];
-  all_emojis: ApiCustomEmojiJSON[];
+  all_emojis?: ApiCustomEmojiJSON[];
   reactions: ApiAnnouncementReactionJSON[];
 }
 

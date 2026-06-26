@@ -1,0 +1,21 @@
+@use 'sass:color';
+
+// きりたん丼テーマ用カラー（mastodon/_variables.scss から独立）
+$kiri-base-color: rgb(30, 15, 20);
+$kiri-base-lighter-color: #e4d0da;
+
+$ui-base-color: rgba($kiri-base-color, 0.8);
+$ui-base-lighter-color: color.adjust(
+  color.adjust(rgba($kiri-base-color, 0.8), $saturation: -20%),
+  $lightness: 45%
+);
+$ui-secondary-color: color.adjust($kiri-base-lighter-color, $lightness: 50%);
+$ui-highlight-color: #2b90d9;
+$ui-button-background-color: color.adjust(#2b90d9, $lightness: -5%);
+$ui-button-focus-background-color: color.adjust(#2b90d9, $lightness: -25%);
+$ui-button-color: #fff;
+$primary-text-color: $kiri-base-lighter-color;
+$darker-text-color: color.adjust($kiri-base-lighter-color, $lightness: -20%);
+$highlight-text-color: $ui-highlight-color;
+$base-border-color: $kiri-base-lighter-color;
+$success-green: #79bd9a;

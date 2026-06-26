@@ -225,7 +225,7 @@ class StatusContent extends PureComponent {
               className='status__content__text status__content__text--visible translate'
               lang={language}
               htmlString={content}
-              extraEmojis={status.get('emojis')}
+              extraEmojis={status.get('all_emojis') ?? status.get('emojis')}
               onElement={this.handleElement}
             />
 
@@ -243,7 +243,7 @@ class StatusContent extends PureComponent {
             className='status__content__text status__content__text--visible translate'
             lang={language}
             htmlString={content}
-            extraEmojis={status.get('emojis')}
+            extraEmojis={status.get('all_emojis') ?? status.get('emojis')}
             onElement={this.handleElement}
           />
 

@@ -47,11 +47,13 @@ export function createPollFromServerJSON(
   serverJSON: ApiPollJSON,
   previousPoll?: Poll,
 ) {
+  const allEmojis = serverJSON.all_emojis ?? [];
+
   return {
     ...pollDefaultValues,
     ...serverJSON,
-    emojis: serverJSON.all_emojis.map((emoji) => CustomEmojiFactory(emoji)),
-    // emojis: mergeCustomEmojis(serverJSON.emojis, serverJSON.all_emojis).map(
+    emojis: allEmojis.map((emoji) => CustomEmojiFactory(emoji)),
+    // emojis: mergeCustomEmojis(serverJSON.emojis, allEmojis).map(
     //   (emoji) => CustomEmojiFactory(emoji),
     // ),
     options: serverJSON.options.map((optionJSON, index) => {

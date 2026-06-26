@@ -44,7 +44,7 @@ export interface BaseApiAccountJSON {
   indexable: boolean;
   display_name: string;
   emojis: ApiCustomEmojiJSON[];
-  all_emojis: ApiCustomEmojiJSON[];
+  all_emojis?: ApiCustomEmojiJSON[];
   feature_approval: ApiFeaturePolicyJSON;
   fields: ApiAccountFieldJSON[];
   followers_count: number;

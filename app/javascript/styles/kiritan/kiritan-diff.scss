@@ -1,5 +1,5 @@
 @use 'sass:color';
-@use '../mastodon/variables' as *;
+@use 'tokens' as *;
 
 /* 背景を画像に */
 body::before {

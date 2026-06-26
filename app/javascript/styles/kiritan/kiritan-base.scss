@@ -1,6 +1,3 @@
-@use 'sass:color';
-@use '../mastodon/variables' as *;
-
 // きりたん丼共通：テーマに関係なく適用されるもの
 
 /* ファボを肉球に */
@@ -23,8 +20,8 @@
 
   .icon-button-kiri {
     display: flex;
-    background-color: $ui-button-background-color;
-    color: $ui-button-color;
+    background-color: var(--color-bg-brand-base);
+    color: var(--color-text-on-brand-base);
     height: 31px;
     min-width: 32px;
     max-width: 56px;
@@ -33,13 +30,13 @@
     &:active,
     &:focus,
     &:hover {
-      color: $ui-button-color;
-      background-color: $ui-button-focus-background-color;
+      color: var(--color-text-on-brand-base);
+      background-color: var(--color-bg-brand-base-hover);
       transition: all 300ms ease-out;
     }
 
     &:focus-visible {
-      outline: $ui-button-icon-focus-outline;
+      outline: var(--outline-focus-default);
     }
   }
 
@@ -70,8 +67,8 @@
 
   .toot__input {
     flex: auto;
-    background: rgba($ui-base-color, 0.5);
-    color: $primary-text-color;
+    background: color-mix(in oklab, var(--color-bg-secondary) 50%, transparent);
+    color: var(--color-text-primary);
     min-height: 2.625rem;
     font-size: 1.1rem;
     white-space: pre-wrap;
@@ -89,19 +86,19 @@
     width: 2.625rem;
     height: 2.625rem;
     border-radius: 25%;
-    color: $ui-button-color;
-    background-color: $ui-button-background-color;
+    color: var(--color-text-on-brand-base);
+    background-color: var(--color-bg-brand-base);
 
     &:active,
     &:focus,
     &:hover {
-      color: $ui-button-color;
-      background-color: $ui-button-focus-background-color;
+      color: var(--color-text-on-brand-base);
+      background-color: var(--color-bg-brand-base-hover);
       transition: all 300ms ease-out;
     }
 
     &:focus-visible {
-      outline: $ui-button-icon-focus-outline;
+      outline: var(--outline-focus-default);
     }
   }
 
@@ -109,7 +106,7 @@
     position: absolute;
     top: -8px;
     right: 3rem;
-    border: 3px solid $ui-button-background-color;
+    border: 3px solid var(--color-bg-brand-base);
     border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;
@@ -121,7 +118,7 @@
     svg {
       width: 1rem;
       height: 1rem;
-      fill: $highlight-text-color;
+      fill: var(--color-text-brand);
     }
   }
 }
@@ -129,7 +126,7 @@
 .status {
   padding: 4px;
   padding-left: 12px;
-  border-bottom: 2px solid color.adjust($ui-base-color, $lightness: 16%); // lighten($ui-base-color, 16%);
+  border-bottom: 2px solid var(--color-border-primary);
 }
 
 .status__action-bar {
@@ -218,7 +215,7 @@
 .announcements__kiriwrapper {
   margin: 3px;
   border-radius: 10px;
-  border: solid 2px $ui-base-lighter-color;
+  border: solid 2px var(--color-border-primary);
 
   .column-header__button {
     border-top-left-radius: 10px;
@@ -302,7 +299,7 @@
   }
 
   .fa-envelope {
-    color: $white;
+    color: var(--color-white);
     animation: blink 1.3s ease infinite;
   }
 }
@@ -315,7 +312,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  border-left: solid 4px rgba($success-green, 0.7);
+  border-left: solid 4px
+    color-mix(in oklab, var(--color-bg-success-base) 70%, transparent);
   pointer-events: none;
 }
 
@@ -323,7 +321,7 @@
 .status__wrapper {
   &.unread {
     &::before {
-      border-left: 4px solid $highlight-text-color;
+      border-left: 4px solid var(--color-text-brand);
     }
   }
 }

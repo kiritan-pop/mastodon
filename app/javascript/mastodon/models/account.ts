@@ -136,11 +136,13 @@ export function createAccountFromServerJSON(serverJSON: ApiAccountJSON) {
   const accountNote =
     accountJSON.note && accountJSON.note !== '<p></p>' ? accountJSON.note : '';
 
+  const allEmojis = serverJSON.all_emojis ?? [];
+
   return AccountFactory({
     ...accountJSON,
     moved: moved?.id,
     all_emojis: ImmutableList(
-      serverJSON.all_emojis.map((emoji) => CustomEmojiFactory(emoji)),
+      allEmojis.map((emoji) => CustomEmojiFactory(emoji)),
     ),
     fields: ImmutableList(
       serverJSON.fields.map((field) => createAccountField(field)),
@@ -148,7 +150,7 @@ export function createAccountFromServerJSON(serverJSON: ApiAccountJSON) {
     emojis: ImmutableList(
       Array.from(
         new Map(
-          [...serverJSON.emojis, ...serverJSON.all_emojis].map((emoji) => [
+          [...serverJSON.emojis, ...allEmojis].map((emoji) => [
             emoji.shortcode,
             emoji,
           ]),

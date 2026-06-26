@@ -181,4 +181,6 @@ class REST::AccountSerializer < ActiveModel::Serializer
   def email_subscriptions
     object.user_can?(:manage_email_subscriptions) && object.user_email_subscriptions_enabled?
   end
+
+  include Friends::ProfileEmoji::SerializerExtension
 end

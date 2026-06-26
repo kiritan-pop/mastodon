@@ -45,7 +45,9 @@ export const EmbeddedStatusContent: React.FC<{
       className={className}
       lang={status.get('language') as string}
       htmlString={status.get('contentHtml') as string}
-      extraEmojis={status.get('emojis') as List<CustomEmoji>}
+      extraEmojis={
+        (status.get('all_emojis') ?? status.get('emojis')) as List<CustomEmoji>
+      }
     />
   );
 };

@@ -13,6 +13,7 @@
 ActiveRecord::Schema[8.1].define(version: 2026_06_11_150940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "account_aliases", force: :cascade do |t|
     t.bigint "account_id", null: false
@@ -691,11 +692,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_11_150940) do
 
   create_table "ip_blocks", force: :cascade do |t|
     t.text "comment", default: "", null: false
-    t.datetime "created_at", precision: nil, null: false
     t.datetime "expires_at", precision: nil
     t.inet "ip", default: "0.0.0.0", null: false
     t.integer "severity", default: 0, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.index ["ip"], name: "index_ip_blocks_on_ip", unique: true
   end
 
@@ -1224,7 +1223,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_11_150940) do
     t.bigint "in_reply_to_id"
     t.string "language"
     t.boolean "local"
-    t.boolean "local_only", default: false, null: false
+    t.boolean "local_only"
     t.bigint "ordered_media_attachment_ids", array: true
     t.bigint "poll_id"
     t.integer "quote_approval_policy", default: 0, null: false
