@@ -980,6 +980,10 @@ en:
           local_feed: Local live feed
           overview: Overview
           trends: Trending
+      others:
+        activitypub: ActivityPub
+        preamble: Other settings, including behavior customization
+        title: Other settings
       registrations:
         moderation_recommandation: Please make sure you have an adequate and reactive moderation team before you open registrations to everyone!
         preamble: Control who can create an account on your server.
@@ -990,10 +994,6 @@ en:
           none: Nobody can sign up
           open: Anyone can sign up
         warning_hint: We recommend using “Approval required for sign up” unless you are confident your moderation team can handle spam and malicious registrations in a timely fashion.
-      others:
-        activitypub: ActivityPub
-        preamble: Other settings, including behavior customization
-        title: Other settings
       reject_pattern:
         desc_html: Set a regular expression pattern to inspect Create Activity content, and refuse Activity if you match
         title: Reject Pattern

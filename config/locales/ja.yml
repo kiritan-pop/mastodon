@@ -834,6 +834,11 @@ ja:
         all: 誰にでも許可
         disabled: 誰にも許可しない
         users: ログイン済みローカルユーザーのみ許可
+      feed_access:
+        modes:
+          authenticated: ログイン済みユーザーのみ
+          disabled: 特定ロールのユーザーのみ
+          public: 制限なし
       landing_page:
         values:
           trends: トレンド
@@ -841,11 +846,6 @@ ja:
         activitypub: ActivityPub
         preamble: 動作のカスタマイズを含むその他の設定
         title: その他の設定
-      feed_access:
-        modes:
-          authenticated: ログイン済みユーザーのみ
-          disabled: 特定ロールのユーザーのみ
-          public: 制限なし
       registrations:
         moderation_recommandation: 登録受付を開始する前に、迅速かつ適切にモデレーションを行うチームを編成しましょう！
         preamble: あなたのサーバー上でアカウントを作成できるユーザーを制御します。
