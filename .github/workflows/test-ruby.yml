@@ -61,10 +61,13 @@ jobs:
       - name: Precompile assets
         run: |-
           bin/rails assets:precompile
+          if [ "${{ matrix.mode }}" = "test" ]; then
+            ln -sf packs-test/sw.js public/sw.js
+          fi
 
       - name: Archive asset artifacts
         run: |
-          tar --exclude={"*.br","*.gz"} -zcf artifacts.tar.gz public/assets public/packs* tmp/cache/vite/last-build*.json
+          tar --exclude={"*.br","*.gz"} -zcf artifacts.tar.gz public/assets public/packs* public/sw.js tmp/cache/vite/last-build*.json
 
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: matrix.mode == 'test'
