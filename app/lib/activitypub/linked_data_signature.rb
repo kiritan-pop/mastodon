@@ -20,20 +20,16 @@ class ActivityPub::LinkedDataSignature
 
     return unless type == 'RsaSignature2017'
 
-    # Validate creator URI format before proceeding
-    return unless valid_uri?(creator_uri)
-
-    creator = ActivityPub::TagManager.instance.uri_to_actor(creator_uri)
-    creator = ActivityPub::FetchRemoteKeyService.new.call(creator_uri) if creator&.public_key.blank?
-
-    return if creator.nil?
+    keypair = Keypair.from_keyid(creator_uri)
+    keypair = ActivityPub::FetchRemoteKeyService.new.call(creator_uri) if keypair&.public_key.blank?
+    return if keypair.nil? || !keypair.usable?
 
     options_hash   = hash(@json['signature'].without('type', 'id', 'signatureValue').merge('@context' => CONTEXT))
     document_hash  = hash(@json.without('signature'))
     to_be_verified = options_hash + document_hash
 
-    creator if creator.keypair.public_key.verify(OpenSSL::Digest.new('SHA256'), Base64.decode64(signature), to_be_verified)
-  rescue OpenSSL::PKey::RSAError, Addressable::URI::InvalidURIError
+    keypair.actor if keypair.keypair.public_key.verify(OpenSSL::Digest.new('SHA256'), Base64.decode64(signature), to_be_verified)
+  rescue OpenSSL::PKey::RSAError
     false
   end
 
@@ -61,17 +57,6 @@ class ActivityPub::LinkedDataSignature
   end
 
   private
-
-  def valid_uri?(uri)
-    return false if uri.blank?
-
-    begin
-      parsed_uri = Addressable::URI.parse(uri)
-      parsed_uri.scheme.present? && parsed_uri.host.present?
-    rescue Addressable::URI::InvalidURIError
-      false
-    end
-  end
 
   def hash(obj)
     Digest::SHA256.hexdigest(canonicalize(obj))

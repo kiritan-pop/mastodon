@@ -1,19 +1,21 @@
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
-import { Helmet } from 'react-helmet';
+import classNames from 'classnames';
+import { Helmet } from '@unhead/react/helmet';
 
 import { connect } from 'react-redux';
 
+import CampaignIcon from '@/material-icons/400-24px/campaign.svg?react';
 import HomeIcon from '@/material-icons/400-24px/home-fill.svg?react';
+import { injectIntl } from '@/mastodon/components/intl';
 import { SymbolLogo } from 'mastodon/components/logo';
 import { fetchAnnouncements, toggleShowAnnouncements } from 'mastodon/actions/announcements';
 import { IconWithBadge } from 'mastodon/components/icon_with_badge';
 import { NotSignedInIndicator } from 'mastodon/components/not_signed_in_indicator';
 import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
-import { criticalUpdatesPending } from 'mastodon/initial_state';
 import { withBreakpoint } from 'mastodon/features/ui/hooks/useBreakpoint';
 
 import { addColumn, removeColumn, moveColumn } from '../../actions/columns';
@@ -25,14 +27,20 @@ import StatusListContainer from '../ui/containers/status_list_container';
 import { ColumnSettings } from './components/column_settings';
 import { CriticalUpdateBanner } from './components/critical_update_banner';
 import { Announcements } from './components/announcements';
+import { AnnualReportTimeline } from '../annual_report/timeline';
 
 const messages = defineMessages({
   title: { id: 'column.home', defaultMessage: 'Home' },
+  show_announcements: { id: 'home.show_announcements', defaultMessage: 'Show announcements' },
+  hide_announcements: { id: 'home.hide_announcements', defaultMessage: 'Hide announcements' },
 });
 
 const mapStateToProps = state => ({
   hasUnread: state.getIn(['timelines', 'home', 'unread']) > 0,
   isPartial: state.getIn(['timelines', 'home', 'isPartial']),
+  hasAnnouncements: !state.getIn(['announcements', 'items']).isEmpty(),
+  unreadAnnouncements: state.getIn(['announcements', 'items']).count(item => !item.get('read')),
+  showAnnouncements: state.getIn(['announcements', 'show']),
 });
 
 class HomeTimeline extends PureComponent {
@@ -78,7 +86,7 @@ class HomeTimeline extends PureComponent {
   };
 
   componentDidMount () {
-    // setTimeout(() => this.props.dispatch(fetchAnnouncements()), 700); お知らせ欄移動のためコメントアウト
+    setTimeout(() => this.props.dispatch(fetchAnnouncements()), 700);
     this._checkIfReloadNeeded(false, this.props.isPartial);
   }
 
@@ -111,20 +119,34 @@ class HomeTimeline extends PureComponent {
     }
   }
 
-  // handleToggleAnnouncementsClick = (e) => {
-  //   e.stopPropagation();
-  //   this.props.dispatch(toggleShowAnnouncements());
-  // };
+  handleToggleAnnouncementsClick = (e) => {
+    e.stopPropagation();
+    this.props.dispatch(toggleShowAnnouncements());
+  };
 
   render () {
     const { intl, hasUnread, columnId, multiColumn, hasAnnouncements, unreadAnnouncements, showAnnouncements, matchesBreakpoint } = this.props;
     const pinned = !!columnId;
     const { signedIn } = this.props.identity;
-    const banners = [];
+    const banners = [
+      <CriticalUpdateBanner key='critical-update-banner' />,
+      <AnnualReportTimeline key='annual-report' />
+    ];
 
+    let announcementsButton;
 
-    if (criticalUpdatesPending) {
-      banners.push(<CriticalUpdateBanner key='critical-update-banner' />);
+    if (hasAnnouncements) {
+      announcementsButton = (
+        <button
+          type='button'
+          className={classNames('column-header__button', { 'active': showAnnouncements })}
+          title={intl.formatMessage(showAnnouncements ? messages.hide_announcements : messages.show_announcements)}
+          aria-label={intl.formatMessage(showAnnouncements ? messages.hide_announcements : messages.show_announcements)}
+          onClick={this.handleToggleAnnouncementsClick}
+        >
+          <IconWithBadge id='bullhorn' icon={CampaignIcon} count={unreadAnnouncements} />
+        </button>
+      );
     }
 
     return (
@@ -139,6 +161,8 @@ class HomeTimeline extends PureComponent {
           onClick={this.handleHeaderClick}
           pinned={pinned}
           multiColumn={multiColumn}
+          extraButton={announcementsButton}
+          appendContent={hasAnnouncements && showAnnouncements && <Announcements />}
         >
           <ColumnSettings />
         </ColumnHeader>
