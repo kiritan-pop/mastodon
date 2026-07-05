@@ -2,42 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
-## [4.5.11] - 2026-06-03
+## [4.6.3] - 2026-07-03
 
 ### Security
 
-- Fix allowed attribution domains spoofing ([GHSA-rwcw-vq68-g34p](https://github.com/mastodon/mastodon/security/advisories/GHSA-rwcw-vq68-g34p))
-- Fix uncaught exception in message sanitization causing Denial of Service ([GHSA-qrgq-9fx2-vf2r](https://github.com/mastodon/mastodon/security/advisories/GHSA-qrgq-9fx2-vf2r))
 - Update dependencies
 
-### Fixed
-
-- Fix remote statuses with large media descriptions being rejected (#39135 by @ClearlyClaire)
-
-## [4.5.10] - 2026-05-20
-
-### Security
-
-- Fix SSRF protection bypass ([GHSA-crr4-7rm4-8gpw](https://github.com/mastodon/mastodon/security/advisories/GHSA-crr4-7rm4-8gpw), [GHSA-xx55-4rrg-8xg6](https://github.com/mastodon/mastodon/security/advisories/GHSA-xx55-4rrg-8xg6))
-- Fix Linked-Data Signature bypass through JSON-LD graph restructuring features ([GHSA-53m7-2wrh-q839](https://github.com/mastodon/mastodon/security/advisories/GHSA-53m7-2wrh-q839), [GHSA-chgx-jx3p-rf73](https://github.com/mastodon/mastodon/security/advisories/GHSA-chgx-jx3p-rf73))
-- Updated dependencies
-
-### Fixed
-
-- Fix type of `interactingObject`, `interactionTarget` and add missing `QuoteAuthorization` (#38940 by @ClearlyClaire)
-
-### Removed
-
-- Remove unused devise strategies (#38795 by @ClearlyClaire)
-
-## [4.5.9] - 2026-04-15
-
-### Security
-
-- Insufficient verification of email addresses ([GHSA-5r37-qpwq-2jhh](https://github.com/mastodon/mastodon/security/advisories/GHSA-5r37-qpwq-2jhh))
-- Updated dependencies
-
 ### Added
+
+- Add “Update available” navigation item at top of navbar when new Mastodon versions are available (#39705 by @ClearlyClaire)
+- Add rendering of post images in emails (#39636 by @diondiondion)
+
+### Fixed
+
+- Fix “view collection” menu item appearing on collection page (#39694 by @mkljczk)
+- Fix incorrect filter cache key sometimes causing incorrect filters to be applied (#39698 by @ClearlyClaire)
+- Fix missing `to_json` to publish announcement reaction worker (#39685 by @mjankowski)
+- Fix duplicate "clear" button shown in main search input in Chrome (#39679 by @diondiondion)
+- Fix visual glitch with the spoiler button (#39677 by @ChaosExAnima)
+- Fix invisible username during post highlight animation (#39659 by @diondiondion)
+- Fix follow button floating on profiles when overview landing page is enabled (#39650 by @FFederi)
+- Fix encryption warning "read more" link (#39635 by @thomas-pike)
+- Fix `tootctl media lookup` failing on some setups (#39615 by @brookmiles)
+- Fix visible transparent navigation link borders in Windows forced-contrast mode (#39614 by @diondiondion)
+- Fix crash with some browser extensions injecting custom elements in the page (#39507 by @OriginalRoOhi)
 
 ## [4.6.2] - 2026-06-25
 
