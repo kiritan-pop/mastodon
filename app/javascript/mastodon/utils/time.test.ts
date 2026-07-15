@@ -9,9 +9,13 @@ describe('relativeTimeParts', () => {
 
     // Past
     [-30 * SECOND, { value: -30, unit: 'second' }],
-    [-90 * SECOND, { value: -2, unit: 'minute' }],
+    [-MINUTE, { value: -1, unit: 'minute' }],
+    [-(MINUTE + SECOND), { value: -1, unit: 'minute' }],
+    [-90 * SECOND, { value: -1, unit: 'minute' }],
     [-30 * MINUTE, { value: -30, unit: 'minute' }],
-    [-90 * MINUTE, { value: -2, unit: 'hour' }],
+    [-HOUR, { value: -1, unit: 'hour' }],
+    [-(HOUR + MINUTE), { value: -1, unit: 'hour' }],
+    [-90 * MINUTE, { value: -1, unit: 'hour' }],
     [-5 * HOUR, { value: -5, unit: 'hour' }],
     [-24 * HOUR, { value: -1, unit: 'day' }],
     [-36 * HOUR, { value: -1, unit: 'day' }],

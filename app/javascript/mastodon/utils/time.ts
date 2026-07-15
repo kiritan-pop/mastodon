@@ -18,15 +18,15 @@ export function relativeTimeParts(
   const absDelta = Math.abs(delta);
 
   if (absDelta < MINUTE) {
-    return { value: Math.floor(delta / SECOND), unit: 'second', delta };
+    return { value: Math.trunc(delta / SECOND), unit: 'second', delta };
   }
 
   if (absDelta < HOUR) {
-    return { value: Math.floor(delta / MINUTE), unit: 'minute', delta };
+    return { value: Math.trunc(delta / MINUTE), unit: 'minute', delta };
   }
 
   if (absDelta < DAY) {
-    return { value: Math.floor(delta / HOUR), unit: 'hour', delta };
+    return { value: Math.trunc(delta / HOUR), unit: 'hour', delta };
   }
 
   // Round instead of use floor as days are big enough that the value is usually off by a few hours.
