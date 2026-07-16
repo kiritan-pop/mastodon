@@ -5,13 +5,15 @@ services:
   db:
     restart: always
     image: postgres:17-alpine
-    shm_size: 256mb
+    shm_size: 3gb
     networks:
       - internal_network
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'postgres']
     volumes:
       - ./postgres17:/var/lib/postgresql/data
+      - ./config/postgres/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+    command: ['postgres', '-c', 'config_file=/etc/postgresql/postgresql.conf']
     environment:
       - 'POSTGRES_HOST_AUTH_METHOD=trust'
 
