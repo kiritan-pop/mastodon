@@ -186,7 +186,7 @@ export const AccountListItem: React.FC<Props> = ({
         <EmojiHTML
           className={classNames(classes.bio, 'translate')}
           htmlString={account.note_emojified}
-          extraEmojis={account.emojis}
+          extraEmojis={account.all_emojis}
         />
       )}
     </div>

@@ -11,7 +11,7 @@ import type {
 import { unescapeHTML } from 'mastodon/utils/html';
 
 import { CustomEmojiFactory } from './custom_emoji';
-import type { CustomEmoji } from './custom_emoji';
+import type { CustomEmoji, CustomEmojiShape } from './custom_emoji';
 
 // AccountField
 export interface AccountFieldShape extends Required<ApiAccountFieldJSON> {
@@ -59,6 +59,14 @@ export interface AccountShape extends Required<
   url: string;
   all_emojis: ImmutableList<CustomEmoji>;
 }
+export type AccountShapeFull = Omit<
+  AccountShape,
+  'emojis' | 'fields' | 'roles'
+> & {
+  emojis: CustomEmojiShape[];
+  fields: AccountFieldShape[];
+  roles: AccountRoleShape[];
+};
 
 export type Account = RecordOf<AccountShape>;
 
@@ -108,6 +116,7 @@ export const accountDefaultValues: AccountShape = {
   moved: null,
   hide_collections: false,
   email_subscriptions: false,
+  invalid_handle: false,
   // This comes from `ApiMutedAccountJSON`, but we should eventually
   // store that in a different object.
   mute_expires_at: null,

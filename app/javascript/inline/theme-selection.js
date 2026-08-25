@@ -26,4 +26,13 @@
 
   updateColorScheme();
   updateContrast();
+
+  const isRedesignEnabled = (
+    window.localStorage.getItem('experiments')?.split(',') ?? []
+  ).includes('redesign');
+
+  if (isRedesignEnabled) {
+    element.dataset.redesign = true;
+  }
+
 })(document.documentElement);
