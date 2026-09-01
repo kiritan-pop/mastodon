@@ -15,6 +15,7 @@ RSpec.describe 'IP Blocks' do
     it_behaves_like 'forbidden for wrong scope', 'admin:write:ip_blocks'
     it_behaves_like 'forbidden for wrong role', ''
     it_behaves_like 'forbidden for wrong role', 'Moderator'
+    it_behaves_like 'forbidden for disabled user'
 
     context 'when there is no ip block' do
       it 'returns an empty body' do
@@ -82,6 +83,7 @@ RSpec.describe 'IP Blocks' do
     it_behaves_like 'forbidden for wrong scope', 'admin:write:ip_blocks'
     it_behaves_like 'forbidden for wrong role', ''
     it_behaves_like 'forbidden for wrong role', 'Moderator'
+    it_behaves_like 'forbidden for disabled user'
 
     it 'returns the correct ip block', :aggregate_failures do
       subject
@@ -118,6 +120,7 @@ RSpec.describe 'IP Blocks' do
     it_behaves_like 'forbidden for wrong scope', 'admin:read:ip_blocks'
     it_behaves_like 'forbidden for wrong role', ''
     it_behaves_like 'forbidden for wrong role', 'Moderator'
+    it_behaves_like 'forbidden for disabled user'
 
     it 'returns the correct ip block', :aggregate_failures do
       subject
