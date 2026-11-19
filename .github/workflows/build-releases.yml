@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   check-latest-stable:
+    if: github.repository == 'mastodon/mastodon'
     runs-on: ubuntu-latest
     outputs:
       latest: ${{ steps.check.outputs.is_latest_stable }}
